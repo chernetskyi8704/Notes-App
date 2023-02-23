@@ -3,6 +3,8 @@ import classes from "../styles/Login.module.css";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import MyButton from "../components/UI/button/MyButon";
+import MyInput from "../components/UI/input/MyInput";
 
 const Login = () => {
   const { isAuth, setIsAuth } = React.useContext(AuthContext);
@@ -26,22 +28,14 @@ const Login = () => {
     <form className={classes.login_form}>
       <h1>Welcome back to Notes!</h1>
       <div className={classes.form_group}>
-        <input
-          type="text"
-          className={classes.form_control}
-          placeholder="Phone number or email"
-        />
+        <MyInput type="text" placeholder="Phone number or email" />
       </div>
       <div className={classes.form_group}>
-        <input
-          type="password"
-          className={classes.form_control}
-          placeholder="Password"
-        />
+        <MyInput type="password" placeholder="Password" />
       </div>
-      <button type="submit" onClick={login} className={classes.btn}>
+      <MyButton type="submit" onClick={login}>
         Login
-      </button>
+      </MyButton>
       <div className={classes.forgot_password}>
         <NavLink to="/login">Forgot your password?</NavLink>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import AppRouter from "./components/AppRouter";
-import Navigation from "./components/UI/Navigation";
+import Navigation from "./components/UI/navigation/Navigation";
 import { AuthContext } from "./context/AuthContext";
 import "./styles/App.css";
 
