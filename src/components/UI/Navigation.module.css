@@ -1,4 +1,27 @@
-.navigation{}
-.navigation__items{}
-.navigation__item{}
-.navigation__link{}
+.navigation {
+  border-right: 2px solid #dbdbdb;
+}
+
+.navigation__items {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.navigation__item {
+  padding: 15px;
+}
+
+.navigation__item:last-child {
+  margin-top: auto;
+}
+
+.navigation__link {
+  display: block;
+  padding: 16px 12px;
+  color: #262626;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 18px;
+  text-transform: uppercase;
+}

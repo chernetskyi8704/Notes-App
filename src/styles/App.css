@@ -7,3 +7,16 @@
 a {
   text-decoration: none;
 }
+
+ul {
+  list-style-type: none;
+}
+
+.App {
+  display: flex;
+}
+
+.mainContent {
+  width: 100vw;
+  padding: 15px 30px;
+}
