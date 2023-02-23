@@ -2,14 +2,25 @@ import React from "react";
 import classes from "../styles/Login.module.css";
 import { AuthContext } from "../context/AuthContext";
 import { NavLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Login = () => {
-  const { setIsAuth } = React.useContext(AuthContext);
+  const { isAuth, setIsAuth } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from.pathname || "/";
 
   const login = e => {
     e.preventDefault();
-    setIsAuth(true);
+    setIsAuth(!isAuth);
+    localStorage.setItem("auth", "true");
   };
+
+  React.useEffect(() => {
+    if (isAuth) {
+      navigate(from);
+    }
+  }, [isAuth]);
 
   return (
     <form className={classes.login_form}>

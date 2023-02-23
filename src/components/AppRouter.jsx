@@ -3,14 +3,18 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Notes from "../pages/Notes";
 import Login from "../pages/Login";
+import PrivateRoutes from "../components/routes/PrivatRoutes";
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/notes" element={<Notes />} />
+      <Route element={<PrivateRoutes />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/notes" element={<Notes />} />
+        <Route path="*" element={<Home />} />
+      </Route>
       <Route path="/login" element={<Login />} />
-      <Route path="*" element={<Home />} />
+      <Route path="*" element={<Login />} />
     </Routes>
   );
 };

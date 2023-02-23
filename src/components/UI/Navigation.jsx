@@ -8,6 +8,7 @@ const Navigation = () => {
 
   const logout = () => {
     setIsAuth(false);
+    localStorage.removeItem("auth");
   };
 
   return (
@@ -25,11 +26,7 @@ const Navigation = () => {
         </li>
         {isAuth ? (
           <li className={classes.navigation__item}>
-            <NavLink
-              className={classes.navigation__link}
-              onClick={logout}
-              to="/login"
-            >
+            <NavLink className={classes.navigation__link} onClick={logout}>
               Logout
             </NavLink>
           </li>
