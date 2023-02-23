@@ -18,7 +18,8 @@
 
 .navigation__link {
   display: block;
-  padding: 16px 12px;
+  padding: 16px 8px;
+  min-width: 80px;
   color: #262626;
   font-size: 14px;
   font-weight: 600;
