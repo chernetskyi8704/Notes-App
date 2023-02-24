@@ -1,0 +1,109 @@
+.notes__container {
+  display: flex;
+  min-height: 100vh;
+  min-height: 100%;
+  min-width: 100%;
+  border: 1px solid black;
+}
+
+.notes__items {
+  flex: 1 1 auto;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  flex-direction: row;
+  border: 1px solid black;
+  width: 100%;
+  height: 100%;
+  height: auto;
+}
+
+.note__item {
+  width: 250px;
+  height: 250px;
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notes__buttons {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 0 0 auto;
+}
+
+
+.notes__button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #000;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.notes__button::before,
+.notes__button::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 20px;
+  background-color: #fff;
+}
+
+.notes__button::before {
+  transform: rotate(90deg);
+}
+
+.notes__button::after {
+  transform: rotate(0deg);
+}
+
+.notes__colours {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.colours__button {
+  border-radius: 50%;
+  border: 1px solid transparent;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.notes__colours :nth-child(1) {
+  background-color: red;
+}
+.notes__colours :nth-child(2) {
+  background-color: green;
+}
+
+.notes__colours :nth-child(3) {
+  background-color: blue;
+}
+
+.notes__colours :nth-child(4) {
+  background-color: yellow;
+}
+
+.notes__colours :nth-child(5) {
+  background-color: purple;
+}
+
+.form {
+  border: 4px solid orange;
+  position: relative;
+}
