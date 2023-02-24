@@ -16,7 +16,9 @@ const App = () => {
   return (
     <AuthContext.Provider value={{ isAuth, setIsAuth }}>
       <div className="App">
-        <Navigation />
+        <header className="header">
+          <Navigation />
+        </header>
         <main className="mainContent">
           <AppRouter />
         </main>

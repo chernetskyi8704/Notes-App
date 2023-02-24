@@ -1,15 +1,19 @@
 .navigation {
+  display: flex;
+  justify-content: center;
+  height: 100%;
   border-right: 2px solid #dbdbdb;
 }
 
 .navigation__items {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
 }
 
 .navigation__item {
-  padding: 15px;
+  padding: 30px 10px;
 }
 
 .navigation__item:last-child {
@@ -17,8 +21,9 @@
 }
 
 .navigation__link {
-  display: block;
-  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-width: 80px;
   color: #262626;
   font-size: 14px;

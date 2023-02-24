@@ -1,12 +1,12 @@
 import React from "react";
+import ProjectList from "../components/ProjectList";
+import classes from "../styles/Home.module.css";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-      <div>
-        <p> This is the home page. </p>
-      </div>
+    <div className={classes.projects__container}>
+      <h1 className={classes.projects__tittle}>Here are some of my projects</h1>
+      <ProjectList />
     </div>
   );
 };

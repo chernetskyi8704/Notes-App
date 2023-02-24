@@ -14,9 +14,15 @@ ul {
 
 .App {
   display: flex;
+  min-height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.header {
+  flex: 0 0 70px;
 }
 
 .mainContent {
-  width: 100vw;
-  padding: 15px 30px;
+  flex: 1 1 auto;
+  padding: 20px 30px;
 }
