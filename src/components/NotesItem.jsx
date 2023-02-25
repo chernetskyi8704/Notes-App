@@ -1,15 +1,27 @@
 import React from "react";
 import classes from "../styles/NotesItem.module.css";
 
-const NotesItem = props => {
+const NotesItem = ({
+  setNotes,
+  notes,
+  id,
+  bodyColour,
+  title,
+  body,
+  currentData,
+}) => {
+  const deleteNote = e => {
+    setNotes(notes.filter(note => note.id !== id));
+  };
+
   return (
     <div
       className={classes.note__item}
       style={{
-        backgroundColor: `${props.bodyColour}`,
+        backgroundColor: `${bodyColour}`,
       }}
     >
-      <h3>{props.title}</h3>
+      <h3>{title}</h3>
       <p
         style={{
           color: "red",
@@ -18,10 +30,12 @@ const NotesItem = props => {
           whiteSpace: "pre-wrap",
         }}
       >
-        {props.body}
+        {body}
       </p>
-      <small>{props.currentData}</small>
-      <button type="button">Delete</button>
+      <small>{currentData}</small>
+      <button type="button" onClick={deleteNote}>
+        Delete
+      </button>
       <button type="button">Edit</button>
     </div>
   );

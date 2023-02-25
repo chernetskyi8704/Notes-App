@@ -63,7 +63,7 @@ const Notes = () => {
         <NotesForm setNotes={setNotes} notes={notes} />
       </div>
       <div className={classes.notes__items}>
-        <NotesItems notes={notes} />
+        <NotesItems notes={notes} setNotes={setNotes} />
       </div>
     </div>
   );
