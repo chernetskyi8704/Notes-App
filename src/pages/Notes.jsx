@@ -12,7 +12,6 @@ const Notes = () => {
       description: "Description 1",
       date: "2021-01-01",
       color: "red",
-      data: "2021-01-01",
     },
     {
       id: nanoid(),
@@ -20,7 +19,6 @@ const Notes = () => {
       description: "Description 2",
       date: "2021-01-01",
       color: "green",
-      data: "2021-01-01",
     },
     {
       id: nanoid(),
@@ -28,7 +26,6 @@ const Notes = () => {
       description: "Description 3",
       date: "2021-01-01",
       color: "blue",
-      data: "2021-01-01",
     },
     {
       id: nanoid(),
@@ -36,7 +33,6 @@ const Notes = () => {
       description: "Description 4",
       date: "2021-01-01",
       color: "yellow",
-      data: "2021-01-01",
     },
     {
       id: nanoid(),
@@ -44,9 +40,11 @@ const Notes = () => {
       description: "Description 5",
       date: "2021-01-01",
       color: "purple",
-      data: "2021-01-01",
     },
   ]);
+
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [currentNote, setcurrentNote] = React.useState({});
 
   return (
     <div className={classes.notes__container}>
@@ -61,10 +59,21 @@ const Notes = () => {
         </div>
       </div>
       <div className={classes.form}>
-        <NotesForm setNotes={setNotes} notes={notes} />
+        <NotesForm
+          setNotes={setNotes}
+          notes={notes}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+          currentNote={currentNote}
+        />
       </div>
       <div className={classes.notes__items}>
-        <NotesItems notes={notes} setNotes={setNotes} />
+        <NotesItems
+          notes={notes}
+          setNotes={setNotes}
+          setIsEdit={setIsEdit}
+          setcurrentNote={setcurrentNote}
+        />
       </div>
     </div>
   );

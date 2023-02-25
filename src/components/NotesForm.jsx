@@ -1,23 +1,49 @@
 import React from "react";
 import classes from "../styles/NotesForm.module.css";
+import { nanoid } from "nanoid";
 
-const NoteForm = ({ setNotes, notes }) => {
+const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const currentData = new Date().toLocaleDateString();
 
+  React.useEffect(() => {
+    if (isEdit) {
+      setTitle(currentNote.title);
+      setDescription(currentNote.description);
+    }
+  }, [isEdit]);
+
   const addNote = e => {
     e.preventDefault();
-    const newNote = {
-      id: `${notes.length + 1}`,
-      title: `${title}`,
-      description: `${description}`,
-      date: "2021-01-01",
-      color: "red",
-      data: `${currentData}`,
-    };
-
-    setNotes([...notes, newNote]);
+    if (isEdit) {
+      setNotes(
+        notes.map(note =>
+          note.id === currentNote.id
+            ? {
+                ...note,
+                title,
+                description,
+                date: currentData,
+              }
+            : note
+        )
+      );
+      setIsEdit(false);
+      setTitle("");
+      setDescription("");
+    } else {
+      setNotes([
+        ...notes,
+        {
+          id: nanoid(),
+          title,
+          description,
+          date: currentData,
+          color: "red",
+        },
+      ]);
+    }
   };
 
   return (
@@ -38,8 +64,8 @@ const NoteForm = ({ setNotes, notes }) => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         ></textarea>
-        <button type="submit" onClick={addNote}>
-          Add note
+        <button type="button" onClick={addNote}>
+          {isEdit ? "Save note" : "Add note"}
         </button>
       </div>
     </form>
