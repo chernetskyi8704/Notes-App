@@ -2,11 +2,12 @@ import React from "react";
 import NotesItems from "../components/NotesItems";
 import classes from "../styles/NotesItem.module.css";
 import NotesForm from "../components/NotesForm";
+import { nanoid } from "nanoid";
 
 const Notes = () => {
   const [notes, setNotes] = React.useState([
     {
-      id: 1,
+      id: nanoid(),
       title: "Note 1",
       description: "Description 1",
       date: "2021-01-01",
@@ -14,7 +15,7 @@ const Notes = () => {
       data: "2021-01-01",
     },
     {
-      id: 2,
+      id: nanoid(),
       title: "Note 2",
       description: "Description 2",
       date: "2021-01-01",
@@ -22,7 +23,7 @@ const Notes = () => {
       data: "2021-01-01",
     },
     {
-      id: 3,
+      id: nanoid(),
       title: "Note 3",
       description: "Description 3",
       date: "2021-01-01",
@@ -30,7 +31,7 @@ const Notes = () => {
       data: "2021-01-01",
     },
     {
-      id: 4,
+      id: nanoid(),
       title: "Note 4",
       description: "Description 4",
       date: "2021-01-01",
@@ -38,7 +39,7 @@ const Notes = () => {
       data: "2021-01-01",
     },
     {
-      id: 5,
+      id: nanoid(),
       title: "Note 5",
       description: "Description 5",
       date: "2021-01-01",
