@@ -11,35 +11,35 @@ const Notes = () => {
       title: "Note 1",
       description: "Description 1",
       date: "2021-01-01",
-      color: "red",
+      color: "#6E9ECF",
     },
     {
       id: nanoid(),
       title: "Note 2",
       description: "Description 2",
       date: "2021-01-01",
-      color: "green",
+      color: "#9ACD32",
     },
     {
       id: nanoid(),
       title: "Note 3",
       description: "Description 3",
       date: "2021-01-01",
-      color: "blue",
+      color: "#F49AC2",
     },
     {
       id: nanoid(),
       title: "Note 4",
       description: "Description 4",
       date: "2021-01-01",
-      color: "yellow",
+      color: "#BAA8D8",
     },
     {
       id: nanoid(),
       title: "Note 5",
       description: "Description 5",
       date: "2021-01-01",
-      color: "purple",
+      color: "#D2B48C",
     },
   ]);
 
@@ -51,7 +51,7 @@ const Notes = () => {
       <div className={classes.notes__buttons}>
         <button className={classes.notes__button}></button>
         <div className={classes.notes__colours}>
-          <button className={classes.colours__button}></button>
+        <button className={classes.colours__button}></button>
           <button className={classes.colours__button}></button>
           <button className={classes.colours__button}></button>
           <button className={classes.colours__button}></button>

@@ -14,36 +14,42 @@ const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
     }
   }, [isEdit]);
 
-  const addNote = e => {
-    e.preventDefault();
-    if (isEdit) {
-      setNotes(
-        notes.map(note =>
-          note.id === currentNote.id
-            ? {
-                ...note,
-                title,
-                description,
-                date: currentData,
-              }
-            : note
-        )
-      );
-      setIsEdit(false);
-      setTitle("");
-      setDescription("");
-    } else {
-      setNotes([
-        ...notes,
-        {
-          id: nanoid(),
-          title,
-          description,
-          date: currentData,
-          color: "red",
-        },
-      ]);
-    }
+  const addNote = () => {
+    setNotes([
+      {
+        id: nanoid(),
+        title,
+        description,
+        date: currentData,
+        color: "red",
+      },
+      ...notes,
+    ]);
+    setTitle("");
+    setDescription("");
+  };
+
+  const updateNote = () => {
+    if (isEdit)
+      setNotes(prevNotes => {
+        const newNotesArr = [];
+        for (let i = 0; i < prevNotes.length; i++) {
+          if (prevNotes[i].id === currentNote.id) {
+            newNotesArr.unshift({
+              ...prevNotes[i],
+              title,
+              description,
+              date: currentData,
+            });
+          } else {
+            newNotesArr.push(prevNotes[i]);
+          }
+        }
+        return newNotesArr;
+      });
+    setIsEdit(false);
+    setTitle("");
+    setDescription("");
   };
 
   return (
@@ -54,19 +60,26 @@ const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
           id="title"
           placeholder="Заголовок"
           value={title}
+          maxLength="20"
           onChange={e => setTitle(e.target.value)}
         />
         <textarea
+          style={{ height: "100%", width: "100%" }}
           name="description"
-          cols="30"
-          rows="10"
           placeholder="Описание"
+          rows={2}
           value={description}
           onChange={e => setDescription(e.target.value)}
         ></textarea>
-        <button type="button" onClick={addNote}>
-          {isEdit ? "Save note" : "Add note"}
-        </button>
+        {isEdit ? (
+          <button type="button" onClick={updateNote}>
+            Save changes
+          </button>
+        ) : (
+          <button type="button" onClick={addNote}>
+            Add note
+          </button>
+        )}
       </div>
     </form>
   );

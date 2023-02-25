@@ -22,24 +22,17 @@ const NotesItem = props => {
         backgroundColor: `${props.bodyColour}`,
       }}
     >
-      <h3>{props.title}</h3>
-      <p
-        style={{
-          color: "red",
-          fontSize: "20px",
-          fontWeight: "bold",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        {props.body}
-      </p>
+      <h3 className={classes.note__title}>{props.title}</h3>
+      <p className={classes.note__body}>{props.body}</p>
       <small>{props.currentData}</small>
-      <button type="button" onClick={deleteNote}>
-        Delete
-      </button>
-      <button type="button" onClick={editNote}>
-        Edit
-      </button>
+      <div className={classes.note__buttons}>
+        <button type="button" onClick={deleteNote}>
+          Delete
+        </button>
+        <button type="button" onClick={editNote}>
+          Edit
+        </button>
+      </div>
     </div>
   );
 };
