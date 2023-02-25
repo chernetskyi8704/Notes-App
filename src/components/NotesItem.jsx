@@ -5,7 +5,6 @@ const NotesItem = props => {
   return (
     <div
       className={classes.note__item}
-      key={props.key}
       style={{
         backgroundColor: `${props.bodyColour}`,
       }}

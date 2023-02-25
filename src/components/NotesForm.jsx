@@ -1,9 +1,24 @@
 import React from "react";
 import classes from "../styles/NotesForm.module.css";
 
-const NoteForm = () => {
+const NoteForm = ({ setNotes, notes }) => {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const currentData = new Date().toLocaleDateString();
+
+  const addNote = e => {
+    e.preventDefault();
+    const newNote = {
+      id: `${notes.length + 1}`,
+      title: `${title}`,
+      description: `${description}`,
+      date: "2021-01-01",
+      color: "red",
+      data: `${currentData}`,
+    };
+
+    setNotes([...notes, newNote]);
+  };
 
   return (
     <form className={classes.notes__form}>
@@ -23,7 +38,9 @@ const NoteForm = () => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         ></textarea>
-        <button type="submit">Add note</button>
+        <button type="submit" onClick={addNote}>
+          Add note
+        </button>
       </div>
     </form>
   );
