@@ -42,7 +42,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
       setNotes(prevNotes => {
         const newNotesArr = [];
         for (let i = 0; i < prevNotes.length; i++) {
-          if (prevNotes[i].id === notesSettings.currentNote.id) {
+          if (prevNotes[i].id === notesSettings.currentNote[0].id) {
             newNotesArr.unshift({
               ...prevNotes[i],
               title,
@@ -55,6 +55,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
         }
         return newNotesArr;
       });
+
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
@@ -63,6 +64,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
         isColor: false,
       };
     });
+
     setTitle("");
     setDescription("");
   };
