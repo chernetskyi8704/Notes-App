@@ -2,33 +2,44 @@ import React from "react";
 import classes from "../styles/NotesItem.module.css";
 import MyButton from "../components/UI/button/MyButon";
 
-const NotesItem = props => {
-  const editNote = e => {
-    const notesColor =
-      e.target.parentElement.parentElement.style.backgroundColor;
-    props.setColor(notesColor);
-    props.setIsEdit(true);
-    const currentNote = props.notes.filter(note => {
-      if (note.id === props.id) return note;
+const NotesItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,currentData }) => {
+  
+  const editNote = ({ target }) => {
+    const notesColor = target.parentElement.parentElement.style.backgroundColor;
+    setNotesSettings(prevNotesSettings => {
+      return {
+        ...prevNotesSettings,
+        isEdit: true,
+        color: notesColor,
+      };
     });
 
-    props.setcurrentNote(...currentNote);
+    const currentNote = notes.filter(note => {
+      if (note.id === id) return note;
+    });
+
+    setNotesSettings(prevNotesSettings => {
+      return {
+        ...prevNotesSettings,
+        currentNote: currentNote,
+      };
+    });
   };
 
-  const deleteNote = e => {
-    props.setNotes(props.notes.filter(note => note.id !== props.id));
+  const deleteNote = () => {
+    setNotes(notes.filter(note => note.id !== id));
   };
 
   return (
     <div
       className={classes.note__item}
       style={{
-        backgroundColor: `${props.bodyColour}`,
+        backgroundColor: `${bodyColour}`,
       }}
     >
-      <h3 className={classes.note__title}>{props.title}</h3>
-      <p className={classes.note__body}>{props.body}</p>
-      <small>{props.currentData}</small>
+      <h3 className={classes.note__title}>{title}</h3>
+      <p className={classes.note__body}>{body}</p>
+      <small>{currentData}</small>
       <div className={classes.note__buttons}>
         <MyButton type="button">Open</MyButton>
         <MyButton

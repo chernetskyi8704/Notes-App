@@ -44,17 +44,24 @@ const Notes = () => {
     },
   ]);
 
-  const [isEdit, setIsEdit] = React.useState(false);
-  const [currentNote, setcurrentNote] = React.useState({});
-  const [isAddNew, setIsAddNew] = React.useState(false);
-  const [color, setColor] = React.useState("");
-  const [isColor, setIsColor] = React.useState(false);
+  const [notesSettings, setNotesSettings] = React.useState({
+    isEdit: false,
+    currentNote: {},
+    isAddNew: false,
+    color: "",
+    isColor: false,
+  });
 
   const openForm = e => {
     const target = e.target;
     if (target.tagName === "BUTTON") {
-      setIsColor(true);
-      setColor(target.value);
+      setNotesSettings(prevNotesSettings => {
+        return {
+          ...prevNotesSettings,
+          isColor: true,
+          color: target.value,
+        };
+      });
     }
   };
 
@@ -64,12 +71,17 @@ const Notes = () => {
         <button
           className={classes.select__button}
           onClick={() => {
-            setIsAddNew(!isAddNew);
-            setIsColor(false);
-            setIsEdit(false);
+            setNotesSettings(prevNotesSettings => {
+              return {
+                ...prevNotesSettings,
+                isAddNew: true,
+                isColor: false,
+                isEdit: false,
+              };
+            });
           }}
         ></button>
-        {isAddNew && (
+        {notesSettings.isAddNew && (
           <div className={classes.select__colours} onClick={openForm}>
             <button className={classes.select__colour} value="#6e9ecf"></button>
             <button className={classes.select__colour} value="#9acd32"></button>
@@ -80,17 +92,13 @@ const Notes = () => {
         )}
       </div>
 
-      {isColor || isEdit ? (
+      {notesSettings.isColor || notesSettings.isEdit ? (
         <div className={classes.form}>
           <NotesForm
-            setNotes={setNotes}
             notes={notes}
-            isEdit={isEdit}
-            setIsEdit={setIsEdit}
-            currentNote={currentNote}
-            color={color}
-            setIsColor={setIsColor}
-            setIsAddNew={setIsAddNew}
+            setNotes={setNotes}
+            notesSettings={notesSettings}
+            setNotesSettings={setNotesSettings}
           />
         </div>
       ) : null}
@@ -98,10 +106,7 @@ const Notes = () => {
         <NotesItems
           notes={notes}
           setNotes={setNotes}
-          setIsEdit={setIsEdit}
-          setcurrentNote={setcurrentNote}
-          color={color}
-          setColor={setColor}
+          setNotesSettings={setNotesSettings}
         />
       </div>
     </div>
