@@ -1,40 +1,43 @@
 import React from "react";
 import classes from "../styles/NotesForm.module.css";
 import { nanoid } from "nanoid";
+import MyButton from "./UI/button/MyButon";
 
-const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
+const NoteForm = props => {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const currentData = new Date().toLocaleDateString();
 
   React.useEffect(() => {
-    if (isEdit) {
-      setTitle(currentNote.title);
-      setDescription(currentNote.description);
+    if (props.isEdit) {
+      setTitle(props.currentNote.title);
+      setDescription(props.currentNote.description);
     }
-  }, [isEdit]);
+  }, [props.isEdit]);
 
   const addNote = () => {
-    setNotes([
+    props.setNotes([
       {
         id: nanoid(),
         title,
         description,
         date: currentData,
-        color: "red",
+        color: `${props.color}`,
       },
-      ...notes,
+      ...props.notes,
     ]);
     setTitle("");
     setDescription("");
+    props.setIsColor(false);
+    props.setIsAddNew(false);
   };
 
   const updateNote = () => {
-    if (isEdit)
-      setNotes(prevNotes => {
+    if (props.isEdit)
+      props.setNotes(prevNotes => {
         const newNotesArr = [];
         for (let i = 0; i < prevNotes.length; i++) {
-          if (prevNotes[i].id === currentNote.id) {
+          if (prevNotes[i].id === props.currentNote.id) {
             newNotesArr.unshift({
               ...prevNotes[i],
               title,
@@ -47,14 +50,19 @@ const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
         }
         return newNotesArr;
       });
-    setIsEdit(false);
+    props.setIsEdit(false);
+    props.setIsAddNew(false);
+    props.setIsColor(false);
     setTitle("");
     setDescription("");
   };
 
   return (
     <form className={classes.notes__form}>
-      <div className={classes.notes__form_group}>
+      <div
+        className={classes.notes__form_group}
+        style={{ backgroundColor: `${props.color}` }}
+      >
         <input
           type="text"
           id="title"
@@ -71,14 +79,14 @@ const NoteForm = ({ setNotes, notes, isEdit, currentNote, setIsEdit }) => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         ></textarea>
-        {isEdit ? (
-          <button type="button" onClick={updateNote}>
+        {props.isEdit ? (
+          <MyButton type="button" onClick={updateNote}>
             Save changes
-          </button>
+          </MyButton>
         ) : (
-          <button type="button" onClick={addNote}>
+          <MyButton type="button" onClick={addNote}>
             Add note
-          </button>
+          </MyButton>
         )}
       </div>
     </form>

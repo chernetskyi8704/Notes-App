@@ -20,6 +20,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   padding: 15px;
   width: 100%;
   max-width: 250px;
@@ -28,7 +29,6 @@
   overflow-y: auto;
   overflow-x: hidden;
   white-space: pre-wrap;
-  background-color: #6e9ecf;
 }
 
 .note__title,
@@ -36,7 +36,7 @@
   max-width: 220px;
 }
 
-.notes__buttons {
+.select__buttons {
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
@@ -45,7 +45,7 @@
   height: 100%;
 }
 
-.notes__button {
+.select__button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,8 +56,8 @@
   cursor: pointer;
 }
 
-.notes__button::before,
-.notes__button::after {
+.select__button::before,
+.select__button::after {
   content: "";
   position: absolute;
   height: 2px;
@@ -65,22 +65,22 @@
   background-color: #fff;
 }
 
-.notes__button::before {
+.select__button::before {
   transform: rotate(90deg);
 }
 
-.notes__button::after {
+.select__button::after {
   transform: rotate(0deg);
 }
 
-.notes__colours {
+.select__colours {
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 15px;
 }
 
-.colours__button {
+.select__colour {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -88,25 +88,37 @@
   cursor: pointer;
 }
 
-.notes__colours :nth-child(1) {
+.select__colours :nth-child(1) {
   background-color: #6e9ecf;
 }
-.notes__colours :nth-child(2) {
+.select__colours :nth-child(2) {
   background-color: #9acd32;
 }
 
-.notes__colours :nth-child(3) {
+.select__colours :nth-child(3) {
   background-color: #f49ac2;
 }
 
-.notes__colours :nth-child(4) {
+.select__colours :nth-child(4) {
   background-color: #baa8d8;
 }
 
-.notes__colours :nth-child(5) {
+.select__colours :nth-child(5) {
   background-color: #d2b48c;
 }
 
 .form {
   position: relative;
+}
+
+.note__buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.edit__button {
+  position: absolute;
+  top: 100px;
+  left: 400px;
 }

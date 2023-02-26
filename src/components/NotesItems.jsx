@@ -1,19 +1,20 @@
 import React from "react";
 import NotesItem from "./NotesItem";
 
-const NotesItems = ({ notes, setNotes, setIsEdit, setcurrentNote }) => {
-  return notes.map(note => (
+const NotesItems = props => {
+  return props.notes.map(note => (
     <NotesItem
       key={note.id}
       title={note.title}
       body={note.description}
       bodyColour={note.color}
       currentData={note.date}
-      setNotes={setNotes}
-      notes={notes}
+      setNotes={props.setNotes}
+      notes={props.notes}
       id={note.id}
-      setIsEdit={setIsEdit}
-      setcurrentNote={setcurrentNote}
+      setIsEdit={props.setIsEdit}
+      setcurrentNote={props.setcurrentNote}
+      setColor={props.setColor}
     />
   ));
 };

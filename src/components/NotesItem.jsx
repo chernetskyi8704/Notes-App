@@ -1,8 +1,12 @@
 import React from "react";
 import classes from "../styles/NotesItem.module.css";
+import MyButton from "../components/UI/button/MyButon";
 
 const NotesItem = props => {
   const editNote = e => {
+    const notesColor =
+      e.target.parentElement.parentElement.style.backgroundColor;
+    props.setColor(notesColor);
     props.setIsEdit(true);
     const currentNote = props.notes.filter(note => {
       if (note.id === props.id) return note;
@@ -26,12 +30,17 @@ const NotesItem = props => {
       <p className={classes.note__body}>{props.body}</p>
       <small>{props.currentData}</small>
       <div className={classes.note__buttons}>
-        <button type="button" onClick={deleteNote}>
-          Delete
-        </button>
-        <button type="button" onClick={editNote}>
+        <MyButton type="button">Open</MyButton>
+        <MyButton
+          className={classes.edit__button}
+          type="button"
+          onClick={editNote}
+        >
           Edit
-        </button>
+        </MyButton>
+        <MyButton type="button" onClick={deleteNote}>
+          Delete
+        </MyButton>
       </div>
     </div>
   );
