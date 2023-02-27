@@ -1,6 +1,6 @@
 import React from "react";
 import NotesItems from "../components/NotesItems";
-import classes from "../styles/NotesItem.module.css";
+import classes from "../styles/Notes.module.css";
 import NoteForm from "../components/NoteForm";
 import NotesButtons from "../components/SelectButtons";
 import { nanoid } from "nanoid";

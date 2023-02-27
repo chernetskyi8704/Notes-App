@@ -5,7 +5,7 @@ import classes from "../styles/Home.module.css";
 const Home = () => {
   return (
     <div className={classes.projects__container}>
-      <h1 className={classes.projects__tittle}>Here are some of my projects</h1>
+      <h1 className={classes.projects__tittle}>My projects</h1>
       <ProjectList />
     </div>
   );

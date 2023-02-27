@@ -1,16 +1,17 @@
 .btn {
-  display: inline-block;
-  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #74bef0;
   font-size: 14px;
   font-weight: bold;
-  min-width: 50px;
-  max-width: 75px;
+  width: 60px;
   min-height: 35px;
   color: #fff;
   border-radius: 3px;
   cursor: pointer;
   border: none;
+  border-radius: 15px;
 }
 
 .btn:hover {

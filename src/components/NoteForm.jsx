@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../styles/NotesForm.module.css";
+import classes from "../styles/NoteForm.module.css";
 import { nanoid } from "nanoid";
 import MyButton from "./UI/button/MyButon";
 
@@ -26,12 +26,14 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
       },
       ...notes,
     ]);
+    
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
         isModal: false,
       };
     });
+    
     setTitle("");
     setDescription("");
   };
@@ -68,9 +70,9 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
   };
 
   return (
-    <form className={classes.notes__form} onClick={e => e.stopPropagation()}>
+    <form onClick={e => e.stopPropagation()}>
       <div
-        className={classes.notes__form_group}
+        className={classes.notes__form}
         style={{ backgroundColor: `${notesSettings.color}` }}
       >
         <input
@@ -91,11 +93,11 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
         ></textarea>
         {notesSettings.isEdit ? (
           <MyButton type="button" onClick={updateNote}>
-            Save changes
+            Save
           </MyButton>
         ) : (
           <MyButton type="button" onClick={addNote}>
-            Add note
+            Add
           </MyButton>
         )}
       </div>

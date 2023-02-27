@@ -1,17 +1,8 @@
 import React from "react";
-import classes from "../styles/NotesItem.module.css";
+import classes from "../styles/NoteItem.module.css";
 import MyButton from "./UI/button/MyButon";
 
-const NoteItem = ({
-  notes,
-  setNotes,
-  setNotesSettings,
-  id,
-  bodyColour,
-  title,
-  body,
-  currentData,
-}) => {
+const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body, currentData }) => {
   const editNote = ({ target }) => {
     const notesColor = target.parentElement.parentElement.style.backgroundColor;
     setNotesSettings(prevNotesSettings => {
