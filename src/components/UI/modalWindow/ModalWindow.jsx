@@ -11,7 +11,7 @@ const ModalWindow = ({ children, setNotesSettings, notesSettings }) => {
   return (
     <div
       className={rootClasses.join(" ")}
-      onClick={() =>
+      onClick={() => {
         setNotesSettings(prevNotesSettings => {
           return {
             ...prevNotesSettings,
@@ -19,9 +19,11 @@ const ModalWindow = ({ children, setNotesSettings, notesSettings }) => {
             isEdit: false,
             currentNote: {},
             isAddNew: false,
+            title: "",
+            description: "",
           };
-        })
-      }
+        });
+      }}
     >
       {children}
     </div>

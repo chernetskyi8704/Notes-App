@@ -51,6 +51,9 @@ const Notes = () => {
     currentNote: {},
     isAddNew: false,
     color: "",
+    currentData: new Date().toLocaleDateString(),
+    title: "",
+    description: "",
   });
 
   return (

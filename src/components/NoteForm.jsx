@@ -4,14 +4,15 @@ import { nanoid } from "nanoid";
 import MyButton from "./UI/button/MyButon";
 
 const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
-  const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const currentData = new Date().toLocaleDateString();
-
   React.useEffect(() => {
     if (notesSettings.isEdit) {
-      setTitle(notesSettings.currentNote[0].title);
-      setDescription(notesSettings.currentNote[0].description);
+      setNotesSettings(prevNotesSettings => {
+        return {
+          ...prevNotesSettings,
+          title: notesSettings.currentNote[0].title,
+          description: notesSettings.currentNote[0].description,
+        };
+      });
     }
   }, [notesSettings.isEdit]);
 
@@ -19,23 +20,22 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
     setNotes([
       {
         id: nanoid(),
-        title,
-        description,
-        date: currentData,
+        title: notesSettings.title,
+        description: notesSettings.description,
+        date: notesSettings.currentData,
         color: `${notesSettings.color}`,
       },
       ...notes,
     ]);
-    
+
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
         isModal: false,
+        title: "",
+        description: "",
       };
     });
-    
-    setTitle("");
-    setDescription("");
   };
 
   const updateNote = () => {
@@ -46,9 +46,9 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
           if (prevNotes[i].id === notesSettings.currentNote[0].id) {
             newNotesArr.unshift({
               ...prevNotes[i],
-              title,
-              description,
-              date: currentData,
+              title: notesSettings.title,
+              description: notesSettings.description,
+              date: notesSettings.currentData,
             });
           } else {
             newNotesArr.push(prevNotes[i]);
@@ -62,11 +62,10 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
         ...prevNotesSettings,
         isEdit: false,
         isModal: false,
+        title: "",
+        description: "",
       };
     });
-
-    setTitle("");
-    setDescription("");
   };
 
   return (
@@ -78,18 +77,32 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
         <input
           type="text"
           id="title"
-          placeholder="Заголовок"
-          value={title}
+          placeholder="Title..."
+          value={notesSettings.title}
           maxLength="20"
-          onChange={e => setTitle(e.target.value)}
+          onChange={e =>
+            setNotesSettings(prevNotesSettings => {
+              return {
+                ...prevNotesSettings,
+                title: e.target.value,
+              };
+            })
+          }
         />
         <textarea
           style={{ height: "100%", width: "100%" }}
           name="description"
-          placeholder="Описание"
+          placeholder="Description..."
           rows={2}
-          value={description}
-          onChange={e => setDescription(e.target.value)}
+          value={notesSettings.description}
+          onChange={e =>
+            setNotesSettings(prevNotesSettings => {
+              return {
+                ...prevNotesSettings,
+                description: e.target.value,
+              };
+            })
+          }
         ></textarea>
         {notesSettings.isEdit ? (
           <MyButton type="button" onClick={updateNote}>
