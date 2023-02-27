@@ -1,9 +1,9 @@
 import React from "react";
-import NotesItem from "./NotesItem";
+import NoteItem from "./NoteItem";
 
-const NotesItems = ({notes, setNotes, setNotesSettings}) => {
+const NotesItems = ({ notes, setNotes, setNotesSettings }) => {
   return notes.map(note => (
-    <NotesItem
+    <NoteItem
       key={note.id}
       title={note.title}
       body={note.description}

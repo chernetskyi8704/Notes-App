@@ -13,7 +13,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
       setTitle(notesSettings.currentNote[0].title);
       setDescription(notesSettings.currentNote[0].description);
     }
-  }, [notesSettings]);
+  }, [notesSettings.isEdit]);
 
   const addNote = () => {
     setNotes([
@@ -29,8 +29,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
-        isAddNew: false,
-        isColor: false,
+        isModal: false,
       };
     });
     setTitle("");
@@ -60,8 +59,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
       return {
         ...prevNotesSettings,
         isEdit: false,
-        isAddNew: false,
-        isColor: false,
+        isModal: false,
       };
     });
 
@@ -70,7 +68,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
   };
 
   return (
-    <form className={classes.notes__form}>
+    <form className={classes.notes__form} onClick={e => e.stopPropagation()}>
       <div
         className={classes.notes__form_group}
         style={{ backgroundColor: `${notesSettings.color}` }}

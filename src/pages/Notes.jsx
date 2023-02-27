@@ -1,9 +1,10 @@
 import React from "react";
 import NotesItems from "../components/NotesItems";
 import classes from "../styles/NotesItem.module.css";
-import NotesForm from "../components/NotesForm";
+import NoteForm from "../components/NoteForm";
 import NotesButtons from "../components/SelectButtons";
 import { nanoid } from "nanoid";
+import ModalWindow from "../components/UI/modalWindow/ModalWindow";
 
 const Notes = () => {
   const [notes, setNotes] = React.useState([
@@ -45,11 +46,11 @@ const Notes = () => {
   ]);
 
   const [notesSettings, setNotesSettings] = React.useState({
+    isModal: false,
     isEdit: false,
     currentNote: {},
     isAddNew: false,
     color: "",
-    isColor: false,
   });
 
   return (
@@ -58,16 +59,17 @@ const Notes = () => {
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}
       />
-      {notesSettings.isColor || notesSettings.isEdit ? (
-        <div className={classes.form}>
-          <NotesForm
-            notes={notes}
-            setNotes={setNotes}
-            notesSettings={notesSettings}
-            setNotesSettings={setNotesSettings}
-          />
-        </div>
-      ) : null}
+      <ModalWindow
+        setNotesSettings={setNotesSettings}
+        notesSettings={notesSettings}
+      >
+        <NoteForm
+          notes={notes}
+          setNotes={setNotes}
+          notesSettings={notesSettings}
+          setNotesSettings={setNotesSettings}
+        />
+      </ModalWindow>
       <div className={classes.notes__items}>
         <NotesItems
           notes={notes}

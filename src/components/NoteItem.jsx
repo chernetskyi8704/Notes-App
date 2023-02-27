@@ -1,15 +1,24 @@
 import React from "react";
 import classes from "../styles/NotesItem.module.css";
-import MyButton from "../components/UI/button/MyButon";
+import MyButton from "./UI/button/MyButon";
 
-const NotesItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,currentData }) => {
-  
+const NoteItem = ({
+  notes,
+  setNotes,
+  setNotesSettings,
+  id,
+  bodyColour,
+  title,
+  body,
+  currentData,
+}) => {
   const editNote = ({ target }) => {
     const notesColor = target.parentElement.parentElement.style.backgroundColor;
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
         isEdit: true,
+        isModal: true,
         color: notesColor,
       };
     });
@@ -57,4 +66,4 @@ const NotesItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cu
   );
 };
 
-export default NotesItem;
+export default NoteItem;

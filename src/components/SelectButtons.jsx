@@ -24,8 +24,9 @@ const NotesButtons = ({ notesSettings, setNotesSettings }) => {
       setNotesSettings(prevNotesSettings => {
         return {
           ...prevNotesSettings,
-          isColor: true,
+          isModal: true,
           color: target.value,
+          isAddNew: false,
         };
       });
     }
@@ -39,9 +40,9 @@ const NotesButtons = ({ notesSettings, setNotesSettings }) => {
           setNotesSettings(prevNotesSettings => {
             return {
               ...prevNotesSettings,
-              isAddNew: true,
-              isColor: false,
+              isAddNew: !prevNotesSettings.isAddNew,
               isEdit: false,
+              currentNote: {},
             };
           });
         }}
