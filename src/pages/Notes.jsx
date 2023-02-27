@@ -2,8 +2,8 @@ import React from "react";
 import NotesItems from "../components/NotesItems";
 import classes from "../styles/NotesItem.module.css";
 import NotesForm from "../components/NotesForm";
+import NotesButtons from "../components/SelectButtons";
 import { nanoid } from "nanoid";
-import MyButton from "../components/UI/button/MyButon";
 
 const Notes = () => {
   const [notes, setNotes] = React.useState([
@@ -52,46 +52,12 @@ const Notes = () => {
     isColor: false,
   });
 
-  const openForm = e => {
-    const target = e.target;
-    if (target.tagName === "BUTTON") {
-      setNotesSettings(prevNotesSettings => {
-        return {
-          ...prevNotesSettings,
-          isColor: true,
-          color: target.value,
-        };
-      });
-    }
-  };
-
   return (
     <div className={classes.notes__container}>
-      <div className={classes.select__buttons}>
-        <button
-          className={classes.select__button}
-          onClick={() => {
-            setNotesSettings(prevNotesSettings => {
-              return {
-                ...prevNotesSettings,
-                isAddNew: true,
-                isColor: false,
-                isEdit: false,
-              };
-            });
-          }}
-        ></button>
-        {notesSettings.isAddNew && (
-          <div className={classes.select__colours} onClick={openForm}>
-            <button className={classes.select__colour} value="#6e9ecf"></button>
-            <button className={classes.select__colour} value="#9acd32"></button>
-            <button className={classes.select__colour} value="#f49ac2"></button>
-            <button className={classes.select__colour} value="#baa8d8"></button>
-            <button className={classes.select__colour} value="#d2b48c"></button>
-          </div>
-        )}
-      </div>
-
+      <NotesButtons
+        notesSettings={notesSettings}
+        setNotesSettings={setNotesSettings}
+      />
       {notesSettings.isColor || notesSettings.isEdit ? (
         <div className={classes.form}>
           <NotesForm

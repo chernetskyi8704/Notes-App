@@ -31,94 +31,18 @@
   white-space: pre-wrap;
 }
 
+.note__buttons{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
 .note__title,
 .note__body {
   max-width: 220px;
 }
 
-.select__buttons {
-  display: flex;
-  flex: 0 0 auto;
-  flex-direction: column;
-  padding: 30px 20px;
-  gap: 20px;
-  height: 100%;
-}
-
-.select__button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #000;
-  cursor: pointer;
-}
-
-.select__button::before,
-.select__button::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  width: 20px;
-  background-color: #fff;
-}
-
-.select__button::before {
-  transform: rotate(90deg);
-}
-
-.select__button::after {
-  transform: rotate(0deg);
-}
-
-.select__colours {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.select__colour {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-
-.select__colours :nth-child(1) {
-  background-color: #6e9ecf;
-}
-.select__colours :nth-child(2) {
-  background-color: #9acd32;
-}
-
-.select__colours :nth-child(3) {
-  background-color: #f49ac2;
-}
-
-.select__colours :nth-child(4) {
-  background-color: #baa8d8;
-}
-
-.select__colours :nth-child(5) {
-  background-color: #d2b48c;
-}
-
 .form {
   position: relative;
-}
-
-.note__buttons {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.edit__button {
-  position: absolute;
-  top: 100px;
-  left: 400px;
 }
