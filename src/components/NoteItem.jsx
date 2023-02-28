@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "../styles/NoteItem.module.css";
 import MyButton from "./UI/button/MyButon";
+import { useNavigate } from "react-router-dom";
 
-const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body, currentData }) => {
+const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,currentData }) => {
+  const router = useNavigate();
   const editNote = ({ target }) => {
     const notesColor = target.parentElement.parentElement.style.backgroundColor;
     setNotesSettings(prevNotesSettings => {
@@ -30,6 +32,14 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body, cu
     setNotes(notes.filter(note => note.id !== id));
   };
 
+  const openedNote = () => {
+    const openedNote = notes.filter(note => {
+      router(`/notes/${title}`);
+      if (note.id === id) return note;
+    });
+    localStorage.setItem("openedNote", JSON.stringify(openedNote));
+  };
+
   return (
     <div
       className={classes.note__item}
@@ -41,7 +51,12 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body, cu
       <p className={classes.note__body}>{body}</p>
       <small>{currentData}</small>
       <div className={classes.note__buttons}>
-        <MyButton type="button">Open</MyButton>
+        <MyButton
+          type="button"
+          onClick={openedNote}
+        >
+          Open
+        </MyButton>
         <MyButton
           className={classes.edit__button}
           type="button"

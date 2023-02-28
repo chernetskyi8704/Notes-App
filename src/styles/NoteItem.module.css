@@ -24,3 +24,8 @@
 .note__body {
   max-width: 220px;
 }
+
+.note__page {
+  display: flex;
+  justify-content: center;
+}
