@@ -11,16 +11,6 @@
 
 .notes__form > textarea,
 .notes__form > input {
-  text-align: center;
-  height: auto;
-  border: none;
-  background-color: transparent;
-  font-size: 18px;
   resize: none;
-  outline: none;
   max-width: 20ch;
-}
-
-::placeholder {
-  color: white;
 }

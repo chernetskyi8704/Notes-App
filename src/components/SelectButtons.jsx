@@ -1,7 +1,9 @@
 import React from "react";
 import classes from "../styles/SelectButtons.module.css";
+import MyInput from "./UI/input/MyInput";
 
 const NotesButtons = ({ notesSettings, setNotesSettings }) => {
+  const [isSearch, setIsSearch] = React.useState(false);
   const [colors, setColors] = React.useState([
     "#6e9ecf",
     "#9acd32",
@@ -15,6 +17,7 @@ const NotesButtons = ({ notesSettings, setNotesSettings }) => {
       key={color}
       className={classes.select__colour}
       value={color}
+      style={{ backgroundColor: color }}
     ></button>
   ));
 
@@ -34,6 +37,17 @@ const NotesButtons = ({ notesSettings, setNotesSettings }) => {
 
   return (
     <div className={classes.select__buttons}>
+      <button
+        className={classes.search__button}
+        onClick={() => setIsSearch(prevIsSearch => !prevIsSearch)}
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      {isSearch && (
+        <div className={classes.search__input} onClick={openForm}>
+          <MyInput></MyInput>
+        </div>
+      )}
       <button
         className={classes.select__button}
         onClick={() => {

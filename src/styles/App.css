@@ -12,6 +12,15 @@ ul {
   list-style-type: none;
 }
 
+input,
+textarea {
+  outline: none;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+  background-color: transparent;
+}
+
 .App {
   display: flex;
   min-height: 100vh;
