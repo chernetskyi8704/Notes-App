@@ -62,6 +62,18 @@ const Notes = () => {
     description: "",
   });
 
+  React.useEffect(() => {
+    if (notesSettings.isEdit) {
+      setNotesSettings(prevNotesSettings => {
+        return {
+          ...prevNotesSettings,
+          title: notesSettings.currentNote[0].title,
+          description: notesSettings.currentNote[0].description,
+        };
+      });
+    }
+  }, [notesSettings.isEdit]);
+
   return (
     <div className={classes.notes__container}>
       <NotesButtons

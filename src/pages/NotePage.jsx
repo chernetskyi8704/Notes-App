@@ -11,9 +11,11 @@ const NotePage = () => {
           backgroundColor: `${openedNote[0].color}`,
         }}
       >
-        <h3 className={classes.note__title}>{openedNote[0].title}</h3>
-        <p className={classes.note__body}>{openedNote[0].description}</p>
-        <small>{openedNote[0].date}</small>
+        <div className={classes.note__info}>
+          <h3 className={classes.note__title}>{openedNote[0].title}</h3>
+          <p className={classes.note__body}>{openedNote[0].description}</p>
+        </div>
+        <strong className={openedNote[0].date}>{openedNote[0].date}</strong>
       </div>
     </div>
   );

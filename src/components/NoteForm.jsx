@@ -4,18 +4,6 @@ import { nanoid } from "nanoid";
 import MyButton from "./UI/button/MyButon";
 
 const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
-  React.useEffect(() => {
-    if (notesSettings.isEdit) {
-      setNotesSettings(prevNotesSettings => {
-        return {
-          ...prevNotesSettings,
-          title: notesSettings.currentNote[0].title,
-          description: notesSettings.currentNote[0].description,
-        };
-      });
-    }
-  }, [notesSettings.isEdit]);
-
   const addNote = () => {
     setNotes([
       {

@@ -47,14 +47,13 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cur
         backgroundColor: `${bodyColour}`,
       }}
     >
-      <h3 className={classes.note__title}>{title}</h3>
-      <p className={classes.note__body}>{body}</p>
-      <small>{currentData}</small>
+      <div className={classes.note__info}>
+        <h3 className={classes.note__title}>{title}</h3>
+        <p className={classes.note__body}>{body}</p>
+      </div>
+      <strong className={classes.note__data}>{currentData}</strong>
       <div className={classes.note__buttons}>
-        <MyButton
-          type="button"
-          onClick={openedNote}
-        >
+        <MyButton type="button" onClick={openedNote}>
           Open
         </MyButton>
         <MyButton
