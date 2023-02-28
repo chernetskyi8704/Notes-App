@@ -1,7 +1,13 @@
 import React from "react";
 import NoteItem from "./NoteItem";
+import classes from "../styles/Notes.module.css";
 
 const NotesItems = ({ notes, setNotes, setNotesSettings }) => {
+  if (!notes.length) {
+    return (
+      <div className={classes.notes__empty}>No notes were created yet...😢</div>
+    );
+  }
   return notes.map(note => (
     <NoteItem
       key={note.id}
