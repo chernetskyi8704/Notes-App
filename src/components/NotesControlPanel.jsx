@@ -6,7 +6,11 @@ import AddNoteButton from "./AddNoteButton";
 const NotesControlPanel = ({ notesSettings, setNotesSettings, notes }) => {
   return (
     <div className={classes.select__buttons}>
-      <SearchNoteButton setNotesSettings={setNotesSettings} notes={notes} />
+      <SearchNoteButton
+        setNotesSettings={setNotesSettings}
+        notes={notes}
+        notesSettings={notesSettings}
+      />
       <AddNoteButton
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}

@@ -59,6 +59,7 @@ const Notes = () => {
       isEdit: false,
       currentNote: {},
       isAddNew: false,
+      isSearch: false,
       color: "",
       title: "",
       description: "",
@@ -79,7 +80,18 @@ const Notes = () => {
   }, [notesSettings.isEdit]);
 
   return (
-    <div className={classes.notes__container}>
+    <div
+      className={classes.notes__container}
+      onClick={() => {
+        setNotesSettings(prevNotesSettings => {
+          return {
+            ...prevNotesSettings,
+            isSearch: false,
+            isAddNew: false,
+          };
+        });
+      }}
+    >
       <NotesControlPanel
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}

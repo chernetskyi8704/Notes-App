@@ -32,20 +32,24 @@ const AddNoteButton = ({ notesSettings, setNotesSettings }) => {
       });
     }
   };
+
+  const showColoursButtons = e => {
+    e.stopPropagation();
+    setNotesSettings(prevNotesSettings => {
+      return {
+        ...prevNotesSettings,
+        isAddNew: !prevNotesSettings.isAddNew,
+        isEdit: false,
+        isSearch: false,
+        currentNote: {},
+      };
+    });
+  };
   return (
     <>
       <button
         className={classes.select__button}
-        onClick={() => {
-          setNotesSettings(prevNotesSettings => {
-            return {
-              ...prevNotesSettings,
-              isAddNew: !prevNotesSettings.isAddNew,
-              isEdit: false,
-              currentNote: {},
-            };
-          });
-        }}
+        onClick={showColoursButtons}
       ></button>
       {notesSettings.isAddNew && (
         <div className={classes.select__colours} onClick={openForm}>
