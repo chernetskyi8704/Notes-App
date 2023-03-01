@@ -1,37 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style-type: none;
-}
-
-input,
-textarea {
-  outline: none;
-  border: none;
-  font-size: 18px;
-  text-align: center;
-  background-color: transparent;
-}
-
 .App {
   display: flex;
   min-height: 100vh;
   background-color: #ffffff;
-}
-
-.header {
-  flex: 0 0 70px;
-}
-
-.mainContent {
-  flex: 1 1 auto;
-  padding: 20px 30px;
 }

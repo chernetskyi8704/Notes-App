@@ -1,7 +1,7 @@
 .navigation {
-  display: flex;
+  flex: 0 0 70px;
   justify-content: center;
-  height: 100%;
+  min-height: 100%;
   border-right: 2px solid #dbdbdb;
 }
 

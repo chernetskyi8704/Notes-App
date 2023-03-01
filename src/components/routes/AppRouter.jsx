@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
-import Notes from "../pages/Notes";
-import Login from "../pages/Login";
-import PrivateRoutes from "../components/routes/PrivatRoutes";
-import NotePage from "../pages/NotePage";
+import Home from "../../pages/Home/Home";
+import Notes from "../../pages/Notes/Notes";
+import Login from "../../pages/Login/Login";
+import PrivateRoutes from "./PrivatRoutes";
+import Note from "../../pages/Note/Note";
 
 const AppRouter = () => {
   return (
@@ -12,7 +12,7 @@ const AppRouter = () => {
       <Route element={<PrivateRoutes />}>
         <Route path="/" element={<Home />} />
         <Route path="/notes" element={<Notes />} />
-        <Route path="/notes/:title" element={<NotePage />} />
+        <Route path="/notes/:title" element={<Note />} />
         <Route path="*" element={<Home />} />
       </Route>
       <Route path="/login" element={<Login />} />

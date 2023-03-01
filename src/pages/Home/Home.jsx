@@ -1,6 +1,6 @@
 import React from "react";
-import ProjectList from "../components/ProjectList";
-import classes from "../styles/Home.module.css";
+import ProjectList from "../../components/ProjectList";
+import classes from "./Home.module.css";
 
 const Home = () => {
   return (

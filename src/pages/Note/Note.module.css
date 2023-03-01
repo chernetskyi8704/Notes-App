@@ -1,3 +1,8 @@
+.note__page {
+  display: flex;
+  justify-content: center;
+}
+
 .note__item {
   display: flex;
   flex-direction: column;
@@ -21,19 +26,11 @@
   gap: 10px;
 }
 
-.note__data {
-  margin-top: auto;
-}
-
-.note__buttons {
-  display: flex;
-  padding-top: 10px;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-}
-
 .note__title,
 .note__body {
   max-width: 220px;
+}
+
+.note__data {
+  margin-top: auto;
 }

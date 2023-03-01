@@ -4,13 +4,14 @@ import { nanoid } from "nanoid";
 import MyButton from "./UI/button/MyButon";
 
 const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
+  const currentData = new Date().toLocaleDateString();
   const addNote = () => {
     setNotes([
       {
         id: nanoid(),
         title: notesSettings.title,
         description: notesSettings.description,
-        date: notesSettings.currentData,
+        date: currentData,
         color: `${notesSettings.color}`,
       },
       ...notes,
@@ -36,7 +37,7 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
               ...prevNotes[i],
               title: notesSettings.title,
               description: notesSettings.description,
-              date: notesSettings.currentData,
+              date: currentData,
             });
           } else {
             newNotesArr.push(prevNotes[i]);
@@ -78,10 +79,8 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
           }
         />
         <textarea
-          style={{ height: "100%", width: "100%" }}
           name="description"
           placeholder="Description..."
-          rows={2}
           value={notesSettings.description}
           onChange={e =>
             setNotesSettings(prevNotesSettings => {

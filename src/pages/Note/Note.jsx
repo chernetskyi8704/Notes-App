@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "../styles/NoteItem.module.css";
+import classes from "./Note.module.css";
 
-const NotePage = () => {
+const Note = () => {
   const openedNote = JSON.parse(localStorage.getItem("openedNote"));
   return (
     <div className={classes.note__page}>
@@ -15,10 +15,10 @@ const NotePage = () => {
           <h3 className={classes.note__title}>{openedNote[0].title}</h3>
           <p className={classes.note__body}>{openedNote[0].description}</p>
         </div>
-        <strong className={openedNote[0].date}>{openedNote[0].date}</strong>
+        <strong className={classes.note__data}>{openedNote[0].date}</strong>
       </div>
     </div>
   );
 };
 
-export default NotePage;
+export default Note;

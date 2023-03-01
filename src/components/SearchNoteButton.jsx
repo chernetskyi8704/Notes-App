@@ -8,15 +8,12 @@ const SearchNoteButton = () => {
     <>
       <button
         className={classes.search__button}
-        onClick={() => setIsSearch(prevIsSearch => !prevIsSearch)}
+        onClick={() => setIsSearch(!isSearch)}
       >
         <i className="fas fa-search"></i>
       </button>
       {isSearch && (
-        <div
-          className={classes.search__input}
-          onClick={() => setIsSearch(!isSearch)}
-        >
+        <div className={classes.search__input}>
           <MyInput></MyInput>
         </div>
       )}

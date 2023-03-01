@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "../styles/SelectButtons.module.css";
+import classes from "../styles/NotesControlPanel.module.css";
 import SearchNoteButton from "./SearchNoteButton";
 import AddNoteButton from "./AddNoteButton";
 
-const NotesButtons = ({ notesSettings, setNotesSettings }) => {
+const NotesControlPanel = ({ notesSettings, setNotesSettings }) => {
   return (
     <div className={classes.select__buttons}>
       <SearchNoteButton />
@@ -15,4 +15,4 @@ const NotesButtons = ({ notesSettings, setNotesSettings }) => {
   );
 };
 
-export default NotesButtons;
+export default NotesControlPanel;

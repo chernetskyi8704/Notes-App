@@ -14,3 +14,8 @@
   resize: none;
   max-width: 20ch;
 }
+
+.notes__form > textarea {
+  height: 100%;
+  width: 100%;
+}

@@ -1,10 +1,10 @@
 import React from "react";
-import NotesItems from "../components/NotesItems";
-import classes from "../styles/Notes.module.css";
-import NoteForm from "../components/NoteForm";
-import NotesButtons from "../components/SelectButtons";
+import NotesItems from "../../components/NotesItems";
+import classes from "./Notes.module.css";
+import NoteForm from "../../components/NoteForm";
+import NotesControlPanel from "../../components/NotesControlPanel";
 import { nanoid } from "nanoid";
-import ModalWindow from "../components/UI/modalWindow/ModalWindow";
+import ModalWindow from "../../components/UI/modalWindow/ModalWindow";
 
 const Notes = () => {
   const [notes, setNotes] = React.useState(() => {
@@ -60,7 +60,6 @@ const Notes = () => {
       currentNote: {},
       isAddNew: false,
       color: "",
-      currentData: new Date().toLocaleDateString(),
       title: "",
       description: "",
     };
@@ -80,7 +79,7 @@ const Notes = () => {
 
   return (
     <div className={classes.notes__container}>
-      <NotesButtons
+      <NotesControlPanel
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}
       />
@@ -96,6 +95,11 @@ const Notes = () => {
         />
       </ModalWindow>
       <div className={classes.notes__items}>
+        {!notes.length && (
+          <div className={classes.notes__empty}>
+            No notes were created yet...😢
+          </div>
+        )}
         <NotesItems
           notes={notes}
           setNotes={setNotes}

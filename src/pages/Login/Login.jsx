@@ -1,10 +1,10 @@
 import React from "react";
-import classes from "../styles/Login.module.css";
-import { AuthContext } from "../context/AuthContext";
+import classes from "./Login.module.css";
+import { AuthContext } from "../../context/AuthContext";
 import { NavLink } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-import MyButton from "../components/UI/button/MyButon";
-import MyInput from "../components/UI/input/MyInput";
+import MyButton from "../../components/UI/button/MyButon";
+import MyInput from "../../components/UI/input/MyInput";
 
 const Login = () => {
   const { isAuth, setIsAuth } = React.useContext(AuthContext);
