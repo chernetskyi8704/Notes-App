@@ -62,6 +62,7 @@ const Notes = () => {
       color: "",
       title: "",
       description: "",
+      searchNotes: [],
     };
   });
 
@@ -82,6 +83,7 @@ const Notes = () => {
       <NotesControlPanel
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}
+        notes={notes}
       />
       <ModalWindow
         setNotesSettings={setNotesSettings}
@@ -95,7 +97,7 @@ const Notes = () => {
         />
       </ModalWindow>
       <div className={classes.notes__items}>
-        {!notes.length && (
+        {!notesSettings.searchNotes.length && (
           <div className={classes.notes__empty}>
             No notes were created yet...😢
           </div>
@@ -104,6 +106,7 @@ const Notes = () => {
           notes={notes}
           setNotes={setNotes}
           setNotesSettings={setNotesSettings}
+          notesSettings={notesSettings}
         />
       </div>
     </div>
