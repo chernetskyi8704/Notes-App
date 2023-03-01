@@ -42,6 +42,7 @@ const AddNoteButton = ({ notesSettings, setNotesSettings }) => {
         isEdit: false,
         isSearch: false,
         currentNote: {},
+        searchValue: "",
       };
     });
   };

@@ -64,6 +64,7 @@ const Notes = () => {
       title: "",
       description: "",
       searchNotes: [],
+      searchValue: "",
     };
   });
 
