@@ -17,7 +17,7 @@ const ModalWindow = ({ children, setNotesSettings, notesSettings }) => {
             ...prevNotesSettings,
             isModal: false,
             isEdit: false,
-            currentNote: {},
+            currentNote: [],
             isAddNew: false,
             title: "",
             description: "",

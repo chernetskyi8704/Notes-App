@@ -60,7 +60,7 @@ const Notes = () => {
       isAddNew: false,
       isSearch: false,
       searchNotes: [],
-      currentNote: {},
+      currentNote: [],
       color: "",
     };
   });

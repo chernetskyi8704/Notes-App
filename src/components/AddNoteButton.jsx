@@ -28,6 +28,7 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
           isModal: true,
           color: target.value,
           isAddNew: false,
+          currentNote: [],
         };
       });
     }
@@ -41,7 +42,6 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
         isAddNew: !prevNotesSettings.isAddNew,
         isEdit: false,
         isSearch: false,
-        currentNote: {},
       };
     });
     setSearchValue("");

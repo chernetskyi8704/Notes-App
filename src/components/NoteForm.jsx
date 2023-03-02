@@ -11,11 +11,14 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
     if (notesSettings.isEdit) {
       setTitle(notesSettings.currentNote[0].title);
       setDescription(notesSettings.currentNote[0].description);
+    } else {
+      setTitle("");
+      setDescription("");
     }
   }, [notesSettings.isEdit]);
 
   const currentData = new Date().toLocaleDateString();
-  
+
   const addNote = () => {
     setNotes([
       {
