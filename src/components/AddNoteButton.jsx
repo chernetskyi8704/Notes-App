@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../styles/AddNoteButton.module.css";
 
-const AddNoteButton = ({ notesSettings, setNotesSettings }) => {
+const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
   const [colors, setColors] = React.useState([
     "#6e9ecf",
     "#9acd32",
@@ -42,9 +42,9 @@ const AddNoteButton = ({ notesSettings, setNotesSettings }) => {
         isEdit: false,
         isSearch: false,
         currentNote: {},
-        searchValue: "",
       };
     });
+    setSearchValue("");
   };
   return (
     <>

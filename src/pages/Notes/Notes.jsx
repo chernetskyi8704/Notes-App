@@ -57,28 +57,13 @@ const Notes = () => {
     return {
       isModal: false,
       isEdit: false,
-      currentNote: {},
       isAddNew: false,
       isSearch: false,
-      color: "",
-      title: "",
-      description: "",
       searchNotes: [],
-      searchValue: "",
+      currentNote: {},
+      color: "",
     };
   });
-
-  React.useEffect(() => {
-    if (notesSettings.isEdit) {
-      setNotesSettings(prevNotesSettings => {
-        return {
-          ...prevNotesSettings,
-          title: notesSettings.currentNote[0].title,
-          description: notesSettings.currentNote[0].description,
-        };
-      });
-    }
-  }, [notesSettings.isEdit]);
 
   return (
     <div

@@ -2,19 +2,17 @@ import React from "react";
 import MyInput from "./UI/input/MyInput";
 import classes from "../styles/SearchNoteButton.module.css";
 
-const SearchNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
+const SearchNoteButton = ({ notesSettings, setNotesSettings, notes, searchValue, setSearchValue }) => {
   React.useEffect(() => {
     const searchNotes = () => {
-      if (notesSettings.searchValue === "") return notes;
+      if (searchValue === "") return notes;
       return JSON.parse(localStorage.getItem("notes")).filter(note => {
-        return note.title
-          .toLowerCase()
-          .includes(notesSettings.searchValue.toLowerCase());
+        return note.title.toLowerCase().includes(searchValue.toLowerCase());
       });
     };
 
     setNotesSettings(prev => ({ ...prev, searchNotes: searchNotes() }));
-  }, [notesSettings.searchValue, notes]);
+  }, [searchValue, notes]);
 
   const toggleSearchButton = e => {
     e.stopPropagation();
@@ -34,13 +32,8 @@ const SearchNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
         <div className={classes.search__input}>
           <MyInput
             placeholder="Search..."
-            value={notesSettings.searchValue}
-            onChange={e => {
-              setNotesSettings(prev => ({
-                ...prev,
-                searchValue: e.target.value,
-              }));
-            }}
+            value={searchValue}
+            onChange={e => setSearchValue(e.target.value)}
             onClick={e => e.stopPropagation()}
           ></MyInput>
         </div>
