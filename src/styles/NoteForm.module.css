@@ -9,13 +9,8 @@
   border-radius: 10%;
 }
 
-.notes__form > textarea,
-.notes__form > input {
-  resize: none;
-  max-width: 20ch;
-}
-
 .notes__form > textarea {
   height: 100%;
-  width: 100%;
+  max-width: 250px;
+  resize: none;
 }

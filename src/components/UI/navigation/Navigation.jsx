@@ -16,24 +16,36 @@ const Navigation = () => {
       <ul className={classes.navigation__items}>
         <li className={classes.navigation__item}>
           <NavLink className={classes.navigation__link} to="/">
-            Home
+            <span className={classes.link__name}>Home</span>
+            <span className={classes.navigation__icon}>
+              <i className="fas fa-home"></i>
+            </span>
           </NavLink>
         </li>
         <li className={classes.navigation__item}>
           <NavLink className={classes.navigation__link} to="/notes">
-            Notes
+            <span className={classes.link__name}>Notes</span>
+            <span className={classes.navigation__icon}>
+              <i className="fas fa-sticky-note"></i>
+            </span>
           </NavLink>
         </li>
         {isAuth ? (
           <li className={classes.navigation__item}>
             <NavLink className={classes.navigation__link} onClick={logout}>
-              Logout
+              <span className={classes.link__name}>Logout</span>
+              <span className={classes.navigation__icon}>
+                <i className="fas fa-sign-out-alt"></i>
+              </span>
             </NavLink>
           </li>
         ) : (
           <li className={classes.navigation__item}>
             <NavLink className={classes.navigation__link} to="/login">
-              Login
+              <span className={classes.link__name}>Login</span>
+              <span className={classes.navigation__icon}>
+                <i className="fas fa-sign-in-alt"></i>
+              </span>
             </NavLink>
           </li>
         )}

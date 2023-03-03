@@ -36,4 +36,5 @@
 .note__title,
 .note__body {
   max-width: 220px;
+  word-wrap: break-word;
 }
