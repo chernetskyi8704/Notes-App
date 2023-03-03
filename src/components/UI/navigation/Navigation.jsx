@@ -11,44 +11,42 @@ const Navigation = () => {
     localStorage.removeItem("auth");
   };
 
+  const navigationItems = [
+    {
+      name: "Home",
+      link: "/",
+      iconClass: "fas fa-home",
+    },
+    {
+      name: "Notes",
+      link: "/notes",
+      iconClass: "fas fa-sticky-note",
+    },
+    {
+      name: isAuth ? "Logout" : "Login",
+      link: isAuth ? "#" : "/login",
+      iconClass: isAuth ? "fas fa-sign-out-alt" : "fas fa-sign-in-alt",
+      onClick: isAuth ? logout : undefined,
+    },
+  ];
+
   return (
     <nav className={classes.navigation}>
       <ul className={classes.navigation__items}>
-        <li className={classes.navigation__item}>
-          <NavLink className={classes.navigation__link} to="/">
-            <span className={classes.link__name}>Home</span>
-            <span className={classes.navigation__icon}>
-              <i className="fas fa-home"></i>
-            </span>
-          </NavLink>
-        </li>
-        <li className={classes.navigation__item}>
-          <NavLink className={classes.navigation__link} to="/notes">
-            <span className={classes.link__name}>Notes</span>
-            <span className={classes.navigation__icon}>
-              <i className="fas fa-sticky-note"></i>
-            </span>
-          </NavLink>
-        </li>
-        {isAuth ? (
-          <li className={classes.navigation__item}>
-            <NavLink className={classes.navigation__link} onClick={logout}>
-              <span className={classes.link__name}>Logout</span>
+        {navigationItems.map(item => (
+          <li className={classes.navigation__item} key={item.link}>
+            <NavLink
+              className={classes.navigation__link}
+              to={item.link}
+              onClick={item.onClick}
+            >
+              <span className={classes.link__name}>{item.name}</span>
               <span className={classes.navigation__icon}>
-                <i className="fas fa-sign-out-alt"></i>
+                <i className={item.iconClass}></i>
               </span>
             </NavLink>
           </li>
-        ) : (
-          <li className={classes.navigation__item}>
-            <NavLink className={classes.navigation__link} to="/login">
-              <span className={classes.link__name}>Login</span>
-              <span className={classes.navigation__icon}>
-                <i className="fas fa-sign-in-alt"></i>
-              </span>
-            </NavLink>
-          </li>
-        )}
+        ))}
       </ul>
     </nav>
   );
