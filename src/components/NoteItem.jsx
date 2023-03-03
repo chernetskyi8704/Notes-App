@@ -34,7 +34,7 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cur
 
   const openedNote = () => {
     const openedNote = notes.filter(note => {
-      router(`/notes/${title}`);
+      router(`/notes/${note.id}`);
       if (note.id === id) return note;
     });
     localStorage.setItem("openedNote", JSON.stringify(openedNote));
