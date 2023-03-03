@@ -58,7 +58,6 @@ const Notes = () => {
       isModal: false,
       isEdit: false,
       isAddNew: false,
-      isSearch: false,
       searchNotes: [],
       currentNote: [],
       color: "",
@@ -72,7 +71,6 @@ const Notes = () => {
         setNotesSettings(prevNotesSettings => {
           return {
             ...prevNotesSettings,
-            isSearch: false,
             isAddNew: false,
           };
         });

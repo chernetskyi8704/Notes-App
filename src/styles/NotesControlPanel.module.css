@@ -1,6 +1,6 @@
 .select__buttons {
   display: flex;
-  flex: 0 0 auto;
+  position: fixed;
   flex-direction: column;
   padding: 30px 20px;
   gap: 20px;

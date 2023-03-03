@@ -1,7 +1,20 @@
 import React from "react";
+import MyInput from "./UI/input/MyInput";
 import classes from "../styles/AddNoteButton.module.css";
 
-const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
+const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
+  const [searchValue, setSearchValue] = React.useState("");
+
+  React.useEffect(() => {
+    const searchNotes = () => {
+      if (searchValue === "") return notes;
+      return JSON.parse(localStorage.getItem("notes")).filter(note => {
+        return note.title.toLowerCase().includes(searchValue.toLowerCase());
+      });
+    };
+    setNotesSettings(prev => ({ ...prev, searchNotes: searchNotes() }));
+  }, [searchValue, notes]);
+
   const [colors, setColors] = React.useState([
     "#6e9ecf",
     "#9acd32",
@@ -41,13 +54,13 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
         ...prevNotesSettings,
         isAddNew: !prevNotesSettings.isAddNew,
         isEdit: false,
-        isSearch: false,
       };
     });
     setSearchValue("");
   };
+
   return (
-    <>
+    <div className={classes.addNoteButton__container}>
       <button
         className={classes.select__button}
         onClick={showColoursButtons}
@@ -57,7 +70,13 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, setSearchValue }) => {
           {allColorButtons}
         </div>
       )}
-    </>
+      <MyInput
+        placeholder="Search..."
+        value={searchValue}
+        onChange={e => setSearchValue(e.target.value)}
+        onClick={e => e.stopPropagation()}
+      ></MyInput>
+    </div>
   );
 };
 

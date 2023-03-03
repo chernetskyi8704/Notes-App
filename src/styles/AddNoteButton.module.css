@@ -31,6 +31,7 @@
   align-items: center;
   flex-direction: column;
   gap: 15px;
+  margin-top: 20px;
 }
 
 .select__colour {
@@ -39,4 +40,33 @@
   border-radius: 50%;
   border: 1px solid transparent;
   cursor: pointer;
+}
+
+.addNoteButton__container > input {
+  position: absolute;
+  top: 35px;
+  left: 90px;
+  width: 250px;
+  border-radius: 15px;
+  border: 2px solid #6e9ecf;
+  animation: searchInput-border-animation 5s infinite;
+  font-weight: bolder;
+}
+
+@keyframes searchInput-border-animation {
+  0% {
+    border-color: #6e9ecf;
+  }
+  25% {
+    border-color: #9acd32;
+  }
+  50% {
+    border-color: #f49ac2;
+  }
+  75% {
+    border-color: #baa8d8;
+  }
+  100% {
+    border-color: #d2b48c;
+  }
 }
