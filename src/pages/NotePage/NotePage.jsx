@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Note.module.css";
+import classes from "./NotePage.module.css";
 
 const Note = () => {
   const openedNote = JSON.parse(localStorage.getItem("openedNote"));

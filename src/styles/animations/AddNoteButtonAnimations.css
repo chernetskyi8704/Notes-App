@@ -1,0 +1,32 @@
+.colorButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.colorButton:hover {
+  transform: scale(1.2);
+}
+
+.colorButton-enter {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.colorButton-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.colorButton-exit {
+  transform: rotate(360deg) translateY(100%);
+}
+
+.colorButton-exit-active {
+  transform: rotate(360deg) translateY(0%);
+  transition: transform 0.3s ease-in-out;
+}

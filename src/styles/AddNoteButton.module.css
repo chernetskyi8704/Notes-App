@@ -34,14 +34,6 @@
   margin-top: 20px;
 }
 
-.select__colour {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  cursor: pointer;
-}
-
 .addNoteButton__container > input {
   position: absolute;
   top: 35px;

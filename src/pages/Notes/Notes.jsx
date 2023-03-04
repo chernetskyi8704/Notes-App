@@ -65,17 +65,7 @@ const Notes = () => {
   });
 
   return (
-    <div
-      className={classes.notes__container}
-      onClick={() => {
-        setNotesSettings(prevNotesSettings => {
-          return {
-            ...prevNotesSettings,
-            isAddNew: false,
-          };
-        });
-      }}
-    >
+    <div className={classes.notes__container}>
       <NotesControlPanel
         notesSettings={notesSettings}
         setNotesSettings={setNotesSettings}

@@ -1,9 +1,13 @@
 import React from "react";
 import MyInput from "./UI/input/MyInput";
 import classes from "../styles/AddNoteButton.module.css";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "../styles/animations/AddNoteButtonAnimations.css";
 
 const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
   const [searchValue, setSearchValue] = React.useState("");
+  const [visibleButtons, setVisibleButtons] = React.useState(0);
+  const colors = ["#6e9ecf", "#9acd32", "#f49ac2", "#baa8d8", "#d2b48c"];
 
   React.useEffect(() => {
     const searchNotes = () => {
@@ -15,22 +19,18 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
     setNotesSettings(prev => ({ ...prev, searchNotes: searchNotes() }));
   }, [searchValue, notes]);
 
-  const [colors, setColors] = React.useState([
-    "#6e9ecf",
-    "#9acd32",
-    "#f49ac2",
-    "#baa8d8",
-    "#d2b48c",
-  ]);
-
-  const allColorButtons = colors.map(color => (
-    <button
-      key={color}
-      className={classes.select__colour}
-      value={color}
-      style={{ backgroundColor: color }}
-    ></button>
-  ));
+  React.useEffect(() => {
+    if (notesSettings.isAddNew) {
+      const intervalId = setInterval(() => {
+        if (visibleButtons < colors.length) {
+          setVisibleButtons(visibleButtons + 1);
+        } else {
+          clearInterval(intervalId);
+        }
+      }, 100);
+      return () => clearInterval(intervalId);
+    }
+  }, [visibleButtons, notesSettings.isAddNew]);
 
   const openForm = e => {
     const target = e.target;
@@ -40,15 +40,13 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
           ...prevNotesSettings,
           isModal: true,
           color: target.value,
-          isAddNew: false,
           currentNote: [],
         };
       });
     }
   };
 
-  const showColoursButtons = e => {
-    e.stopPropagation();
+  const toggleShowButtons = e => {
     setNotesSettings(prevNotesSettings => {
       return {
         ...prevNotesSettings,
@@ -57,17 +55,28 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
       };
     });
     setSearchValue("");
+    setVisibleButtons(0);
   };
 
   return (
     <div className={classes.addNoteButton__container}>
       <button
         className={classes.select__button}
-        onClick={showColoursButtons}
+        onClick={toggleShowButtons}
       ></button>
       {notesSettings.isAddNew && (
         <div className={classes.select__colours} onClick={openForm}>
-          {allColorButtons}
+          <TransitionGroup component={null} classNames="colorButton">
+            {colors.slice(0, visibleButtons).map(color => (
+              <CSSTransition timeout={500} key={color} classNames="colorButton">
+                <button
+                  className="colorButton"
+                  value={color}
+                  style={{ backgroundColor: color }}
+                />
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
       )}
       <MyInput
