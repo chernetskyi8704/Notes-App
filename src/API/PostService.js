@@ -1,6 +1,6 @@
 export default class PostService {
   static async getProjects() {
-    const response = await fetch("../src/data/projects.json");
+    const response = await fetch("https://api.npoint.io/330476ee1cf37edbfd70");
     const data = await response.json();
     const projects = data.map(project => {
       return {
