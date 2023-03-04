@@ -8,7 +8,6 @@ const Navigation = () => {
 
   const logout = () => {
     setIsAuth(false);
-    localStorage.removeItem("auth");
   };
 
   const navigationItems = [

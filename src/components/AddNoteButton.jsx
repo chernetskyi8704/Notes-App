@@ -12,7 +12,7 @@ const AddNoteButton = ({ notesSettings, setNotesSettings, notes }) => {
   React.useEffect(() => {
     const searchNotes = () => {
       if (searchValue === "") return notes;
-      return JSON.parse(localStorage.getItem("notes")).filter(note => {
+      return notes.filter(note => {
         return note.title.toLowerCase().includes(searchValue.toLowerCase());
       });
     };

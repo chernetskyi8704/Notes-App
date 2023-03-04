@@ -8,15 +8,10 @@ import "./styles/reset.css";
 
 const App = () => {
   const [isAuth, setIsAuth] = React.useState(false);
-
-  React.useEffect(() => {
-    if (localStorage.getItem("auth")) {
-      setIsAuth(true);
-    }
-  }, []);
+  const [openedNote, setOpenedNote] = React.useState(null);
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
+    <AuthContext.Provider value={{ isAuth, setIsAuth, openedNote, setOpenedNote }}>
       <div className="App">
         <Navigation />
         <MainContent />

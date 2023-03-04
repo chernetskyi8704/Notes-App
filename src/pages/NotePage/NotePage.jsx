@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./NotePage.module.css";
+import { AuthContext } from "../../context/AuthContext";
 
 const Note = () => {
-  const openedNote = JSON.parse(localStorage.getItem("openedNote"));
+  const { openedNote } = React.useContext(AuthContext);
+
   return (
     <div className={classes.note__page}>
       <div

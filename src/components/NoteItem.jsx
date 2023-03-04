@@ -2,9 +2,11 @@ import React from "react";
 import classes from "../styles/NoteItem.module.css";
 import MyButton from "./UI/button/MyButon";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,currentData }) => {
   const router = useNavigate();
+  const { setOpenedNote } = React.useContext(AuthContext);
   const editNote = ({ target }) => {
     const notesColor = target.parentElement.parentElement.style.backgroundColor;
     setNotesSettings(prevNotesSettings => {
@@ -32,12 +34,12 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cur
     setNotes(notes.filter(note => note.id !== id));
   };
 
-  const openedNote = () => {
+  const openNote = () => {
     const openedNote = notes.filter(note => {
       router(`/notes/${note.id}`);
       if (note.id === id) return note;
     });
-    localStorage.setItem("openedNote", JSON.stringify(openedNote));
+    setOpenedNote(openedNote);
   };
 
   return (
@@ -53,7 +55,7 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cur
       </div>
       <strong className={classes.note__data}>{currentData}</strong>
       <div className={classes.note__buttons}>
-        <MyButton type="button" onClick={openedNote}>
+        <MyButton type="button" onClick={openNote}>
           Open
         </MyButton>
         <MyButton

@@ -15,7 +15,6 @@ const Login = () => {
   const login = e => {
     e.preventDefault();
     setIsAuth(!isAuth);
-    localStorage.setItem("auth", "true");
   };
 
   React.useEffect(() => {
