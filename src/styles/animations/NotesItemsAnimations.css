@@ -1,0 +1,21 @@
+.note-enter {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.note-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.note-exit {
+  opacity: 1;
+  transform: rotate(0) translateY(0);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.note-exit-active {
+  opacity: 0;
+  transform: rotate(360deg) translateY(20px);
+}
