@@ -72,7 +72,10 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
   };
 
   return (
-    <form onClick={e => e.stopPropagation()}>
+    <form 
+      onClick={e => e.stopPropagation()} 
+      onSubmit={e => e.preventDefault()}
+      >
       <div
         className={classes.notes__form}
         style={{ backgroundColor: `${notesSettings.color}` }}
