@@ -38,7 +38,7 @@
   position: absolute;
   top: 35px;
   left: 90px;
-  width: 250px;
+  width: 180px;
   border-radius: 15px;
   border: 2px solid #6e9ecf;
   animation: searchInput-border-animation 5s infinite;
