@@ -1,9 +1,9 @@
 import React from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import {useSelector} from "react-redux";
 
 const PrivateRoutes = () => {
-    const {isAuth} = React.useContext(AuthContext);
+    const isAuth = useSelector(state => state.auth.isAuth);
     const location = useLocation();
 
     return isAuth ? <Outlet /> : <Navigate to="/login" state={{from: location}} replace />

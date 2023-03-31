@@ -1,13 +1,15 @@
 import React from "react";
 import classes from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
-import { AuthContext } from "../../../context/AuthContext";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../../store/reducers/UserSlice";
 
 const Navigation = () => {
-  const { isAuth, setIsAuth } = React.useContext(AuthContext);
+  const isAuth = useSelector(state => state.auth.isAuth);
+  const dispatch = useDispatch();
 
-  const logout = () => {
-    setIsAuth(false);
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   const navigationItems = [
@@ -25,7 +27,7 @@ const Navigation = () => {
       name: isAuth ? "Logout" : "Login",
       link: isAuth ? "#" : "/login",
       iconClass: isAuth ? "fas fa-sign-out-alt" : "fas fa-sign-in-alt",
-      onClick: isAuth ? logout : undefined,
+      onClick: isAuth ? handleLogout : undefined,
     },
   ];
 
