@@ -17,12 +17,13 @@ const Notes = () => {
         <NoteForm />
       </ModalWindow>
       <div className={classes.notes__items}>
-        {!foundNotes.length && (
+        {!foundNotes.length ? (
           <div className={classes.notes__empty}>
             No notes were created yet...😢
           </div>
+        ) : (
+          <NotesItems />
         )}
-        <NotesItems />
       </div>
     </div>
   );
