@@ -90,46 +90,56 @@ export const notesSlice = createSlice({
         state.notesSettings.currentNote = findEditedNote;
       },
     },
-    updateNote: (state, action) => {
-      const { id, title, description } = action.payload;
-      state.notes = state.notes.map(note => {
-        if (note.id === id) {
-          return {
-            ...note,
-            title,
-            description,
-            date: currentData,
-          };
-        }
-        state.notesSettings.isEdit = false;
+    updateNote: {
+      reducer(state, action) {
+        const { id, title, description } = action.payload;
+        state.notes = state.notes.map(note => {
+          if (note.id === id) {
+            return {
+              ...note,
+              title,
+              description,
+              date: currentData,
+            };
+          }
+          state.notesSettings.isEdit = false;
+          state.notesSettings.isModal = false;
+          return note;
+        });
+      },
+    },
+    closeModal: {
+      reducer(state, action) {
         state.notesSettings.isModal = false;
-        return note;
-      });
+        state.notesSettings.isEdit = false;
+      },
     },
-    closeModal: (state, action) => {
-      state.notesSettings.isModal = false;
-      state.notesSettings.isEdit = false;
+    showColorButtons: {
+      reducer(state, action) {
+        state.notesSettings.isAddNew = !state.notesSettings.isAddNew;
+        state.notesSettings.isEdit = false;
+      },
     },
-    showColorButtons: (state, action) => {
-      state.notesSettings.isAddNew = !state.notesSettings.isAddNew;
-      state.notesSettings.isEdit = false;
+    openForm: {
+      reducer(state, action) {
+        const color = action.payload;
+        state.notesSettings.currentColor = color;
+        state.notesSettings.isModal = true;
+        state.notesSettings.currentNote = null;
+      },
     },
-    openForm: (state, action) => {
-      const color = action.payload;
-      state.notesSettings.currentColor = color;
-      state.notesSettings.isModal = true;
-      state.notesSettings.currentNote = null;
-    },
-    updateFoundNotes: (state, action) => {
-      const newFoundNotes =
-        action.payload === ""
-          ? state.notes
-          : state.notes.filter(note => {
-              return note.title
-                .toLowerCase()
-                .includes(action.payload.toLowerCase());
-            });
-      state.notesSettings.foundNotes = newFoundNotes;
+    updateFoundNotes: {
+      reducer(state, action) {
+        const newFoundNotes =
+          action.payload === ""
+            ? state.notes
+            : state.notes.filter(note => {
+                return note.title
+                  .toLowerCase()
+                  .includes(action.payload.toLowerCase());
+              });
+        state.notesSettings.foundNotes = newFoundNotes;
+      },
     },
   },
 });
