@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import MyButton from "../../components/UI/button/MyButon";
 import MyInput from "../../components/UI/input/MyInput";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../../store/reducers/UserSlice";
+import { login } from "../../store/features/users/userSlice";
 
 const Login = () => {
   const isAuth = useSelector(state => state.auth.isAuth);

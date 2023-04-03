@@ -1,9 +1,10 @@
 import React from "react";
 import classes from "./NotePage.module.css";
-import { AuthContext } from "../../context/AuthContext";
+import { useSelector } from "react-redux";
+import { allNotesSettings } from "../../store/features/notes/notesSlice";
 
 const Note = () => {
-  const { openedNote } = React.useContext(AuthContext);
+  const { openedNote } = useSelector(allNotesSettings);
 
   return (
     <div className={classes.note__page}>

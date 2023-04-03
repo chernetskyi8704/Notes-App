@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../../store/reducers/UserSlice";
+import { logout } from "../../../store/features/users/userSlice";
 
 const Navigation = () => {
   const isAuth = useSelector(state => state.auth.isAuth);

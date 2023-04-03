@@ -2,44 +2,24 @@ import React from "react";
 import classes from "../styles/NoteItem.module.css";
 import MyButton from "./UI/button/MyButon";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { deleteNote, openNote, editNote} from "../store/features/notes/notesSlice";
 
-const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,currentData }) => {
+const NoteItem = ({ id,bodyColour,title,body,currentData }) => {
   const router = useNavigate();
-  const { setOpenedNote } = React.useContext(AuthContext);
-  const editNote = ({ target }) => {
-    const notesColor = target.parentElement.parentElement.style.backgroundColor;
-    setNotesSettings(prevNotesSettings => {
-      return {
-        ...prevNotesSettings,
-        isEdit: true,
-        isModal: true,
-        color: notesColor,
-      };
-    });
+  const dispatch = useDispatch();
 
-    const currentNote = notes.filter(note => {
-      if (note.id === id) return note;
-    });
-
-    setNotesSettings(prevNotesSettings => {
-      return {
-        ...prevNotesSettings,
-        currentNote: currentNote,
-      };
-    });
+  const handleEditNote = () => {
+      dispatch(editNote({id, color: bodyColour}))
   };
 
-  const deleteNote = () => {
-    setNotes(notes.filter(note => note.id !== id));
+  const handleDeleteNote = () => {
+    dispatch(deleteNote(id));
   };
 
-  const openNote = () => {
-    const openedNote = notes.filter(note => {
-      router(`/notes/${note.id}`);
-      if (note.id === id) return note;
-    });
-    setOpenedNote(openedNote);
+  const handleOpenNote = () => {
+    dispatch(openNote(id));
+    router(`/notes/${id}`);
   };
 
   return (
@@ -55,17 +35,17 @@ const NoteItem = ({ notes,setNotes,setNotesSettings,id,bodyColour,title,body,cur
       </div>
       <strong className={classes.note__data}>{currentData}</strong>
       <div className={classes.note__buttons}>
-        <MyButton type="button" onClick={openNote}>
+        <MyButton type="button" onClick={handleOpenNote}>
           Open
         </MyButton>
         <MyButton
           className={classes.edit__button}
           type="button"
-          onClick={editNote}
+          onClick={handleEditNote}
         >
           Edit
         </MyButton>
-        <MyButton type="button" onClick={deleteNote}>
+        <MyButton type="button" onClick={handleDeleteNote}>
           Delete
         </MyButton>
       </div>

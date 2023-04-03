@@ -1,84 +1,51 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
-import { nanoid } from "nanoid";
 import MyButton from "./UI/button/MyButon";
+import { addNote, updateNote, allNotesSettings } from "../store/features/notes/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
+const NoteForm = () => {
+  const dispatch = useDispatch();
+  const { currentColor, isEdit, currentNote  } = useSelector(allNotesSettings);
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
 
   React.useEffect(() => {
-    if (notesSettings.isEdit) {
-      setTitle(notesSettings.currentNote[0].title);
-      setDescription(notesSettings.currentNote[0].description);
+    if (isEdit) {
+      setTitle(currentNote[0].title);
+      setDescription(currentNote[0].description);
     } else {
       setTitle("");
       setDescription("");
     }
-  }, [notesSettings.isEdit]);
+  }, [isEdit]);
 
-  const currentData = new Date().toLocaleDateString();
-
-  const addNote = () => {
-    setNotes([
-      {
-        id: nanoid(),
-        title: title,
-        description: description,
-        date: currentData,
-        color: `${notesSettings.color}`,
-      },
-      ...notes,
-    ]);
-
-    setNotesSettings(prevNotesSettings => {
-      return {
-        ...prevNotesSettings,
-        isModal: false,
-      };
-    });
-    setTitle("");
-    setDescription("");
+  const handleAddNote = () => {
+    if (title && description) {
+      dispatch(addNote(title, description, currentColor));
+      setTitle("");
+      setDescription("");
+    }
   };
 
-  const updateNote = () => {
-    if (notesSettings.isEdit)
-      setNotes(prevNotes => {
-        const newNotesArr = [];
-        for (let i = 0; i < prevNotes.length; i++) {
-          if (prevNotes[i].id === notesSettings.currentNote[0].id) {
-            newNotesArr.unshift({
-              ...prevNotes[i],
-              title: title,
-              description: description,
-              date: currentData,
-            });
-          } else {
-            newNotesArr.push(prevNotes[i]);
-          }
-        }
-        return newNotesArr;
-      });
-
-    setNotesSettings(prevNotesSettings => {
-      return {
-        ...prevNotesSettings,
-        isEdit: false,
-        isModal: false,
+  const handleUpdateNote = (e) => {
+    if (currentNote[0].id) {
+      const updatedFields = {
+        id: currentNote[0].id,
+        title,
+        description,
       };
-    });
-    setTitle("");
-    setDescription("");
+      dispatch(updateNote(updatedFields));
+      setTitle("");
+      setDescription("");
+    }
   };
 
   return (
-    <form 
-      onClick={e => e.stopPropagation()} 
-      onSubmit={e => e.preventDefault()}
-      >
+    <form onClick={e => e.stopPropagation()} onSubmit={e => e.preventDefault()}>
       <div
         className={classes.notes__form}
-        style={{ backgroundColor: `${notesSettings.color}` }}
+        style={{ backgroundColor: `${currentColor}` }}
       >
         <input
           type="text"
@@ -94,12 +61,12 @@ const NoteForm = ({ notes, setNotes, notesSettings, setNotesSettings }) => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         ></textarea>
-        {notesSettings.isEdit ? (
-          <MyButton type="button" onClick={updateNote}>
+        {isEdit ? (
+          <MyButton type="button" onClick={handleUpdateNote}>
             Save
           </MyButton>
         ) : (
-          <MyButton type="button" onClick={addNote}>
+          <MyButton type="button" onClick={handleAddNote}>
             Add
           </MyButton>
         )}
