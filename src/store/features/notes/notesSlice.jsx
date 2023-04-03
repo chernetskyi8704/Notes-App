@@ -47,14 +47,14 @@ export const notesSlice = createSlice({
         state.notesSettings.isModal = false;
         state.notesSettings.isAddNew = false;
       },
-      prepare(title, description, color) {
+      prepare(title, description, currentColor) {
         return {
           payload: {
             id: nanoid(),
             title,
             description,
             date: currentData,
-            currentColor: color,
+            color: currentColor,
           },
         };
       },
