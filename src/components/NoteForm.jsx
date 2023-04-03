@@ -1,12 +1,16 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import { addNote, updateNote, allNotesSettings } from "../store/features/notes/notesSlice";
+import {
+  addNote,
+  updateNote,
+  allNotesSettings,
+} from "../store/features/notes/notesSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
-  const { currentColor, isEdit, currentNote  } = useSelector(allNotesSettings);
+  const { currentColor, isEdit, currentNote } = useSelector(allNotesSettings);
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
 
@@ -28,8 +32,8 @@ const NoteForm = () => {
     }
   };
 
-  const handleUpdateNote = (e) => {
-    if (currentNote[0].id) {
+  const handleUpdateNote = e => {
+    if (currentNote[0].id && title && description) {
       const updatedFields = {
         id: currentNote[0].id,
         title,
