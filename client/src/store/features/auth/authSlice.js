@@ -6,6 +6,7 @@ export const authSlice = createSlice({
     user: null,
     token: null,
     isAuth: false,
+    userId: null,
   },
   reducers: {
     setCredential: (state, action) => {
@@ -13,11 +14,13 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = accessToken;
       state.isAuth = true;
+      state.userId = user.id;
     },
     logOut: (state, action) => {
       state.user = null;
       state.token = null;
       state.isAuth = false;
+      state.userId = null;
     },
   },
 });
