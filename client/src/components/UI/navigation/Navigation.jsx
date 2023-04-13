@@ -15,7 +15,7 @@ const Navigation = () => {
   const navigationItems = [
     {
       name: "Home",
-      link: "/",
+      link: "/home",
       iconClass: "fas fa-home",
     },
     {

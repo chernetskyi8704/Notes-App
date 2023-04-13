@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import classes from "./Login.module.css";
+import classes from "./LoginPage.module.css";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import MyButton from "../../components/UI/button/MyButon";
 import MyInput from "../../components/UI/input/MyInput";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../store/features/users/userSlice";
 
-const Login = () => {
+const LoginPage = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,11 +36,12 @@ const Login = () => {
       <MyButton type="submit" onClick={handleLogin}>
         Login
       </MyButton>
-      <div className={classes.forgot_password}>
-        <NavLink to="/login">Forgot your password?</NavLink>
-      </div>
+      <p className={classes.forgot_password}>
+        Don't have an account?
+        <NavLink to="/registration"> Sign up</NavLink>
+      </p>
     </form>
   );
 };
 
-export default Login;
+export default LoginPage;

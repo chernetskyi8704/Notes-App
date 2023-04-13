@@ -1,8 +1,8 @@
 import React from "react";
 import ProjectList from "../../components/ProjectList";
-import classes from "./Home.module.css";
+import classes from "./HomePage.module.css";
 
-const Home = () => {
+const HomePage = () => {
   return (
     <div className={classes.projects__container}>
       <h1 className={classes.projects__tittle}>My projects</h1>
@@ -11,4 +11,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

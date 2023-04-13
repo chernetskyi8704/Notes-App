@@ -3,7 +3,7 @@ import classes from "./NotePage.module.css";
 import { useSelector } from "react-redux";
 import { allNotesSettings } from "../../store/features/notes/notesSlice";
 
-const Note = () => {
+const NotePage = () => {
   const { openedNote } = useSelector(allNotesSettings);
 
   return (
@@ -24,4 +24,4 @@ const Note = () => {
   );
 };
 
-export default Note;
+export default NotePage;

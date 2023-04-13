@@ -1,22 +1,25 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Home from "../../pages/Home/Home";
-import Notes from "../../pages/Notes/Notes";
-import Login from "../../pages/Login/Login";
+import { Route, Routes, Outlet } from "react-router-dom";
+import HomePage from "../../pages/HomePage/HomePage";
+import NotesPage from "../../pages/NotesPage/NotesPage";
+import LoginPage from "../../pages/LoginPage/LoginPage";
 import PrivateRoutes from "./PrivatRoutes";
 import NotePage from "../../pages/NotePage/NotePage";
+import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
 
 const AppRouter = () => {
   return (
     <Routes>
       <Route element={<PrivateRoutes />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/notes" element={<Notes />} />
+        <Route path="/notes" element={<NotesPage />} />
         <Route path="/notes/:title" element={<NotePage />} />
-        <Route path="*" element={<Home />} />
       </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="*" element={<Login />} />
+      <Route element={<Outlet />}>
+        <Route index element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/registration" element={<RegistrationPage />} />
+      </Route>
     </Routes>
   );
 };
