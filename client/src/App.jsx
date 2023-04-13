@@ -6,10 +6,10 @@ import "./styles/reset.css";
 
 const App = () => {
   return (
-      <div className="App">
-        <Navigation />
-        <MainContent />
-      </div>
+    <div className="App">
+      <Navigation />
+      <MainContent />
+    </div>
   );
 };
 
