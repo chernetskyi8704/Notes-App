@@ -10,11 +10,11 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import userReducer from "./features/users/userSlice";
+import authReducer from "./features/auth/authSlice";
 import notesReducer from "./features/notes/notesSlice";
 
 const rootReducer = combineReducers({
-  auth: userReducer,
+  auth: authReducer,
   notes: notesReducer,
 });
 
