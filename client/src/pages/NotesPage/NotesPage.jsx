@@ -16,7 +16,7 @@ const NotesPage = () => {
       <ModalWindow>
         <NoteForm />
       </ModalWindow>
-      <div className={classes.notes__items}>
+      {/* <div className={classes.notes__items}>
         {!foundNotes.length ? (
           <div className={classes.notes__empty}>
             No notes were created yet...😢
@@ -24,7 +24,7 @@ const NotesPage = () => {
         ) : (
           <NotesItems />
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
