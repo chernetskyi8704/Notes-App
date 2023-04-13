@@ -9,7 +9,7 @@ import {
   editNote,
 } from "../../store/features/notes/notesSlice";
 
-const NoteItem = ({ title, content, id, note, date }) => {
+const NoteItem = ({ title, content, id, note, date, color }) => {
   const router = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ const NoteItem = ({ title, content, id, note, date }) => {
   };
 
   return (
-    <section className={classes.note__item}>
+    <section className={classes.note__item} style={{backgroundColor: `${color}`}}>
       <div className={classes.note__info}>
         <h3 className={classes.note__title}>{title}</h3>
         <p className={classes.note__body}>{content}</p>

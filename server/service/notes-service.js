@@ -8,7 +8,7 @@ class NotesService {
     return userNotes;
   }
 
-  async createNote(userId, title, content, date) {
+  async createNote(userId, title, content, date, color) {
     const user = await UserModel.findOne({ _id: userId });
     if (!user) {
       throw ApiError.BadRequest(`No user found with userId: ${userId}`);
@@ -18,12 +18,13 @@ class NotesService {
       userId,
       title,
       content,
-      date
+      date,
+      color,
     });
 
     return note;
   }
-  
+
   async updateNote(id, updatedNote) {
     const note = await NoteModel.findByIdAndUpdate(id, updatedNote, {
       new: true,

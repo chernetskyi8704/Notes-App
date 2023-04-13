@@ -5,6 +5,7 @@ const NoteSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
   date: { type: String },
+  color: { type: String },
 });
 
 module.exports = model("Note", NoteSchema);

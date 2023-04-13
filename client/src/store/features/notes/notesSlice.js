@@ -53,20 +53,6 @@ export const notesSlice = createSlice({
         state.notesSettings.currentNote = findEditedNote;
       },
     },
-    showColorButtons: {
-      reducer(state, action) {
-        state.notesSettings.isAddNew = !state.notesSettings.isAddNew;
-        state.notesSettings.isEdit = false;
-      },
-    },
-    openForm: {
-      reducer(state, action) {
-        const color = action.payload;
-        state.notesSettings.currentColor = color;
-        state.notesSettings.isModal = true;
-        state.notesSettings.currentNote = null;
-      },
-    },
     updateFoundNotes: {
       reducer(state, action) {
         const newFoundNotes =
@@ -91,8 +77,6 @@ export const {
   openNote,
   editNote,
   closeModal,
-  showColorButtons,
-  openForm,
   updateFoundNotes,
   setNotesSettings,
 } = notesSlice.actions;

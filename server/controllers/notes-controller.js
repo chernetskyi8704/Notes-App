@@ -19,8 +19,8 @@ class NotesController {
 
   async createNote(req, res, next) {
     try {
-      const { userId, title, content, date } = req.body;
-      const noteData = await NotesService.createNote(userId, title, content, date);
+      const { userId, title, content, date, color } = req.body;
+      const noteData = await NotesService.createNote(userId, title, content, date, color);
 
       return res.json(noteData);
     } catch (error) {

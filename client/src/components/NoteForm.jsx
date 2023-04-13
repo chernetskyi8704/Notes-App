@@ -31,7 +31,7 @@ const NoteForm = () => {
 
   const handleAddNote = async () => {
     if (title && content) {
-      await createNote({ userId, title, content, date });
+      await createNote({ userId, title, content, date, color: notesSettings.currentColor });
       dispatch(
         setNotesSettings({
           ...notesSlice,

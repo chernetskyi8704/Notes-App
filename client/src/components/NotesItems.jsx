@@ -29,6 +29,7 @@ const NotesItems = () => {
           content={note.content}
           id={note._id}
           date={note.date}
+          color={note.color}
         />
       </CSSTransition>
     ));
@@ -36,7 +37,11 @@ const NotesItems = () => {
     content = <p>No notes were created yet!</p>;
   }
 
-  return content;
+  return notes.length ? (
+    <TransitionGroup component={null}>{content}</TransitionGroup>
+  ) : (
+    { content }
+  );
 };
 
 export default NotesItems;
