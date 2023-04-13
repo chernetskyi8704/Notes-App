@@ -1,47 +1,59 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import {
-  addNote,
-  updateNote,
-  allNotesSettings,
-} from "../store/features/notes/notesSlice";
+import notesSlice, { allNotesSettings,setNotesSettings } from "../store/features/notes/notesSlice";
+import { useAddNoteMutation } from "../store/features/notes/notesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
-  const { currentColor, isEdit, currentNote } = useSelector(allNotesSettings);
+  const notesSettings = useSelector(allNotesSettings);
   const [title, setTitle] = React.useState("");
-  const [description, setDescription] = React.useState("");
+  const [content, setContent] = React.useState("");
+  const userId = useSelector(state => state.auth.userId);
+  const [createNote, {}] = useAddNoteMutation();
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+  const day = String(currentDate.getDate()).padStart(2, "0");
+  const date = `${day}.${month}.${year}`;
 
   React.useEffect(() => {
-    if (isEdit) {
-      setTitle(currentNote[0].title);
-      setDescription(currentNote[0].description);
+    if (notesSettings.isEdit) {
+      setTitle(notesSettings.currentNote[0].title);
+      setContent(notesSettings.currentNote[0].description);
     } else {
       setTitle("");
-      setDescription("");
+      setContent("");
     }
-  }, [isEdit]);
+  }, [notesSettings.isEdit]);
 
-  const handleAddNote = () => {
-    if (title && description) {
-      dispatch(addNote(title, description, currentColor));
+  const handleAddNote = async () => {
+    if (title && content) {
+      await createNote({ userId, title, content, date });
+      dispatch(
+        setNotesSettings({
+          ...notesSlice,
+          isModal: false,
+          currentNote: [],
+        })
+      );
       setTitle("");
-      setDescription("");
+      setContent("");
     }
   };
 
   const handleUpdateNote = e => {
-    if (currentNote[0].id && title && description) {
+    if (notesSettings.currentNote[0].id && title && content) {
       const updatedFields = {
-        id: currentNote[0].id,
+        id: notesSettings.currentNote[0].id,
         title,
-        description,
+        content,
       };
-      dispatch(updateNote(updatedFields));
+      // dispatch(updateNote(updatedFields));
       setTitle("");
-      setDescription("");
+      setContent("");
     }
   };
 
@@ -49,7 +61,7 @@ const NoteForm = () => {
     <form onClick={e => e.stopPropagation()} onSubmit={e => e.preventDefault()}>
       <div
         className={classes.notes__form}
-        style={{ backgroundColor: `${currentColor}` }}
+        style={{ backgroundColor: `${notesSettings.currentColor}` }}
       >
         <input
           type="text"
@@ -60,12 +72,12 @@ const NoteForm = () => {
           onChange={e => setTitle(e.target.value)}
         />
         <textarea
-          name="description"
-          placeholder="Description..."
-          value={description}
-          onChange={e => setDescription(e.target.value)}
+          name="content"
+          placeholder="Wtite smth..."
+          value={content}
+          onChange={e => setContent(e.target.value)}
         ></textarea>
-        {isEdit ? (
+        {notesSettings.isEdit ? (
           <MyButton type="button" onClick={handleUpdateNote}>
             Save
           </MyButton>

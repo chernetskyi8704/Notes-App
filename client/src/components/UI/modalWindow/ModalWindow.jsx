@@ -1,14 +1,14 @@
 import React from "react";
 import classes from "./modalWindow.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { closeModal, allNotesSettings } from "../../../store/features/notes/notesSlice";
+import { setNotesSettings, allNotesSettings } from "../../../store/features/notes/notesSlice";
 
 const ModalWindow = ({ children }) => {
   const rootClasses = [classes.modal];
   const dispatch = useDispatch();
-  const {isModal} = useSelector(allNotesSettings);
+  const notesSettings = useSelector(allNotesSettings);
 
-  if (isModal) {
+  if (notesSettings.isModal) {
     rootClasses.push(classes.active);
   }
 
@@ -16,7 +16,12 @@ const ModalWindow = ({ children }) => {
     <div
       className={rootClasses.join(" ")}
       onClick={() => {
-        dispatch(closeModal());
+        dispatch(setNotesSettings({
+          ...notesSettings,
+          isModal: false,
+          isEdit: false,
+          isAddNew: false
+        }));
       }}
     >
       {children}

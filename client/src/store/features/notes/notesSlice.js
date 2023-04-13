@@ -1,6 +1,4 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
-
-const currentData = new Date().toLocaleDateString();
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   notesSettings: {
@@ -18,24 +16,12 @@ export const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    addNote: {
+    setNotesSettings: {
       reducer(state, action) {
-        state.notes.push(action.payload);
-        state.notesSettings.isModal = false;
-        state.notesSettings.isAddNew = false;
-      },
-      prepare(title, description, currentColor) {
-        return {
-          payload: {
-            id: nanoid(),
-            title,
-            description,
-            date: currentData,
-            color: currentColor,
-          },
-        };
+        state.notesSettings = action.payload;
       },
     },
+
     deleteNote: {
       reducer(state, action) {
         const noteId = action.payload;
@@ -65,30 +51,6 @@ export const notesSlice = createSlice({
           }
         });
         state.notesSettings.currentNote = findEditedNote;
-      },
-    },
-    updateNote: {
-      reducer(state, action) {
-        const { id, title, description } = action.payload;
-        state.notes = state.notes.map(note => {
-          if (note.id === id) {
-            return {
-              ...note,
-              title,
-              description,
-              date: currentData,
-            };
-          }
-          state.notesSettings.isEdit = false;
-          state.notesSettings.isModal = false;
-          return note;
-        });
-      },
-    },
-    closeModal: {
-      reducer(state, action) {
-        state.notesSettings.isModal = false;
-        state.notesSettings.isEdit = false;
       },
     },
     showColorButtons: {
@@ -125,14 +87,13 @@ export const allNotesSettings = state => state.notes.notesSettings;
 export const selectAllNotes = state => state.notes.notes;
 
 export const {
-  addNote,
   deleteNote,
   openNote,
   editNote,
-  updateNote,
   closeModal,
   showColorButtons,
   openForm,
   updateFoundNotes,
+  setNotesSettings,
 } = notesSlice.actions;
 export default notesSlice.reducer;

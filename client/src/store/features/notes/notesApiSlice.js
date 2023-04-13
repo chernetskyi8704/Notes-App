@@ -1,4 +1,4 @@
-import { apiSlice } from "../../../API/apiSlice";
+import { apiSlice } from "../../../API/apiSlice.js";
 
 export const postApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
@@ -6,7 +6,15 @@ export const postApiSlice = apiSlice.injectEndpoints({
       query: userId => `/notes/${userId}`,
       providesTags: result => ["Note"],
     }),
+    addNote: builder.mutation({
+      query: notesData => ({
+        url: "/createNote",
+        method: "POST",
+        body: { ...notesData },
+      }),
+      invalidatesTags: ["Note"],
+    }),
   }),
 });
 
-export const { useGetUsersNotesQuery } = postApiSlice;
+export const { useGetUsersNotesQuery, useAddNoteMutation } = postApiSlice;
