@@ -15,7 +15,7 @@ const AppRouter = () => {
         <Route path="/notes/:title" element={<NotePage />} />
       </Route>
       <Route element={<Outlet />}>
-        <Route index element={<HomePage />} />
+        <Route index element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
