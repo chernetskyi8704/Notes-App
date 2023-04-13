@@ -11,6 +11,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   white-space: pre-wrap;
+  border: 1px solid black;
 }
 
 .note__info {

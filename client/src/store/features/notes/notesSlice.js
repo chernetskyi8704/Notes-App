@@ -3,29 +3,6 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 const currentData = new Date().toLocaleDateString();
 
 const initialState = {
-  notes: [
-    {
-      id: nanoid(),
-      title: "Note 1",
-      description: "Description 1",
-      date: currentData,
-      color: "#6E9ECF",
-    },
-    {
-      id: nanoid(),
-      title: "Note 2",
-      description: "Description 2",
-      date: currentData,
-      color: "#9acd32",
-    },
-    {
-      id: nanoid(),
-      title: "Note 4",
-      description: "Description 3",
-      date: currentData,
-      color: "#d2b48c",
-    },
-  ],
   notesSettings: {
     isModal: false,
     isEdit: false,

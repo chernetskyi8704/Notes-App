@@ -8,23 +8,13 @@ import { useSelector } from "react-redux";
 import { allNotesSettings } from "../../store/features/notes/notesSlice";
 
 const NotesPage = () => {
-  const { foundNotes } = useSelector(allNotesSettings);
-
   return (
     <div className={classes.notes__container}>
       <NotesControlPanel />
       <ModalWindow>
         <NoteForm />
       </ModalWindow>
-      {/* <div className={classes.notes__items}>
-        {!foundNotes.length ? (
-          <div className={classes.notes__empty}>
-            No notes were created yet...😢
-          </div>
-        ) : (
-          <NotesItems />
-        )}
-      </div> */}
+      <NotesItems />
     </div>
   );
 };
