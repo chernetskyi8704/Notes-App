@@ -2,13 +2,14 @@ import React from "react";
 import classes from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../../../store/features/auth/authSlice";
 
 const Navigation = () => {
   const isAuth = useSelector(state => state.auth.isAuth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    console.log("logOut");
+    dispatch(logOut());
   };
 
   const navigationItems = [
@@ -26,7 +27,7 @@ const Navigation = () => {
       name: isAuth ? "Logout" : "Login",
       link: isAuth ? "#" : "/login",
       iconClass: isAuth ? "fas fa-sign-out-alt" : "fas fa-sign-in-alt",
-      onClick: isAuth ? handleLogout : undefined,
+      onClick: isAuth && handleLogout,
     },
   ];
 
