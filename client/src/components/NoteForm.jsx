@@ -1,18 +1,19 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import notesSlice, { allNotesSettings, setNotesSettings } from "../store/features/notes/notesSlice";
+import { setModal, setEdit, setCurrentNote, allNotesSettings } from "../store/features/notes/notesSlice";
 import { useAddNoteMutation, useUpdateNoteMutation } from "../store/features/notes/notesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
   const notesSettings = useSelector(allNotesSettings);
-  const [title, setTitle] = React.useState(()=>"");
-  const [content, setContent] = React.useState(()=>"");
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
   const userId = useSelector(state => state.auth.userId);
   const [createNote, {}] = useAddNoteMutation();
   const [updateNote, {}] = useUpdateNoteMutation();
+
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
@@ -36,13 +37,8 @@ const NoteForm = () => {
   const handleAddNote = async () => {
     if (title && content) {
       await createNote({ userId, title, content, date, color: notesSettings.currentColor });
-      dispatch(
-        setNotesSettings({
-          ...notesSlice,
-          isModal: false,
-          currentNote: [],
-        })
-      );
+      dispatch(setModal(false));
+      dispatch(setCurrentNote(null));
       setTitle("");
       setContent("");
     }
@@ -51,11 +47,9 @@ const NoteForm = () => {
   const handleUpdateNote = async () => {
     if (notesSettings.currentNote._id && title && content) {
       await updateNote({id: notesSettings.currentNote._id, title, content})
-      dispatch(setNotesSettings({
-        isModal: false,
-        isEdit: false,
-        currentNote: null
-      }))
+      dispatch(setModal(false));
+      dispatch(setEdit(false));
+      dispatch(setCurrentNote(null));
       setTitle("");
       setContent("");
     }

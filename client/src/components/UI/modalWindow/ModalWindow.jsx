@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./modalWindow.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { setNotesSettings, allNotesSettings } from "../../../store/features/notes/notesSlice";
+import { allNotesSettings, setModal, setEdit, setAddNew } from "../../../store/features/notes/notesSlice";
 
 const ModalWindow = ({ children }) => {
   const rootClasses = [classes.modal];
@@ -12,18 +12,14 @@ const ModalWindow = ({ children }) => {
     rootClasses.push(classes.active);
   }
 
+  const handleCloseModal = () => {
+    dispatch(setModal(false));
+    dispatch(setEdit(false));
+    dispatch(setAddNew(false));
+  };
+
   return (
-    <div
-      className={rootClasses.join(" ")}
-      onClick={() => {
-        dispatch(setNotesSettings({
-          ...notesSettings,
-          isModal: false,
-          isEdit: false,
-          isAddNew: false
-        }));
-      }}
-    >
+    <div className={rootClasses.join(" ")} onClick={handleCloseModal}>
       {children}
     </div>
   );

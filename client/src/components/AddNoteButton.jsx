@@ -4,7 +4,7 @@ import classes from "../styles/AddNoteButton.module.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../styles/animations/AddNoteButtonAnimations.css";
 import { useSelector, useDispatch } from "react-redux";
-import { allNotesSettings, setNotesSettings } from "../store/features/notes/notesSlice";
+import { allNotesSettings, setModal, setEdit, setAddNew, setCurrentNote, setCurrentColor } from "../store/features/notes/notesSlice";
 
 const AddNoteButton = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -29,25 +29,15 @@ const AddNoteButton = () => {
   const handleOpenForm = ({ target }) => {
     if (target.tagName === "BUTTON") {
       const currentColor = target.value;
-      dispatch(
-        setNotesSettings({
-          ...notesSettings,
-          isModal: true,
-          currentColor: currentColor,
-          currentNote: null,
-        })
-      );
+      dispatch(setModal(true));
+      dispatch(setCurrentColor(currentColor));
+      dispatch(setCurrentNote(null));
     }
   };
 
   const toggleShowButtons = () => {
-    dispatch(
-      setNotesSettings({
-        ...notesSettings,
-        isAddNew: !notesSettings.isAddNew,
-        isEdit: false,
-      })
-    );
+    dispatch(setAddNew(!notesSettings.isAddNew));
+    dispatch(setEdit(false));
     setVisibleButtons(0);
   };
 

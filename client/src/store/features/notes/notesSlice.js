@@ -14,54 +14,36 @@ export const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    setNotesSettings: {
+    setModal: {
       reducer(state, action) {
-        state.notesSettings = action.payload;
+        state.notesSettings.isModal = action.payload;
       },
     },
-
-    deleteNote: {
+    setEdit: {
       reducer(state, action) {
-        const noteId = action.payload;
-        state.notes = state.notes.filter(note => note.id !== noteId);
+        state.notesSettings.isEdit = action.payload;
       },
     },
-    openNote: {
+    setAddNew: {
       reducer(state, action) {
-        const id = action.payload;
-        const openedNote = state.notes.filter(note => {
-          if (note.id === id) {
-            return note;
-          }
-        });
-        state.notesSettings.openedNote = openedNote;
+        state.notesSettings.isAddNew = action.payload;
       },
     },
-    updateFoundNotes: {
+    setCurrentNote: {
       reducer(state, action) {
-        const newFoundNotes =
-          action.payload === ""
-            ? state.notes
-            : state.notes.filter(note => {
-                return note.title
-                  .toLowerCase()
-                  .includes(action.payload.toLowerCase());
-              });
-        state.notesSettings.foundNotes = newFoundNotes;
+        state.notesSettings.currentNote = action.payload;
+      },
+    },
+    setCurrentColor: {
+      reducer(state, action) {
+        state.notesSettings.currentColor = action.payload;
       },
     },
   },
 });
 
 export const allNotesSettings = state => state.notes.notesSettings;
-export const selectAllNotes = state => state.notes.notes;
 
-export const {
-  deleteNote,
-  openNote,
-  editNote,
-  closeModal,
-  updateFoundNotes,
-  setNotesSettings,
-} = notesSlice.actions;
+export const { setModal, setEdit, setAddNew, setCurrentNote, setCurrentColor } =
+  notesSlice.actions;
 export default notesSlice.reducer;

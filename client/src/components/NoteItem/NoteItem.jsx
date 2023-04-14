@@ -1,33 +1,27 @@
 import React from "react";
 import classes from "./NoteItem.module.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { allNotesSettings, setNotesSettings, editNote } from "../../store/features/notes/notesSlice";
+import { useDispatch } from "react-redux";
+import { setModal, setEdit, setCurrentNote, setCurrentColor  } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
 
 const NoteItem = ({ note }) => {
   const router = useNavigate();
   const dispatch = useDispatch();
-  const notesSettings = useSelector(allNotesSettings);
   const [deleteNote, {}] = useDeleteNoteMutation();
 
   const handleEditNote = () => {
-    dispatch(
-      setNotesSettings({
-        ...notesSettings,
-        currentNote: note,
-        isModal: true,
-        isEdit: true,
-        currentColor: note.color,
-      })
-    );
+    dispatch(setCurrentNote(note))
+    dispatch(setCurrentColor(note.color))
+    dispatch(setEdit(true))
+    dispatch(setModal(true))
   };
 
   const handleDeleteNote = () => {
     deleteNote(note._id);
   };
 
-  const handleOpenNote = () => {
+  const handleOpenNote = () => { 
     // dispatch(openNote(id));
     // router(`/notes/${id}`);
   };
