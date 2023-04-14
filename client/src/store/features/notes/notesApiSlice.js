@@ -7,14 +7,22 @@ export const postApiSlice = apiSlice.injectEndpoints({
       providesTags: result => ["Note"],
     }),
     addNote: builder.mutation({
-      query: notesData => ({
+      query: noteData => ({
         url: "/createNote",
         method: "POST",
-        body: { ...notesData },
+        body: { ...noteData },
+      }),
+      invalidatesTags: ["Note"],
+    }),
+    updateNote: builder.mutation({
+      query: updatedNoteData => ({
+        url: `/update/${updatedNoteData.id}`,
+        method: "PUT",
+        body: { title: updatedNoteData.title, content: updatedNoteData.content },
       }),
       invalidatesTags: ["Note"],
     }),
   }),
 });
 
-export const { useGetUsersNotesQuery, useAddNoteMutation } = postApiSlice;
+export const { useGetUsersNotesQuery, useAddNoteMutation, useUpdateNoteMutation } = postApiSlice;

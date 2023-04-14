@@ -1,18 +1,18 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import notesSlice, { allNotesSettings,setNotesSettings } from "../store/features/notes/notesSlice";
-import { useAddNoteMutation } from "../store/features/notes/notesApiSlice";
+import notesSlice, { allNotesSettings, setNotesSettings } from "../store/features/notes/notesSlice";
+import { useAddNoteMutation, useUpdateNoteMutation } from "../store/features/notes/notesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
   const notesSettings = useSelector(allNotesSettings);
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
+  const [title, setTitle] = React.useState(()=>"");
+  const [content, setContent] = React.useState(()=>"");
   const userId = useSelector(state => state.auth.userId);
   const [createNote, {}] = useAddNoteMutation();
-
+  const [updateNote, {}] = useUpdateNoteMutation();
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
@@ -21,13 +21,17 @@ const NoteForm = () => {
 
   React.useEffect(() => {
     if (notesSettings.isEdit) {
-      setTitle(notesSettings.currentNote[0].title);
-      setContent(notesSettings.currentNote[0].description);
+      setTitle(notesSettings.currentNote.title);
+      setContent(notesSettings.currentNote.content);
     } else {
       setTitle("");
       setContent("");
     }
-  }, [notesSettings.isEdit]);
+    if (!notesSettings.isModal) {
+      setTitle("");
+      setContent("");
+    }
+  }, [notesSettings.isEdit, notesSettings.isModal]);
 
   const handleAddNote = async () => {
     if (title && content) {
@@ -44,14 +48,14 @@ const NoteForm = () => {
     }
   };
 
-  const handleUpdateNote = e => {
-    if (notesSettings.currentNote[0].id && title && content) {
-      const updatedFields = {
-        id: notesSettings.currentNote[0].id,
-        title,
-        content,
-      };
-      // dispatch(updateNote(updatedFields));
+  const handleUpdateNote = async () => {
+    if (notesSettings.currentNote._id && title && content) {
+      await updateNote({id: notesSettings.currentNote._id, title, content})
+      dispatch(setNotesSettings({
+        isModal: false,
+        isEdit: false,
+        currentNote: null
+      }))
       setTitle("");
       setContent("");
     }

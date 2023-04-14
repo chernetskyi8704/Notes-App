@@ -1,22 +1,25 @@
 import React from "react";
 import classes from "./NoteItem.module.css";
-import MyButton from "../UI/button/MyButon";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {
-  deleteNote,
-  openNote,
-  editNote,
-} from "../../store/features/notes/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { allNotesSettings, setNotesSettings, editNote } from "../../store/features/notes/notesSlice";
 
-const NoteItem = ({ title, content, id, note, date, color }) => {
+const NoteItem = ({ note }) => {
+
   const router = useNavigate();
   const dispatch = useDispatch();
+  const notesSettings = useSelector(allNotesSettings);
 
   const handleEditNote = () => {
-    // dispatch(editNote({id, color: bodyColour}))
+    dispatch(setNotesSettings({
+      ...notesSettings,
+      currentNote: note,
+      isModal: true,
+      isEdit: true,
+      currentColor: note.color
+    }))
   };
-
+console.log("Changed")
   const handleDeleteNote = () => {
     // dispatch(deleteNote(id));
   };
@@ -27,12 +30,12 @@ const NoteItem = ({ title, content, id, note, date, color }) => {
   };
 
   return (
-    <section className={classes.note__item} style={{backgroundColor: `${color}`}}>
+    <section className={classes.note__item} style={{backgroundColor: `${note.color}`}}>
       <div className={classes.note__info}>
-        <h3 className={classes.note__title}>{title}</h3>
-        <p className={classes.note__body}>{content}</p>
+        <h3 className={classes.note__title}>{note.title}</h3>
+        <p className={classes.note__body}>{note.content}</p>
       </div>
-      <time className={classes.note__data}>{date}</time>
+      <time className={classes.note__data}>{note.date}</time>
       <div className={classes.note__buttons}>
         <button
           className={classes.edit__button}

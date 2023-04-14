@@ -5,9 +5,7 @@ const initialState = {
     isModal: false,
     isEdit: false,
     isAddNew: false,
-    foundNotes: [],
-    currentNote: [],
-    openedNote: [],
+    currentNote: null,
     currentColor: "",
   },
 };
@@ -37,20 +35,6 @@ export const notesSlice = createSlice({
           }
         });
         state.notesSettings.openedNote = openedNote;
-      },
-    },
-    editNote: {
-      reducer(state, action) {
-        const { id, color } = action.payload;
-        state.notesSettings.isEdit = true;
-        state.notesSettings.isModal = true;
-        state.notesSettings.currentColor = color;
-        const findEditedNote = state.notes.filter(note => {
-          if (note.id === id) {
-            return note;
-          }
-        });
-        state.notesSettings.currentNote = findEditedNote;
       },
     },
     updateFoundNotes: {

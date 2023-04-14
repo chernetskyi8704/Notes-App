@@ -25,11 +25,6 @@ const NotesItems = () => {
       <CSSTransition timeout={500} key={note._id} classNames="note">
         <NoteItem
           note={note}
-          title={note.title}
-          content={note.content}
-          id={note._id}
-          date={note.date}
-          color={note.color}
         />
       </CSSTransition>
     ));
