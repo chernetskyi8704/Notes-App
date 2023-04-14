@@ -18,11 +18,26 @@ export const postApiSlice = apiSlice.injectEndpoints({
       query: updatedNoteData => ({
         url: `/update/${updatedNoteData.id}`,
         method: "PUT",
-        body: { title: updatedNoteData.title, content: updatedNoteData.content },
+        body: {
+          title: updatedNoteData.title,
+          content: updatedNoteData.content,
+        },
+      }),
+      invalidatesTags: ["Note"],
+    }),
+    deleteNote: builder.mutation({
+      query: id => ({
+        url: `/delete/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Note"],
     }),
   }),
 });
 
-export const { useGetUsersNotesQuery, useAddNoteMutation, useUpdateNoteMutation } = postApiSlice;
+export const {
+  useGetUsersNotesQuery,
+  useAddNoteMutation,
+  useUpdateNoteMutation,
+  useDeleteNoteMutation,
+} = postApiSlice;

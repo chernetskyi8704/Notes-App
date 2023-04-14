@@ -3,25 +3,28 @@ import classes from "./NoteItem.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { allNotesSettings, setNotesSettings, editNote } from "../../store/features/notes/notesSlice";
+import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
 
 const NoteItem = ({ note }) => {
-
   const router = useNavigate();
   const dispatch = useDispatch();
   const notesSettings = useSelector(allNotesSettings);
+  const [deleteNote, {}] = useDeleteNoteMutation();
 
   const handleEditNote = () => {
-    dispatch(setNotesSettings({
-      ...notesSettings,
-      currentNote: note,
-      isModal: true,
-      isEdit: true,
-      currentColor: note.color
-    }))
+    dispatch(
+      setNotesSettings({
+        ...notesSettings,
+        currentNote: note,
+        isModal: true,
+        isEdit: true,
+        currentColor: note.color,
+      })
+    );
   };
-console.log("Changed")
+
   const handleDeleteNote = () => {
-    // dispatch(deleteNote(id));
+    deleteNote(note._id);
   };
 
   const handleOpenNote = () => {
@@ -30,7 +33,10 @@ console.log("Changed")
   };
 
   return (
-    <section className={classes.note__item} style={{backgroundColor: `${note.color}`}}>
+    <section
+      className={classes.note__item}
+      style={{ backgroundColor: `${note.color}` }}
+    >
       <div className={classes.note__info}>
         <h3 className={classes.note__title}>{note.title}</h3>
         <p className={classes.note__body}>{note.content}</p>
