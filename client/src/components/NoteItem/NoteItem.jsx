@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setModal, setEdit, setCurrentNote, setCurrentColor  } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
+import MyButton from "../UI/button/MyButon";
 
 const NoteItem = ({ note }) => {
   const router = useNavigate();
@@ -11,17 +12,17 @@ const NoteItem = ({ note }) => {
   const [deleteNote, {}] = useDeleteNoteMutation();
 
   const handleEditNote = () => {
-    dispatch(setCurrentNote(note))
-    dispatch(setCurrentColor(note.color))
-    dispatch(setEdit(true))
-    dispatch(setModal(true))
+    dispatch(setCurrentNote(note));
+    dispatch(setCurrentColor(note.color));
+    dispatch(setEdit(true));
+    dispatch(setModal(true));
   };
 
   const handleDeleteNote = () => {
     deleteNote(note._id);
   };
 
-  const handleOpenNote = () => { 
+  const handleOpenNote = () => {
     // dispatch(openNote(id));
     // router(`/notes/${id}`);
   };
@@ -37,16 +38,12 @@ const NoteItem = ({ note }) => {
       </div>
       <time className={classes.note__data}>{note.date}</time>
       <div className={classes.note__buttons}>
-        <button
-          className={classes.edit__button}
-          type="button"
-          onClick={handleEditNote}
-        >
+        <MyButton type="button" onClick={handleEditNote}>
           Edit
-        </button>
-        <button type="button" onClick={handleDeleteNote}>
+        </MyButton>
+        <MyButton type="button" onClick={handleDeleteNote}>
           Delete
-        </button>
+        </MyButton>
       </div>
     </section>
   );

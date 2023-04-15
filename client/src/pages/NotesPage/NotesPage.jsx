@@ -4,8 +4,6 @@ import classes from "./NotesPage.module.css";
 import NoteForm from "../../components/NoteForm";
 import NotesControlPanel from "../../components/NotesControlPanel";
 import ModalWindow from "../../components/UI/modalWindow/ModalWindow";
-import { useSelector } from "react-redux";
-import { allNotesSettings } from "../../store/features/notes/notesSlice";
 
 const NotesPage = () => {
   return (
@@ -14,7 +12,9 @@ const NotesPage = () => {
       <ModalWindow>
         <NoteForm />
       </ModalWindow>
-      <NotesItems />
+      <div className={classes.notes__items}>
+        <NotesItems />
+      </div>
     </div>
   );
 };

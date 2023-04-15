@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import { setModal, setEdit, setCurrentNote, allNotesSettings } from "../store/features/notes/notesSlice";
+import { setModal, setEdit, setCurrentNote, allNotesSettings, setAddNew } from "../store/features/notes/notesSlice";
 import { useAddNoteMutation, useUpdateNoteMutation } from "../store/features/notes/notesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -38,6 +38,7 @@ const NoteForm = () => {
     if (title && content) {
       await createNote({ userId, title, content, date, color: notesSettings.currentColor });
       dispatch(setModal(false));
+      dispatch(setAddNew(false));
       dispatch(setCurrentNote(null));
       setTitle("");
       setContent("");

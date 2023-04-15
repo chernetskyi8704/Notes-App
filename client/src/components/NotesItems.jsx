@@ -20,22 +20,22 @@ const NotesItems = () => {
 
   if (isLoading) {
     return <Loader />;
-  } else if (isSuccess && notes.length) {
+  } else if (isSuccess && notes.length === 0) {
+    content = <p>No notes were created yet!</p>;
+  } else if (isSuccess && notes.length > 0) {
     content = notes.map(note => (
       <CSSTransition timeout={500} key={note._id} classNames="note">
-        <NoteItem
-          note={note}
-        />
+        <NoteItem note={note} />
       </CSSTransition>
     ));
   } else if (isError) {
-    content = <p>No notes were created yet!</p>;
+    content = <p>Error loading notes!</p>;
   }
 
   return notes.length ? (
     <TransitionGroup component={null}>{content}</TransitionGroup>
   ) : (
-    { content }
+    content
   );
 };
 

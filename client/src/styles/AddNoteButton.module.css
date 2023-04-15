@@ -1,3 +1,5 @@
+@import "./animations/BorderAnimation.module.css";
+
 .select__button {
   display: flex;
   justify-content: center;
@@ -41,24 +43,6 @@
   width: 180px;
   border-radius: 15px;
   border: 2px solid #6e9ecf;
-  animation: searchInput-border-animation 5s infinite;
+  animation: border-animation 5s infinite;
   font-weight: bolder;
-}
-
-@keyframes searchInput-border-animation {
-  0% {
-    border-color: #6e9ecf;
-  }
-  25% {
-    border-color: #9acd32;
-  }
-  50% {
-    border-color: #f49ac2;
-  }
-  75% {
-    border-color: #baa8d8;
-  }
-  100% {
-    border-color: #d2b48c;
-  }
 }
