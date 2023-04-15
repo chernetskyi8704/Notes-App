@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../styles/NoteForm.module.css";
 import MyButton from "./UI/button/MyButon";
-import { setModal, setEdit, setCurrentNote, allNotesSettings, setAddNew } from "../store/features/notes/notesSlice";
+import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../store/features/notes/notesSlice";
 import { useAddNoteMutation, useUpdateNoteMutation } from "../store/features/notes/notesApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -28,18 +28,18 @@ const NoteForm = () => {
       setTitle("");
       setContent("");
     }
-    if (!notesSettings.isModal) {
+    if (!notesSettings.isEdit) {
       setTitle("");
       setContent("");
     }
-  }, [notesSettings.isEdit, notesSettings.isModal]);
+  }, [notesSettings.isEdit]);
 
   const handleAddNote = async () => {
     if (title && content) {
       await createNote({ userId, title, content, date, color: notesSettings.currentColor });
-      dispatch(setModal(false));
       dispatch(setAddNew(false));
       dispatch(setCurrentNote(null));
+      dispatch(setShowColorButtons(false));
       setTitle("");
       setContent("");
     }
@@ -48,7 +48,6 @@ const NoteForm = () => {
   const handleUpdateNote = async () => {
     if (notesSettings.currentNote._id && title && content) {
       await updateNote({id: notesSettings.currentNote._id, title, content})
-      dispatch(setModal(false));
       dispatch(setEdit(false));
       dispatch(setCurrentNote(null));
       setTitle("");

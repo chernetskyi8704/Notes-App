@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import Loader from "../../../components/UI/loader/Loader";
 
 export const refreshAuth = createAsyncThunk(
   "auth/refreshAuth",

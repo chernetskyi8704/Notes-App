@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   notesSettings: {
-    isModal: false,
+    showColorButtons: false,
     isEdit: false,
     isAddNew: false,
     currentNote: null,
@@ -14,9 +14,9 @@ export const notesSlice = createSlice({
   name: "notes",
   initialState,
   reducers: {
-    setModal: {
+    setShowColorButtons: {
       reducer(state, action) {
-        state.notesSettings.isModal = action.payload;
+        state.notesSettings.showColorButtons = action.payload;
       },
     },
     setEdit: {
@@ -44,6 +44,6 @@ export const notesSlice = createSlice({
 
 export const allNotesSettings = state => state.notes.notesSettings;
 
-export const { setModal, setEdit, setAddNew, setCurrentNote, setCurrentColor } =
+export const { setShowColorButtons, setEdit, setAddNew, setCurrentNote, setCurrentColor } =
   notesSlice.actions;
 export default notesSlice.reducer;

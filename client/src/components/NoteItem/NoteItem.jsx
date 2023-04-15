@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./NoteItem.module.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setModal, setEdit, setCurrentNote, setCurrentColor  } from "../../store/features/notes/notesSlice";
+import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons  } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
 import MyButton from "../UI/button/MyButon";
 
@@ -14,8 +14,8 @@ const NoteItem = ({ note }) => {
   const handleEditNote = () => {
     dispatch(setCurrentNote(note));
     dispatch(setCurrentColor(note.color));
+    dispatch(setShowColorButtons(false))
     dispatch(setEdit(true));
-    dispatch(setModal(true));
   };
 
   const handleDeleteNote = () => {

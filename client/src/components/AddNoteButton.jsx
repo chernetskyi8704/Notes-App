@@ -3,18 +3,18 @@ import MyInput from "./UI/input/MyInput";
 import classes from "../styles/AddNoteButton.module.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../styles/animations/AddNoteButtonAnimations.css";
-import { useSelector, useDispatch } from "react-redux";
-import { allNotesSettings, setModal, setEdit, setAddNew, setCurrentNote, setCurrentColor } from "../store/features/notes/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setEdit, setAddNew, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings} from "../store/features/notes/notesSlice";
 
 const AddNoteButton = () => {
   const [searchValue, setSearchValue] = useState("");
   const [visibleButtons, setVisibleButtons] = useState(0);
   const colors = ["#6e9ecf", "#9acd32", "#f49ac2", "#baa8d8", "#d2b48c"];
-  const notesSettings = useSelector(allNotesSettings);
   const dispatch = useDispatch();
+  const {showColorButtons} = useSelector(allNotesSettings);
 
   useEffect(() => {
-    if (notesSettings.isAddNew) {
+    if (showColorButtons) {
       const intervalId = setInterval(() => {
         if (visibleButtons < colors.length) {
           setVisibleButtons(visibleButtons + 1);
@@ -24,20 +24,19 @@ const AddNoteButton = () => {
       }, 100);
       return () => clearInterval(intervalId);
     }
-  }, [visibleButtons, notesSettings.isAddNew]);
+  }, [visibleButtons, showColorButtons]);
 
   const handleOpenForm = ({ target }) => {
     if (target.tagName === "BUTTON") {
       const currentColor = target.value;
-      dispatch(setModal(true));
+      dispatch(setAddNew(true));
       dispatch(setCurrentColor(currentColor));
       dispatch(setCurrentNote(null));
     }
   };
 
   const toggleShowButtons = () => {
-    dispatch(setAddNew(!notesSettings.isAddNew));
-    dispatch(setEdit(false));
+    dispatch(setShowColorButtons(!showColorButtons));
     setVisibleButtons(0);
   };
 
@@ -47,7 +46,7 @@ const AddNoteButton = () => {
         className={classes.select__button}
         onClick={toggleShowButtons}
       ></button>
-      {notesSettings.isAddNew && (
+      {showColorButtons && (
         <div className={classes.select__colours} onClick={handleOpenForm}>
           <TransitionGroup component={null} classNames="colorButton">
             {colors.slice(0, visibleButtons).map(color => (

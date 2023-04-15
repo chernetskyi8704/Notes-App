@@ -1,21 +1,28 @@
 import React from "react";
 import classes from "./modalWindow.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { allNotesSettings, setModal, setEdit, setAddNew } from "../../../store/features/notes/notesSlice";
+import { allNotesSettings, setEdit, setAddNew, setShowColorButtons } from "../../../store/features/notes/notesSlice";
 
-const ModalWindow = ({ children }) => {
+const ModalWindow = ({ children, visible, setVisible }) => {
   const rootClasses = [classes.modal];
   const dispatch = useDispatch();
   const notesSettings = useSelector(allNotesSettings);
 
-  if (notesSettings.isModal) {
+  if (visible) {
     rootClasses.push(classes.active);
   }
 
   const handleCloseModal = () => {
-    dispatch(setModal(false));
-    dispatch(setEdit(false));
-    dispatch(setAddNew(false));
+    dispatch(setVisible(false));
+    if (notesSettings.isEdit) {
+      dispatch(setEdit(false));
+    }
+    if (notesSettings.isAddNew) {
+      dispatch(setAddNew(false));
+    }
+    if(notesSettings.showColorButtons){
+      dispatch(setShowColorButtons(false))
+    }
   };
 
   return (
