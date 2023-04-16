@@ -1,13 +1,9 @@
-import NoteForm from "../../components/NoteForm";
-import NotesControlPanel from "../../components/NotesControlPanel";
-import NotesItems from "../../components/NotesItems";
+import NoteForm from "../../components/NoteForm/NoteForm";
+import NotesControlPanel from "../../components/NotesControlPanel/NotesControlPanel";
+import NotesItems from "../../components/NotesItems/NotesItems";
 import ModalWindow from "../../components/UI/modalWindow/ModalWindow";
 import classes from "./NotesPage.module.css";
-import {
-  allNotesSettings,
-  setAddNew,
-  setEdit,
-} from "../../store/features/notes/notesSlice";
+import { allNotesSettings, setAddNew, setEdit } from "../../store/features/notes/notesSlice";
 import { useSelector } from "react-redux";
 
 const NotesPage = () => {

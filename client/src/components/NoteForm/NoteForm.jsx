@@ -1,9 +1,9 @@
 import React from "react";
-import classes from "../styles/NoteForm.module.css";
-import MyButton from "./UI/button/MyButon";
-import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../store/features/notes/notesSlice";
-import { useAddNoteMutation, useUpdateNoteMutation } from "../store/features/notes/notesApiSlice";
+import classes from "../NoteItem/NoteItem.module.css";
+import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../../store/features/notes/notesSlice";
+import { useAddNoteMutation, useUpdateNoteMutation } from "../../store/features/notes/notesApiSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import { StyledButton } from "../UI/styledButton/StyledButton";
 
 const NoteForm = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const NoteForm = () => {
 
   const handleUpdateNote = async () => {
     if (notesSettings.currentNote._id && title && content) {
-      await updateNote({id: notesSettings.currentNote._id, title, content})
+      await updateNote({ id: notesSettings.currentNote._id, title, content });
       dispatch(setEdit(false));
       dispatch(setCurrentNote(null));
       setTitle("");
@@ -56,7 +56,11 @@ const NoteForm = () => {
   };
 
   return (
-    <form onClick={e => e.stopPropagation()} onSubmit={e => e.preventDefault()}>
+    <form
+      onClick={e => e.stopPropagation()}
+      onSubmit={e => e.preventDefault()}
+      className={classes.container}
+    >
       <div
         className={classes.notes__form}
         style={{ backgroundColor: `${notesSettings.currentColor}` }}
@@ -75,14 +79,26 @@ const NoteForm = () => {
           value={content}
           onChange={e => setContent(e.target.value)}
         ></textarea>
+      </div>
+      <div className={classes.control_buttons}>
         {notesSettings.isEdit ? (
-          <MyButton type="button" onClick={handleUpdateNote}>
+          <StyledButton
+            className={classes.noteForm_button}
+            type="button"
+            onClick={handleUpdateNote}
+            currentColor={notesSettings.currentColor}
+          >
             Save
-          </MyButton>
+          </StyledButton>
         ) : (
-          <MyButton type="button" onClick={handleAddNote}>
+          <StyledButton
+            className={classes.noteForm_button}
+            type="button"
+            onClick={handleAddNote}
+            currentColor={notesSettings.currentColor}
+          >
             Add
-          </MyButton>
+          </StyledButton>
         )}
       </div>
     </form>

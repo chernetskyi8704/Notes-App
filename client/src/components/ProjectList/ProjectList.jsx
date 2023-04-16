@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import classes from "../styles/ProjectList.module.css";
-import PostService from "../API/PostService";
-import Loader from "./UI/loader/Loader";
+import classes from "./ProjectList.module.css";
+import PostService from "../../api/postService";
+import Loader from "../UI/loader/Loader";
 
 const ProjectList = () => {
   const [projects, setProjects] = React.useState([]);

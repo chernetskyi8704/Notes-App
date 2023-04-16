@@ -1,4 +1,4 @@
-@import "./animations/BorderAnimation.module.css";
+@import "../../styles/animations/BorderAnimation.module.css";
 
 .select__button {
   display: flex;

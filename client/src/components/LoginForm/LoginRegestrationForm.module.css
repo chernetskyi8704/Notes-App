@@ -1,27 +1,24 @@
-/* Стилі для класу login_form */
 .login_form {
-  max-width: 300px;
-  margin: 0 auto;
+  margin: 10% auto;
   padding: 20px;
-  background-color: #f8f8f8;
+  max-width: 400px;
   border-radius: 5px;
   text-align: center;
 }
 
-/* Стилі для класу form_group */
 .form_group {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
   margin-top: 20px;
 }
 
-/* Стилі для посилання "зареєструйтесь" */
 .forgot_password {
   margin-top: 10px;
   font-size: 14px;
 }
 
 .forgot_password a {
-  color: #007bff;
+  color: #799cbf;
 }

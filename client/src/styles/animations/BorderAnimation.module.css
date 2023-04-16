@@ -1,17 +1,17 @@
 @keyframes border-animation {
   0% {
-    border-color: #6e9ecf;
+    border-color: #cbe0f3;
   }
   25% {
-    border-color: #9acd32;
+    border-color: #b8ccdd;
   }
   50% {
-    border-color: #f49ac2;
+    border-color: #91aabf;
   }
   75% {
-    border-color: #baa8d8;
+    border-color: #799cbf;
   }
   100% {
-    border-color: #d2b48c;
+    border-color: #42678b;
   }
 }

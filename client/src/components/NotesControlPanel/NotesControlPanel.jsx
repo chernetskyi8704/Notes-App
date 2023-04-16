@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "../styles/NotesControlPanel.module.css";
-import AddNoteButton from "./AddNoteButton";
+import classes from "./NotesControlPanel.module.css";
+import AddNoteButton from "../AddNoteButton/AddNoteButton";
 
 const NotesControlPanel = () => {
   return (

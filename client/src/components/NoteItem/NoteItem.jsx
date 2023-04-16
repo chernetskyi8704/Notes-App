@@ -1,13 +1,11 @@
-import React from "react";
 import classes from "./NoteItem.module.css";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons  } from "../../store/features/notes/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
-import MyButton from "../UI/button/MyButon";
+import { StyledButton } from "../UI/styledButton/StyledButton";
 
 const NoteItem = ({ note }) => {
-  const router = useNavigate();
   const dispatch = useDispatch();
   const [deleteNote, {}] = useDeleteNoteMutation();
 
@@ -22,28 +20,34 @@ const NoteItem = ({ note }) => {
     deleteNote(note._id);
   };
 
-  const handleOpenNote = () => {
-    // dispatch(openNote(id));
-    // router(`/notes/${id}`);
-  };
-
   return (
-    <section
-      className={classes.note__item}
-      style={{ backgroundColor: `${note.color}` }}
-    >
-      <div className={classes.note__info}>
+    <section className={classes.container}>
+      <div
+        className={classes.notes__form}
+        style={{ backgroundColor: `${note.color}` }}
+      >
         <h3 className={classes.note__title}>{note.title}</h3>
         <p className={classes.note__body}>{note.content}</p>
+        <time className={classes.note_data}>{note.date}</time>
       </div>
-      <time className={classes.note__data}>{note.date}</time>
-      <div className={classes.note__buttons}>
-        <MyButton type="button" onClick={handleEditNote}>
+      <div className={classes.control_buttons}>
+        <StyledButton
+          className={classes.noteForm_button}
+          type="button"
+          onClick={handleEditNote}
+          currentColor={note.color}
+        >
           Edit
-        </MyButton>
-        <MyButton type="button" onClick={handleDeleteNote}>
+        </StyledButton>
+        <span style={{ border: `1px solid ${note.color}` }}></span>
+        <StyledButton
+          className={classes.noteForm_button}
+          type="button"
+          onClick={handleDeleteNote}
+          currentColor={note.color}
+        >
           Delete
-        </MyButton>
+        </StyledButton>
       </div>
     </section>
   );

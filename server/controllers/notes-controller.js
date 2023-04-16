@@ -5,7 +5,6 @@ const { validationResult } = require("express-validator");
 const ApiError = require("../exeptions/api-error.js");
 
 class NotesController {
-  // 18 === Ця функція буде доступною лише для авторизованих користувачів ===
   async getAllNotes(req, res, next) {
     try {
       const userId = req.params.id.toString();

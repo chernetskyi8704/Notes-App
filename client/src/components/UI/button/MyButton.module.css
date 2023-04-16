@@ -1,19 +1,29 @@
+@import "../../../styles/animations/BackgroundAnimation.module.css";
+
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #74bef0;
-  font-size: 14px;
-  font-weight: bold;
-  width: 60px;
   min-height: 35px;
-  color: #fff;
-  border-radius: 3px;
+  min-width: 75px;
+  font-size: 14px;
+  background-color: transparent;
+  font-weight: bold;
+  color: #2b3238;
   cursor: pointer;
-  border: none;
-  border-radius: 15px;
+  border: 1px solid #2b3238;
 }
 
 .btn:hover {
-  background-color: #91caf0;
+  background: linear-gradient(
+    90deg,
+    #d5ebff,
+    #91aabf,
+    #62809a,
+    #a1bfdd,
+    #42678b
+  );
+  background-size: 400% 400%;
+  color: #cbe0f3;
+  animation: background-animation 5s linear infinite;
 }

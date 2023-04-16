@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import classes from "./RegistrationForm.module.css";
+import classes from "../LoginForm/LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
 
@@ -21,11 +21,9 @@ const RegistrationForm = ({ handleRegistration }) => {
 
   return (
     <section className={classes.login_form}>
-      <div className={classes.login_text}>
         <h1>Create an account on Notes!</h1>
-        <p>Fill in the following details to sign up:</p>
-      </div>
       <form className={classes.form_group}>
+        <p>Fill in the following details to sign up:</p>
         <MyInput
           type="text"
           id="firstName"
@@ -35,7 +33,6 @@ const RegistrationForm = ({ handleRegistration }) => {
           onChange={e => setFirstName(e.target.value)}
           required
         />
-
         <MyInput
           type="text"
           id="lastName"
@@ -45,7 +42,6 @@ const RegistrationForm = ({ handleRegistration }) => {
           onChange={e => setLastName(e.target.value)}
           required
         />
-
         <MyInput
           type="email"
           id="email"
@@ -55,7 +51,6 @@ const RegistrationForm = ({ handleRegistration }) => {
           onChange={e => setEmail(e.target.value)}
           required
         />
-
         <MyInput
           type="password"
           id="password"
@@ -65,7 +60,6 @@ const RegistrationForm = ({ handleRegistration }) => {
           onChange={e => setPassword(e.target.value)}
           required
         />
-
         <MyButton type="submit" onClick={registration}>
           Sign up
         </MyButton>

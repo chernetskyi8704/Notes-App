@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import classes from "./LoginForm.module.css";
+import classes from "./LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
 

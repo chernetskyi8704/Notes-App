@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MainContent from "./components/MainContent";
+import Main from "./components/Main/Main";
 import Navigation from "./components/UI/navigation/Navigation";
 import "./styles/App.css";
 import "./styles/reset.css";
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="App">
       <Navigation />
-      <MainContent />
+      <Main />
     </div>
   );
 };

@@ -12,7 +12,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import authReducer from "./features/auth/authSlice";
 import notesReducer from "./features/notes/notesSlice";
-import { apiSlice } from "../API/apiSlice";
+import { apiSlice } from "../api/apiSlice";
 
 const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,

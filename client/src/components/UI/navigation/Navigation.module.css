@@ -3,7 +3,7 @@
   width: 100px;
   justify-content: center;
   height: 100%;
-  border-right: 2px solid #dbdbdb;
+  border-right: 2px solid #2b3238;
 }
 
 .navigation__items {
@@ -32,8 +32,8 @@
 }
 
 .navigation__icon {
-  font-size: 26px;
   display: none;
+  font-size: 26px;
 }
 
 @media (max-width: 768px) {

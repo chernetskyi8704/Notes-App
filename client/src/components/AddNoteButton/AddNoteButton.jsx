@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import MyInput from "./UI/input/MyInput";
-import classes from "../styles/AddNoteButton.module.css";
+import MyInput from "../UI/input/MyInput";
+import classes from "./AddNoteButton.module.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "../styles/animations/AddNoteButtonAnimations.css";
+import "../../styles/animations/AddNoteButtonAnimations.css"
 import { useDispatch, useSelector } from "react-redux";
-import { setEdit, setAddNew, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings} from "../store/features/notes/notesSlice";
+import { setAddNew, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings} from "../../store/features/notes/notesSlice";
 
 const AddNoteButton = () => {
   const [searchValue, setSearchValue] = useState("");
   const [visibleButtons, setVisibleButtons] = useState(0);
-  const colors = ["#6e9ecf", "#9acd32", "#f49ac2", "#baa8d8", "#d2b48c"];
+  const colors = ["#b8ccdd", "#91aabf", "#62809a", "#a1bfdd", "#799cbf", "#42678b"];
   const dispatch = useDispatch();
   const {showColorButtons} = useSelector(allNotesSettings);
 
