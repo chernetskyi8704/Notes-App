@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Main from "./components/Main/Main";
-import Navigation from "./components/UI/navigation/Navigation";
+import Header from "./components/Header/Header";
 import "./styles/App.css";
 import "./styles/reset.css";
 import { refreshAuth } from "./store/features/auth/authSlice";
@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Navigation />
+      <Header />
       <Main />
     </div>
   );

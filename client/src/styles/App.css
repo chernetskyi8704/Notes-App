@@ -1,5 +1,9 @@
+body {
+  background-color: #d8e8f2;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
 .App {
   display: flex;
-  min-height: 100vh;
-  background-color: #d8e8f2;
 }

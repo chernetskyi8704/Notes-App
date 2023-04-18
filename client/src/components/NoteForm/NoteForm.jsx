@@ -67,7 +67,7 @@ const NoteForm = () => {
       >
         <input
           type="text"
-          id="title"
+          className={classes.whitePlaceholder}
           placeholder="Title..."
           value={title}
           maxLength="20"
@@ -75,7 +75,8 @@ const NoteForm = () => {
         />
         <textarea
           name="content"
-          placeholder="Wtite smth..."
+          className={classes.whitePlaceholder}
+          placeholder="Make a note of smth..."
           value={content}
           onChange={e => setContent(e.target.value)}
         ></textarea>

@@ -1,0 +1,9 @@
+.header {
+  flex: 0 0 90px;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex: 0 0 60px;
+  }
+}

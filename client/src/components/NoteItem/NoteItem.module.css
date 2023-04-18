@@ -15,6 +15,10 @@
   resize: none;
 }
 
+.whitePlaceholder::placeholder {
+  color: white;
+}
+
 .note_data {
   margin-top: auto;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import NoteItem from "../NoteItem/NoteItem";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "../../styles/animations/NotesItemsAnimations.css";
 import { useSelector } from "react-redux";
 import { useGetUsersNotesQuery } from "../../store/features/notes/notesApiSlice";
 import Loader from "../UI/loader/Loader";
