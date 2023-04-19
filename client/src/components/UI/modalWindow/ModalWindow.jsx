@@ -13,15 +13,15 @@ const ModalWindow = ({ children, visible, setVisible }) => {
   }
 
   const handleCloseModal = () => {
-    dispatch(setVisible(false));
+    setVisible(false);
     if (notesSettings.isEdit) {
       dispatch(setEdit(false));
     }
     if (notesSettings.isAddNew) {
       dispatch(setAddNew(false));
     }
-    if(notesSettings.showColorButtons){
-      dispatch(setShowColorButtons(false))
+    if (notesSettings.showColorButtons) {
+      dispatch(setShowColorButtons(false));
     }
   };
 

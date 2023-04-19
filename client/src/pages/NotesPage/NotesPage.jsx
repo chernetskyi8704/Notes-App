@@ -3,25 +3,24 @@ import NotesControlPanel from "../../components/NotesControlPanel/NotesControlPa
 import NotesItems from "../../components/NotesItems/NotesItems";
 import ModalWindow from "../../components/UI/modalWindow/ModalWindow";
 import classes from "./NotesPage.module.css";
-import { allNotesSettings, setAddNew, setEdit } from "../../store/features/notes/notesSlice";
+import { allNotesSettings } from "../../store/features/notes/notesSlice";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 const NotesPage = () => {
   const notesSettings = useSelector(allNotesSettings);
-  const setShowNoteForm = () => {
-    if (notesSettings.isAddNew) {
-      return setAddNew;
-    } else if (notesSettings.isEdit) {
-      return setEdit;
-    }
-  };
+  const [modal, isModal] = useState(false);
+
+  useEffect(() => {
+    notesSettings.isAddNew || notesSettings.isEdit
+      ? isModal(true)
+      : isModal(false);
+  }, [notesSettings.isAddNew, notesSettings.isEdit]);
+
   return (
     <div className={classes.notes__container}>
       <NotesControlPanel />
-      <ModalWindow
-        visible={notesSettings.isAddNew || notesSettings.isEdit}
-        setVisible={setShowNoteForm}
-      >
+      <ModalWindow visible={modal} setVisible={isModal}>
         <NoteForm />
       </ModalWindow>
       <div className={classes.notes__items}>
