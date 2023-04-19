@@ -1,23 +1,30 @@
 import classes from "./NoteItem.module.css";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings } from "../../store/features/notes/notesSlice";
+import { useDispatch } from "react-redux";
+import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
 import { StyledButton } from "../UI/styledButton/StyledButton";
+import { useState } from "react";
+import ModalWindow from "../UI/modalWindow/ModalWindow";
+import DeleteNoteConfirmation from "../DeleteNoteConfirmation/DeleteNoteConfirmation";
 
 const NoteItem = ({ note }) => {
   const dispatch = useDispatch();
   const [deleteNote, {}] = useDeleteNoteMutation();
+  const [modal, isModal] = useState(false);
 
   const handleEditNote = () => {
     dispatch(setCurrentNote(note));
     dispatch(setCurrentColor(note.color));
-    dispatch(setShowColorButtons(false))
+    dispatch(setShowColorButtons(false));
     dispatch(setEdit(true));
   };
 
   const handleDeleteNote = () => {
     deleteNote(note._id);
+  };
+
+  const handleShowDeleteAlert = () => {
+    isModal(true);
   };
 
   return (
@@ -43,12 +50,18 @@ const NoteItem = ({ note }) => {
         <StyledButton
           className={classes.noteForm_button}
           type="button"
-          onClick={handleDeleteNote}
+          onClick={handleShowDeleteAlert}
           currentColor={note.color}
         >
           Delete
         </StyledButton>
       </div>
+      <ModalWindow visible={modal} setVisible={isModal}>
+        <DeleteNoteConfirmation
+          deleteNote={handleDeleteNote}
+          isModal={isModal}
+        />
+      </ModalWindow>
     </section>
   );
 };

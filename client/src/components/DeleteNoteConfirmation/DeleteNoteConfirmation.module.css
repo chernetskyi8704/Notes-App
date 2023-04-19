@@ -1,0 +1,36 @@
+.deleteAlert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.message {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.buttonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.confirmButton,
+.cancelButton {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.confirmButton {
+  background-color: #007bff;
+}
+
+.cancelButton {
+  background-color: #dc3545;
+}
