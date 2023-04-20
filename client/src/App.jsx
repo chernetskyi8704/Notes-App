@@ -4,7 +4,7 @@ import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
 import "./styles/App.css";
 import "./styles/reset.css";
-import { refreshAuth } from "./store/features/auth/authSlice";
+import { checkAuth } from "./store/features/auth/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const App = () => {
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(refreshAuth());
+      dispatch(checkAuth());
     }
   }, []);
 

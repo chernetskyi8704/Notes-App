@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const refreshAuth = createAsyncThunk(
-  "auth/refreshAuth",
+export const checkAuth = createAsyncThunk(
+  "auth/checkAuth",
   async (arg, { dispatch }) => {
     try {
       const response = await fetch(`http://localhost:5000/api/refresh`, {
@@ -47,7 +47,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addCase(refreshAuth.fulfilled, (state, action) => {
+    builder.addCase(checkAuth.fulfilled, (state, action) => {
       state.isAuth = true;
       state.user = action.payload.user;
       state.token = action.payload.accessToken;
