@@ -1,24 +1,26 @@
-import React from "react";
+import {useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./ProjectList.module.css";
 import Loader from "../UI/loader/Loader";
 import { getProjectsStore } from "../../store/features/projects/projectsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { allProjectsData, selectIsLoading } from "../../store/features/projects/projectsSlice";
+import { setIsDataFetched, selectProjectsState } from "../../store/features/projects/projectsSlice";
 
 const ProjectList = () => {
   const dispatch = useDispatch();
-  const projectsData = useSelector(allProjectsData);
-  const isLoading = useSelector(selectIsLoading);
+  const { projects, isDataFetched, isLoading } = useSelector(selectProjectsState);
 
   let projectsList;
-  
-  React.useEffect(() => {
-    dispatch(getProjectsStore());
+
+  useEffect(() => {
+    if (!isDataFetched) {
+      dispatch(getProjectsStore());
+      dispatch(setIsDataFetched(true));
+    }
   }, []);
 
   if (!isLoading) {
-    projectsList = projectsData.map(project => {
+    projectsList = projects.map(project => {
       return (
         <NavLink
           className={classes.project_item}

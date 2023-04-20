@@ -11,30 +11,39 @@ export const getProjectsStore = createAsyncThunk(
 );
 
 const initialState = {
-  projects: [],
-  isLoading: false,
+  projectsState: {
+    projects: [],
+    isLoading: false,
+    isDataFetched: false,
+  },
 };
 
 export const projectsSlice = createSlice({
   name: "projects",
   initialState,
-  reducers: {},
+  reducers: {
+    setIsDataFetched: {
+      reducer(state, action) {
+        state.projectsState.isDataFetched = action.payload;
+      },
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getProjectsStore.pending, (state, action) => {
-        state.isLoading = true;
+        state.projectsState.isLoading = true;
       })
       .addCase(getProjectsStore.fulfilled, (state, action) => {
-        state.projects = action.payload;
-        state.isLoading = false;
+        state.projectsState.projects = action.payload;
+        state.projectsState.isLoading = false;
       })
       .addCase(getProjectsStore.rejected, (state, action) => {
-        state.isLoading = false;
+        state.projectsState.isLoading = false;
       });
   },
 });
 
-export const allProjectsData = state => state.projects.projects;
-export const selectIsLoading = state => state.projects.isLoading;
+export const selectProjectsState = state => state.projects.projectsState;
+export const { setIsDataFetched } = projectsSlice.actions;
 
 export default projectsSlice.reducer;
