@@ -1,5 +1,21 @@
 @import "../../styles/animations/BorderAnimation.module.css";
 
+.addNoteButton__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.addNoteButton__container > input {
+  width: 180px;
+  border-radius: 15px;
+  border: 2px solid #6e9ecf;
+  animation: border-animation 5s infinite;
+  font-weight: bolder;
+}
+
 .select__button {
   display: flex;
   justify-content: center;
@@ -30,19 +46,9 @@
 
 .select__colours {
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.addNoteButton__container > input {
   position: absolute;
-  top: 25px;
-  left: 90px;
-  width: 180px;
-  border-radius: 15px;
-  border: 2px solid #6e9ecf;
-  animation: border-animation 5s infinite;
-  font-weight: bolder;
+  top: 90px;
+  left: 30px;
+  gap: 15px;
 }

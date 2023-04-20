@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import MyInput from "../UI/input/MyInput";
 import classes from "./AddNoteButton.module.css";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "../../styles/animations/AddNoteButtonAnimations.css"
+import "../../styles/animations/AddNoteButtonAnimations.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddNew, setCurrentNote, setCurrentColor, setShowColorButtons, allNotesSettings} from "../../store/features/notes/notesSlice";
 
-const AddNoteButton = () => {
-  const [searchValue, setSearchValue] = useState("");
+const AddNoteButton = ({ searchValue, setSearchValue }) => {
   const [visibleButtons, setVisibleButtons] = useState(0);
   const colors = ["#b8ccdd", "#91aabf", "#62809a", "#a1bfdd", "#799cbf", "#42678b"];
   const dispatch = useDispatch();
-  const {showColorButtons} = useSelector(allNotesSettings);
+  const { showColorButtons } = useSelector(allNotesSettings);
 
   useEffect(() => {
     if (showColorButtons) {
@@ -40,6 +39,8 @@ const AddNoteButton = () => {
     setVisibleButtons(0);
   };
 
+  const handleSetSearchValue = (e) => setSearchValue(e.target.value);
+
   return (
     <div className={classes.addNoteButton__container}>
       <button
@@ -64,9 +65,9 @@ const AddNoteButton = () => {
       <MyInput
         placeholder="Search..."
         value={searchValue}
-        onChange={e => setSearchValue(e.target.value)}
+        onChange={handleSetSearchValue}
         onClick={e => e.stopPropagation()}
-      ></MyInput>
+      />
     </div>
   );
 };

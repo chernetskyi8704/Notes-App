@@ -7,6 +7,8 @@
   min-height: 250px;
   width: 250px;
   white-space: pre-wrap;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .notes__form > textarea {

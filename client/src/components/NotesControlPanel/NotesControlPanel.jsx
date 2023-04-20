@@ -1,12 +1,14 @@
 import React from "react";
-import classes from "./NotesControlPanel.module.css";
 import AddNoteButton from "../AddNoteButton/AddNoteButton";
 
-const NotesControlPanel = () => {
+const NotesControlPanel = ({ searchValue, setSearchValue }) => {
   return (
-    <div className={classes.select__buttons}>
-      <AddNoteButton />
-    </div>
+    <>
+      <AddNoteButton
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+    </>
   );
 };
 

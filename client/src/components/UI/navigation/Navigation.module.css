@@ -1,5 +1,7 @@
 .navigation {
+  position: fixed;
   height: 100%;
+  width: 90px;
   border-right: 2px solid #2b3238;
 }
 
@@ -39,5 +41,9 @@
 
   .link__name {
     display: none;
+  }
+
+  .navigation {
+    width: 60px;
   }
 }

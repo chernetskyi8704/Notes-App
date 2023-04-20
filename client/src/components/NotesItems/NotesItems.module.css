@@ -1,0 +1,17 @@
+.notes_empty {
+  padding: 30px;
+  color: #262626;
+  font-size: 34px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.notes__items {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 0px 80px;
+  flex-wrap: wrap;
+  gap: 30px;
+  min-width: 100%;
+}
