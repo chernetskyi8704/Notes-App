@@ -1,7 +1,7 @@
 require("dotenv").config();
 const userService = require("../service/user-service");
 
-const { validationResult } = require("express-validator"); //3 Отримуємо результат валідації
+const { validationResult } = require("express-validator");
 const ApiError = require("../exeptions/api-error.js");
 
 class UserController {
@@ -10,7 +10,7 @@ class UserController {
       const errors = validationResult(req); 
 
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest("Validation error.", errors.array())); //3 передаємо цю помилку в наш middleware
+        return next(ApiError.BadRequest("Validation error.", errors.array()));
       }
     
       const { firstName, lastName, email, password } = req.body; 

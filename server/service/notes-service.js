@@ -3,9 +3,17 @@ const NoteModel = require("../models/note-model");
 const ApiError = require("../exeptions/api-error.js");
 
 class NotesService {
-  async getAllNotes(userId) {
-    const userNotes = NoteModel.find({ userId });
-    return userNotes;
+  async getAllNotes(userId, page = 1, limit = 10) {
+    if (!userId) {
+      throw ApiError.BadRequest(`No user found with userId: ${userId}`);
+    }
+
+    const skip = (page - 1) * limit;
+    const userNotesPerPage = await NoteModel.find({ userId }).skip(skip).limit(limit);
+    const totalNotesCount = await NoteModel.countDocuments({ userId });
+    const totalPagesCount = Math.ceil(totalNotesCount / limit);
+
+    return { userNotesPerPage, totalPagesCount };
   }
 
   async createNote(userId, title, content, date, color) {

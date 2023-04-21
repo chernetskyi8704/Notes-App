@@ -1,0 +1,43 @@
+.paginationContainer {
+  display: flex;
+  margin-top: auto;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.page {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.page:hover {
+  background: linear-gradient(
+    90deg,
+    #d5ebff,
+    #91aabf,
+    #62809a,
+    #a1bfdd,
+    #42678b
+  );
+  background-size: 400% 400%;
+  animation: background-animation 5s linear infinite;
+  color: white;
+}
+
+.page__current {
+  background: linear-gradient(
+    90deg,
+    #62809a,
+    #a1bfdd,
+    #42678b
+  );
+  background-size: 400% 400%;
+  animation: background-animation 1s linear infinite;
+  color: white;
+}

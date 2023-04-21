@@ -8,9 +8,12 @@ class NotesController {
   async getAllNotes(req, res, next) {
     try {
       const userId = req.params.id.toString();
-      const notes = await NotesService.getAllNotes(userId);
+      const page = req.query.page || 1;
+      const limit = req.query.limit || 10;
 
-      return res.json(notes);
+      const notesData = await NotesService.getAllNotes(userId, page, limit);
+
+      return res.json(notesData);
     } catch (error) {
       next(error);
     }
@@ -19,7 +22,13 @@ class NotesController {
   async createNote(req, res, next) {
     try {
       const { userId, title, content, date, color } = req.body;
-      const noteData = await NotesService.createNote(userId, title, content, date, color);
+      const noteData = await NotesService.createNote(
+        userId,
+        title,
+        content,
+        date,
+        color
+      );
 
       return res.json(noteData);
     } catch (error) {
