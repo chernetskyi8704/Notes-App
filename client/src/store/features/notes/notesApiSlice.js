@@ -3,7 +3,8 @@ import { apiSlice } from "../../../api/apiSlice";
 export const postApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     getUsersNotes: builder.query({
-      query: ({userId, page, limit}) => `/notes/${userId.toString()}?page=${page}&limit=${limit}`,
+      query: ({ userId, page, limit, search }) =>
+        `/notes/${userId.toString()}?page=${page}&limit=${limit}&search=${search}`,
       providesTags: result => ["Note"],
     }),
     addNote: builder.mutation({

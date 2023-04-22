@@ -10,8 +10,9 @@ class NotesController {
       const userId = req.params.id.toString();
       const page = req.query.page || 1;
       const limit = req.query.limit || 10;
+      const search = req.query.search || '';
 
-      const notesData = await NotesService.getAllNotes(userId, page, limit);
+      const notesData = await NotesService.getAllNotes(userId, page, limit, search);
 
       return res.json(notesData);
     } catch (error) {

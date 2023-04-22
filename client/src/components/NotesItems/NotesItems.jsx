@@ -20,42 +20,30 @@ const NotesItems = ({ searchValue }) => {
     userId,
     page: currentPageNumber,
     limit,
+    search: searchValue,
   });
-
-  const userNotesPerPage = data?.userNotesPerPage || [];
+  const userNotes = data?.userNotes || [];
   const totalPagesCount = data?.totalPagesCount || 0;
-
-  let notesToDisplay;
-
-  const currentNoteArray = searchValue === ""
-    ? userNotesPerPage
-    : userNotesPerPage.filter(note =>
-        note.title.toLowerCase().includes(searchValue.toLowerCase())
-      );
-
-
+  
   const handleSetCurrentPage = value => {
     setCurrentPageNumber(value);
   };
-  
 
-  const notesToRender = currentNoteArray?.map(note => (
+  const notesToRender =   userNotes.length === 0 
+  ? NO_NOTES_FOUND_MESSAGE
+  : <TransitionGroup component={null}>{userNotes?.map(note => (
     <CSSTransition timeout={500} key={note._id} classNames="note">
       <NoteItem note={note} />
     </CSSTransition>
-  ));
-
-  notesToDisplay = currentNoteArray.length === 0 
-    ? NO_NOTES_FOUND_MESSAGE
-    : <TransitionGroup component={null}>{notesToRender}</TransitionGroup>;
+  ))}</TransitionGroup>;
 
   return (
     <div className={classes.notes__items__container}>
       {isLoading && <Loader />}
       {isError && NOTES_ERROR_LOADING_MESSAGE}
-      {isSuccess && (
+      {isSuccess && userNotes && (
         <>
-          <div className={classes.notes__items}>{notesToDisplay}</div>
+          <div className={classes.notes__items}>{notesToRender}</div>
           <Pagination
             currentPageNumber={currentPageNumber}
             setCurrentPageNumber={handleSetCurrentPage}
