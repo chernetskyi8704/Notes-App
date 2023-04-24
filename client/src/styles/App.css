@@ -1,3 +1,11 @@
+:root {
+  --primary-color: #42678b;
+  --primary-border-color: #2b3238;
+  --secondary-color: #62809a;
+  --accent-color: #a1bfdd;
+  --background-gradient: linear-gradient(90deg, #d5ebff, var(--secondary-color), var(--primary-color), var(--accent-color), #42678b);
+}
+
 body {
   background-color: #d8e8f2;
 }
