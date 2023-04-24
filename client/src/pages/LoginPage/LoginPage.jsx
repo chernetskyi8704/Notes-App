@@ -4,11 +4,13 @@ import { setCredential } from "../../store/features/auth/authSlice";
 import { useLoginMutation } from "../../store/features/auth/authApiSlice";
 import Loader from "../../components/UI/loader/Loader";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import { useState } from "react";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, error }] = useLoginMutation();
+  const [loginStatus, setLoginStatus] = useState(null);
   const isAuth = useSelector(state => state.auth.isAuth);
 
   const handleLogin = async (email, password) => {
@@ -17,9 +19,7 @@ const LoginPage = () => {
 
       const isUserActivated = userData.data.user.isActivated;
       if (!isUserActivated) {
-        alert(
-          "Thank you for registering on our website! In order to log in to your account, you need to activate it first through your email."
-        );
+        setLoginStatus("activation-required");
       } else {
         dispatch(
           setCredential({
@@ -29,8 +29,8 @@ const LoginPage = () => {
         );
         navigate("/notes");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      setLoginStatus("error");
     }
   };
 
@@ -39,7 +39,7 @@ const LoginPage = () => {
   }
 
   if (!isAuth) {
-    return <LoginForm handleLogin={handleLogin} />;
+    return <LoginForm handleLogin={handleLogin} loginStatus={loginStatus} />;
   }
 };
 

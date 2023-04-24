@@ -20,8 +20,8 @@ const RegistrationForm = ({ handleRegistration }) => {
   };
 
   return (
-    <section className={classes.login_form}>
-        <h1>Create an account on Notes!</h1>
+    <section className={classes.loginRegestration_form}>
+      <h1>Create an account on Notes!</h1>
       <form className={classes.form_group}>
         <p>Fill in the following details to sign up:</p>
         <MyInput
@@ -63,7 +63,7 @@ const RegistrationForm = ({ handleRegistration }) => {
         <MyButton type="submit" onClick={registration}>
           Sign up
         </MyButton>
-        <p className={classes.forgot_password}>
+        <p className={classes.loginRegestrationHints}>
           Already have an account? <NavLink to="/login"> Log in</NavLink>
         </p>
       </form>

@@ -1,52 +1,56 @@
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "./LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
+import { useForm } from "react-hook-form";
 
-const LoginForm = ({ handleLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const LoginForm = ({ handleLogin, loginStatus }) => {
+  const ACTIVATION_REQUIRED_ERROR_MESSAGE = (
+    <p className={`${classes.loginRegestrationHints} ${classes.error}`}>
+      Thank you for registering on our website! In order to log in to your
+      account, you need to activate it first through your email.
+    </p>
+  );
+  const FAILED_LOGIN_ERROR_MESSAGE = (
+    <p className={`${classes.loginRegestrationHints} ${classes.error}`}>
+      Login failed. Please check your email and password and try again.
+    </p>
+  );
+  const NO_ACCOUNT_MESSAGE = (
+    <p className={classes.loginRegestrationHints}>
+      Don't have an account?
+      <NavLink to="/registration"> Sign up</NavLink>
+    </p>
+  );
 
-  const login = e => {
-    e.preventDefault();
-    handleLogin(email, password);
-    setEmail("");
-    setPassword("");
+  const { register, handleSubmit, reset } = useForm();
+  const login = data => {
+    handleLogin(data.email, data.password);
+    reset();
   };
 
-  const handleSetEmail = e => setEmail(e.target.value);
-  const handleSetPassword = e => setPassword(e.target.value);
-
   return (
-    <section className={classes.login_form}>
+    <section className={classes.loginRegestration_form}>
       <h1>Welcome back to Notes!</h1>
-      <form className={classes.form_group}>
+      <form className={classes.form_group} onSubmit={handleSubmit(login)}>
         <MyInput
           type="email"
           id="email"
           name="email"
           placeholder="Email"
-          value={email}
-          onChange={handleSetEmail}
-          required
+          {...register("email", { required: true })}
         />
         <MyInput
           type="password"
           id="password"
           name="password"
           placeholder="Password"
-          value={password}
-          onChange={handleSetPassword}
-          required
+          {...register("password", { required: true })}
         />
-        <MyButton type="submit" onClick={login}>
-          Login
-        </MyButton>
-        <p className={classes.forgot_password}>
-          Don't have an account?
-          <NavLink to="/registration"> Sign up</NavLink>
-        </p>
+        <MyButton type="submit">Login</MyButton>
+        {loginStatus === "activation-required" && ACTIVATION_REQUIRED_ERROR_MESSAGE}
+        {loginStatus === "error" && FAILED_LOGIN_ERROR_MESSAGE}
+        {NO_ACCOUNT_MESSAGE}
       </form>
     </section>
   );

@@ -1,7 +1,7 @@
-.login_form {
+.loginRegestration_form {
   margin: 75px auto;
   padding: 20px;
-  max-width: 400px;
+  max-width: 420px;
   border-radius: 5px;
   text-align: center;
 }
@@ -14,11 +14,15 @@
   margin-top: 20px;
 }
 
-.forgot_password {
+.loginRegestrationHints {
   margin-top: 10px;
   font-size: 14px;
 }
 
-.forgot_password a {
+.error {
+  color: #dc3545;
+}
+
+.loginRegestrationHints a {
   color: #799cbf;
 }
