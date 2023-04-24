@@ -19,7 +19,8 @@
   font-size: 14px;
 }
 
-.error {
+.error,
+.loginRegestration_form span {
   color: #dc3545;
 }
 
