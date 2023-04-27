@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const allowedOrigins = [
-  "https://notes-app-chernetskyi.vercel.app/",
+  "https://notes-app-chernetskyi.vercel.app",
   "https://notes-app-delta-green.vercel.app",
 ];
 
