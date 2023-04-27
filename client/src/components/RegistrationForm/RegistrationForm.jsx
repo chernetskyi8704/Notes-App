@@ -41,7 +41,7 @@ const RegistrationForm = ({ handleRegistration }) => {
           placeholder="First Name"
           {...register("firstName", {
             required: true,
-            pattern: /^[A-Z][a-z]$/,
+            pattern:  /^[A-Z][a-z]+$/,
           })}
         />
         {renderErrorMessage(
@@ -56,7 +56,7 @@ const RegistrationForm = ({ handleRegistration }) => {
           placeholder="Last Name"
           {...register("lastName", {
             required: true,
-            pattern: /^[A-Z][a-z]$/,
+            pattern:  /^[A-Z][a-z]+$/,
           })}
         />
         {renderErrorMessage(
