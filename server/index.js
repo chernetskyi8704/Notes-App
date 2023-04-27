@@ -1,4 +1,5 @@
 require("dotenv").config();
+import http from "http";
 
 const express = require("express");
 const cors = require("cors");
@@ -24,18 +25,14 @@ app.use((req, res, next) => {
   next();
 });
 
-const start = async () => {
-  try {
-    await mongoose.connect(process.env.DB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    app.listen(PORT, () => {
-      console.log(`Server is running on port: ${PORT}`);
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+const server = http.createServer(app);
 
-start();
+mongoose.connect(process.env.DB_URL).then(() => {
+  console.log("Mongodb connected");
+  server.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+  });
+}).catch((err) => {
+  console.log({ err });
+  process.exit(1);
+});
