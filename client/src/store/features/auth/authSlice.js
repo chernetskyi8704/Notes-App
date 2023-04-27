@@ -4,7 +4,7 @@ export const checkAuth = createAsyncThunk(
   "auth/checkAuth",
   async (arg, { dispatch }) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/refresh`, {
+      const response = await fetch(`https://notes-app-delta-green.vercel.app/api/refresh`, {
         method: "GET",
         credentials: "include",
       });

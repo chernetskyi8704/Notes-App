@@ -37,7 +37,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }).concat(apiSlice.middleware),
-  devTools: true,
+  devTools: false,
 });
 
 export const persistor = persistStore(store);
