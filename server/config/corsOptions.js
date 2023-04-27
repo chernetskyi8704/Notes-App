@@ -1,6 +1,9 @@
 require("dotenv").config();
 
-const allowedOrigins = [process.env.CLIENT_URL];
+const allowedOrigins = [
+  "https://notes-app-chernetskyi.vercel.app/",
+  "https://notes-app-delta-green.vercel.app",
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
