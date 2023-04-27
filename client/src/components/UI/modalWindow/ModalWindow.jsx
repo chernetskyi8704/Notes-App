@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./modalWindow.module.css";
+import classes from "./ModalWindow.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { allNotesSettings, setEdit, setAddNew, setShowColorButtons } from "../../../store/features/notes/notesSlice";
 
