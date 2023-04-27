@@ -7,17 +7,13 @@ const mongoose = require("mongoose");
 const router = require("./router/index.js");
 const errorMiddleware = require("./middlewares/error-middleware.js");
 const app = express();
+const corsOptions = require("./config/corsOptions.js");
 
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-);
+app.use(cors(corsOptions));
 app.use("/api", router);
 app.use(errorMiddleware);
 
