@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 const allowedOrigins = [
-  "https://notes-app-chernetskyi.vercel.app",
-  "https://notes-app-delta-green.vercel.app",
+  "https://main--chernetskyi-notes-taking-app.netlify.app",
+  "https://notes-api-smoky.vercel.app",
 ];
 
 const corsOptions = {
