@@ -19,7 +19,7 @@ class MailService {
     await this.transporter.sendMail({
       from: process.env.SMPT_USER,
       to,
-      subject: "Account activation" + process.env.API_URL,
+      subject: "Account activation",
       text: "",
       html: `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); text-align: center;">
