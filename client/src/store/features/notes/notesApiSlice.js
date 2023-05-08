@@ -1,6 +1,6 @@
-import { apiSlice } from "../../../api/apiSlice";
+import { customApiSlice  } from "../../../api/apiSlice";
 
-export const postApiSlice = apiSlice.injectEndpoints({
+export const postApiSlice = customApiSlice .injectEndpoints({
   endpoints: builder => ({
     getUsersNotes: builder.query({
       query: ({ userId, page, limit, search }) =>
