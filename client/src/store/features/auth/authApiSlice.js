@@ -1,6 +1,7 @@
-import { customApiSlice  } from "../../../api/apiSlice";
+import { customApiSlice } from "../../../api/apiSlice";
+import { setCredential } from "./authSlice";
 
-export const authApiSlice = customApiSlice .injectEndpoints({
+export const authApiSlice = customApiSlice.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation({
       query: loginUserData => ({
@@ -16,7 +17,23 @@ export const authApiSlice = customApiSlice .injectEndpoints({
         body: { ...credentials },
       }),
     }),
+    refresh: builder.mutation({
+      query: () => ({
+        url: "/refresh",
+        method: "GET",
+      }),
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          const { user, accessToken } = data;
+          dispatch(setCredential({ user, accessToken }));
+        } catch (err) {
+          console.log(err);
+        }
+      },
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegistrationMutation } = authApiSlice;
+export const { useLoginMutation, useRegistrationMutation, useRefreshMutation } =
+  authApiSlice;

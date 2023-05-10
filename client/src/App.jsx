@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useRefreshMutation } from "./store/features/auth/authApiSlice";
 import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
 import "./styles/App.css";
 import "./styles/reset.css";
-import { checkAuth } from "./store/features/auth/authSlice";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const [refresh] = useRefreshMutation();
   const accessToken = useSelector(state => state.auth.token);
 
   useEffect(() => {
     if (accessToken) {
-      dispatch(checkAuth());
+      refresh();
     }
   }, []);
 

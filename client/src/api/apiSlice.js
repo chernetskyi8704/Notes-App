@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredential, logOut } from "../store/features/auth/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://notes-api-smoky.vercel.app/api/",
+  baseUrl: "https://notes-api-smoky.vercel.app/api",
   credentials: "include",
   tagTypes: ["Note"],
   prepareHeaders: (headers, { getState }) => {

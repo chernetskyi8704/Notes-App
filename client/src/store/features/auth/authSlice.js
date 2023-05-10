@@ -1,26 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export const checkAuth = createAsyncThunk(
-  "auth/checkAuth",
-  async (arg, { dispatch }) => {
-    try {
-      const response = await fetch(`https://notes-api-smoky.vercel.app/api/refresh`, {
-        method: "GET",
-        credentials: "include",
-      });
-
-      if (response.status === 401) {
-        dispatch(logOut());
-        return;
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
 
 export const authSlice = createSlice({
   name: "auth",
@@ -45,13 +23,6 @@ export const authSlice = createSlice({
       state.isAuth = false;
       state.userId = null;
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(checkAuth.fulfilled, (state, action) => {
-      state.isAuth = true;
-      state.user = action.payload.user;
-      state.token = action.payload.accessToken;
-    });
   },
 });
 
