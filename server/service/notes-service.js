@@ -1,17 +1,33 @@
 const UserModel = require("../models/user-model");
 const NoteModel = require("../models/note-model");
 const ApiError = require("../exeptions/api-error.js");
+const jwt = require("jsonwebtoken");
 
 class NotesService {
   async getAllNotes(userId, page, limit, search) {
     if (!userId) {
-      throw ApiError.BadRequest(`No user found with userId: ${userId}`);
+      throw ApiError.BadRequest(`Invalid userId: ${userId}`);
     }
     
-    const userNotes = await NoteModel.find({
+    const codedUserNotes = await NoteModel.find({
       userId: userId,
       title: { $regex: search, $options: "i" },
     }).skip((page-1)*limit).limit(limit);
+
+    const decodedUserNotes = codedUserNotes.map(userNote => {
+      try {
+        const decodedTitle = jwt.verify(userNote._doc.title, process.env.NOTE_ACCESS_SECRET);
+        const decodedContent = jwt.verify(userNote._doc.content, process.env.NOTE_ACCESS_SECRET);
+        return { 
+          ...userNote._doc,
+          title: decodedTitle,
+          content: decodedContent,
+        };
+      } catch (error) {
+        console.log(error);
+        return { ...userNote };
+      }
+    });
 
     const totalNotesCount = await NoteModel.countDocuments({
       userId,
@@ -20,7 +36,7 @@ class NotesService {
 
     const totalPagesCount = Math.ceil(totalNotesCount / limit);
 
-    return { userNotes, totalPagesCount };
+    return { userNotes: decodedUserNotes, totalPagesCount };
   }
 
   async createNote(userId, title, content, date, color) {
@@ -28,11 +44,13 @@ class NotesService {
     if (!user) {
       throw ApiError.BadRequest(`No user found with userId: ${userId}`);
     }
+    const encodedTitle = jwt.sign(title, process.env.NOTE_ACCESS_SECRET);
+    const encodedContent = jwt.sign(content, process.env.NOTE_ACCESS_SECRET);
 
     const note = await NoteModel.create({
       userId,
-      title,
-      content,
+      title: encodedTitle,
+      content: encodedContent,
       date,
       color,
     });

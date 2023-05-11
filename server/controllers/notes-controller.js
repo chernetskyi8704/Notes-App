@@ -1,8 +1,6 @@
 require("dotenv").config();
 
 const NotesService = require("../service/notes-service");
-const { validationResult } = require("express-validator");
-const ApiError = require("../exeptions/api-error.js");
 
 class NotesController {
   async getAllNotes(req, res, next) {
