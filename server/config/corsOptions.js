@@ -1,8 +1,6 @@
 require("dotenv").config();
 
-const allowedOrigins = [
-  "https://main--chernetskyi-notes-taking-app.netlify.app",
-];
+const allowedOrigins = ["https://chernetskyi-notes-taking-app.netlify.app"];
 
 const corsOptions = {
   origin: (origin, callback) => {
