@@ -59,7 +59,10 @@ class NotesService {
   }
 
   async updateNote(id, updatedNote) {
-    const note = await NoteModel.findByIdAndUpdate(id, updatedNote, {
+    const encodedTitle = jwt.sign(updatedNote.title, process.env.NOTE_ACCESS_SECRET);
+    const encodedContent = jwt.sign(updatedNote.content, process.env.NOTE_ACCESS_SECRET);
+
+    const note = await NoteModel.findByIdAndUpdate(id, {title: encodedTitle, content: encodedContent}, {
       new: true,
     });
     if (!note) {

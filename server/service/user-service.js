@@ -6,7 +6,6 @@ const mailService = require("./mail-service");
 const tokenServise = require("./token-servise");
 const UserDto = require("../dto/user-dto");
 const ApiError = require("../exeptions/api-error.js");
-const { TokenExpiredError } = require("jsonwebtoken");
 
 class UserService {
   async registration(firstName, lastName, email, password) {
