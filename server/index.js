@@ -18,7 +18,6 @@ app.use(cors(corsOptions));
 app.use("/api", router);
 app.use(errorMiddleware);
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://main--chernetskyi-notes-taking-app.netlify.app");
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
   res.header('Access-Control-Allow-Credentials', true);

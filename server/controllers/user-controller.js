@@ -13,13 +13,14 @@ class UserController {
         return next(ApiError.BadRequest("Validation error.", errors.array()));
       }
     
-      const { firstName, lastName, email, password } = req.body; 
+      const { firstName, lastName, email, password, reCaptchaToken  } = req.body; 
 
       const userData = await userService.registration(
         firstName,
         lastName,
         email,
-        password
+        password,
+        reCaptchaToken 
       );
 
       res.cookie("refreshToken", userData.refreshToken, {

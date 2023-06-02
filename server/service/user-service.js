@@ -8,40 +8,52 @@ const UserDto = require("../dto/user-dto");
 const ApiError = require("../exeptions/api-error.js");
 
 class UserService {
-  async registration(firstName, lastName, email, password) {
-    const candidate = await UserModel.findOne({ email });
-    if (candidate) {
-      throw ApiError.BadRequest(
-        `Користувач з таким email ${email} вже зареєстрований!`
-      );
+  async registration(firstName, lastName, email, password, reCaptchaToken) {
+    if (!reCaptchaToken) {
+      throw ApiError.BadRequest(`Невірний reCaptchaToken ${reCaptchaToken}`);
     }
-    const hashPassword = await bcrypt.hash(password, 3);
-    const link = uuid.v4();
-
-    const user = await UserModel.create({
-      firstName,
-      lastName,
-      email,
-      password: hashPassword,
-      link,
-    });
-
-    await mailService.sendActivationMain(
-      firstName,
-      lastName,
-      email,
-      `${process.env.API_URL}/api/activate/${link}`
+    
+    const isReCaptchaTokenValid = await tokenServise.validateReCaptchaToken(
+      reCaptchaToken
     );
 
-    const userDto = new UserDto(user);
-    const tokens = tokenServise.generateTokens({ ...userDto });
+    if (isReCaptchaTokenValid) {
+      const candidate = await UserModel.findOne({ email });
+      if (candidate) {
+        throw ApiError.BadRequest(
+          `Користувач з таким email ${email} вже зареєстрований!`
+        );
+      }
+      const hashPassword = await bcrypt.hash(password, 3);
+      const link = uuid.v4();
 
-    await tokenServise.saveToken(userDto.id, tokens.refreshToken);
+      const user = await UserModel.create({
+        firstName,
+        lastName,
+        email,
+        password: hashPassword,
+        link,
+      });
 
-    return {
-      ...tokens,
-      user: userDto,
-    };
+      await mailService.sendActivationMain(
+        firstName,
+        lastName,
+        email,
+        `${process.env.API_URL}/api/activate/${link}`
+      );
+
+      const userDto = new UserDto(user);
+      const tokens = tokenServise.generateTokens({ ...userDto });
+
+      await tokenServise.saveToken(userDto.id, tokens.refreshToken);
+
+      return {
+        ...tokens,
+        user: userDto,
+      };
+    } else {
+      return next(ApiError.BadRequest("reCAPTCHA verification failed."));
+    }
   }
 
   async activate(activationLink) {

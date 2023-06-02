@@ -1,24 +1,46 @@
 import { NavLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useState, useRef } from "react";
 import classes from "../LoginForm/LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
-import { useForm } from "react-hook-form";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const RegistrationForm = ({ handleRegistration }) => {
+  const [reCaptchaToken, setRecaptchaToken] = useState("");
+  const [showRecaptchaWarning, setShowRecaptchaWarning] = useState(false);
+  const reCaptcha = useRef(null);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onBlur" });
 
-  const onSubmit = data => {
+  const onSubmit = (data, e) => {
+    e.preventDefault();
+
+    if (!reCaptchaToken) {
+      setShowRecaptchaWarning(true);
+      return;
+    }
+
     handleRegistration(
       data.firstName,
       data.lastName,
       data.email,
-      data.password
+      data.password,
+      reCaptchaToken
     );
+    reCaptcha.current.reset();
+    setRecaptchaToken("");
+    setShowRecaptchaWarning(false);
   };
+
+  const saveRecaptchaToken = (token)=>{
+      setRecaptchaToken(token);
+      setShowRecaptchaWarning(false);
+  }
 
   const renderErrorMessage = (fieldName, requiredMessage, patternMessage) => {
     return (
@@ -41,7 +63,7 @@ const RegistrationForm = ({ handleRegistration }) => {
           placeholder="First Name"
           {...register("firstName", {
             required: true,
-            pattern:  /^[A-Z][a-z]+$/,
+            pattern: /^[A-Z][a-z]+$/,
           })}
         />
         {renderErrorMessage(
@@ -56,7 +78,7 @@ const RegistrationForm = ({ handleRegistration }) => {
           placeholder="Last Name"
           {...register("lastName", {
             required: true,
-            pattern:  /^[A-Z][a-z]+$/,
+            pattern: /^[A-Z][a-z]+$/,
           })}
         />
         {renderErrorMessage(
@@ -88,6 +110,13 @@ const RegistrationForm = ({ handleRegistration }) => {
           "This field is required",
           "Password must be at least 6 characters"
         )}
+        <ReCAPTCHA
+          ref={reCaptcha}
+          sitekey={import.meta.env.VITE_APP_SITE_KEY}
+          onChange={saveRecaptchaToken}
+          onExpired={e => setRecaptchaToken("")}
+        />
+        {showRecaptchaWarning && <p>Please complete the reCAPTCHA verification.</p>}
         <MyButton type="submit">Sign up</MyButton>
         <p className={classes.loginRegestrationHints}>
           Already have an account? <NavLink to="/login">Log in</NavLink>

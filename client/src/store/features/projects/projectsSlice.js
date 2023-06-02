@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 export const getProjectsStore = createAsyncThunk(
   "post/getProjects",
   async () => {
-    const response = await fetch("https://api.npoint.io/330476ee1cf37edbfd70");
+    const response = await fetch(import.meta.env.VITE_API_PROJECTS_URL);
     const data = await response.json();
 
     return data;

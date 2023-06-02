@@ -1,5 +1,7 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const tokenModel = require("../models/token-model");
+const axios = require('axios');
 
 class TokenServise {
 
@@ -57,6 +59,15 @@ class TokenServise {
   async findToken(refreshToken) {
     const tokenData = await tokenModel.findOne({ refreshToken });
     return tokenData;
+  }
+
+  async validateReCaptchaToken(reCaptchaToken) {
+    const googleVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_VALIDATION_KEY}&response=${reCaptchaToken}`;
+
+    const response = await axios.post(googleVerifyUrl);
+    const {success} = response.data;
+
+    return success;
   }
 }
 

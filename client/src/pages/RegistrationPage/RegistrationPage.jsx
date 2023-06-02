@@ -8,19 +8,21 @@ const RegistrationPage = () => {
   const navigate = useNavigate();
   const [registration, { isLoading }] = useRegistrationMutation();
 
-  const handleRegistration = async (firstName, lastName, email, password) => {
+  const handleRegistration = async (firstName, lastName, email, password, reCaptchaToken) => {
     try {
       const userData = await registration({
         firstName,
         lastName,
         email,
         password,
+        reCaptchaToken
       });
       if (userData.error) {
         console.log(userData.error.data.message);
       } else {
         navigate("/login");
       }
+
     } catch (error) {
       console.log(error);
     }
