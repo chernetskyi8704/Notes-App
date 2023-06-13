@@ -1,5 +1,5 @@
 import classes from "./Settings.module.css";
-import DeleteButton from "../UI/deleteButton/deleteButton";
+import DeleteButton from "../UI/deleteButton/DeleteButton";
 import {
   setIsModalWindowWithSettingsOpen,
   setIsModalWindowWithDeleteAccountFormOpen,
