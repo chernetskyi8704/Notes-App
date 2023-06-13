@@ -1,7 +1,7 @@
 .navigation {
   position: fixed;
   height: 100%;
-  width: 90px;
+  width: 120px;
   border-right: 2px solid var(--primary-border-color);
 }
 

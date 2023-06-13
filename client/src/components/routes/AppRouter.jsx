@@ -11,10 +11,10 @@ const AppRouter = () => {
     <Routes>
       <Route element={<PrivateRoutes />}>
         <Route path="/notes" element={<NotesPage />} />
+        <Route path="/home" element={<HomePage />} />
       </Route>
       <Route element={<Outlet />}>
         <Route index element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
       </Route>

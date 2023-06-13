@@ -3,13 +3,17 @@ import classes from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../../store/features/auth/authSlice";
+import { setIsModalWindowWithSettingsOpen } from "../../../store/features/accountSettings/accountSettingsSlice";
 
 const Navigation = () => {
-  const isAuth = useSelector(state => state.auth.isAuth);
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logOut());
+  };
+
+  const handleOpenModalWindow = () => {
+    dispatch(setIsModalWindowWithSettingsOpen(true));
   };
 
   const navigationItems = [
@@ -24,10 +28,16 @@ const Navigation = () => {
       iconClass: "fas fa-sticky-note",
     },
     {
-      name: isAuth ? "Logout" : "Login",
-      link: isAuth ? "#" : "/login",
-      iconClass: isAuth ? "fas fa-sign-out-alt" : "fas fa-sign-in-alt",
-      onClick: isAuth && handleLogout,
+      name: "Settings",
+      link: "#",
+      iconClass: "fas fa-cog",
+      onClick: handleOpenModalWindow,
+    },
+    {
+      name: "Logout",
+      link: "/login",
+      iconClass: "fas fa-sign-out-alt",
+      onClick: handleLogout,
     },
   ];
 

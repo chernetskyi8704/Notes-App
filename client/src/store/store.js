@@ -13,13 +13,15 @@ import storage from "redux-persist/lib/storage";
 import authReducer from "./features/auth/authSlice";
 import notesReducer from "./features/notes/notesSlice";
 import projectsReducer from "./features/projects/projectsSlice";
-import { customApiSlice  } from "../api/apiSlice";
+import accountSettingsReducer from "./features/accountSettings/accountSettingsSlice";
+import { customApiSlice } from "../api/apiSlice";
 
 const rootReducer = combineReducers({
-  [customApiSlice .reducerPath]: customApiSlice .reducer,
+  [customApiSlice.reducerPath]: customApiSlice.reducer,
   auth: authReducer,
   notes: notesReducer,
   projects: projectsReducer,
+  accountSettings: accountSettingsReducer,
 });
 
 const persistConfig = {
@@ -36,8 +38,8 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(customApiSlice .middleware),
-  devTools: false,
+    }).concat(customApiSlice.middleware),
+  devTools: true,
 });
 
 export const persistor = persistStore(store);

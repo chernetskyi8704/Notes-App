@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { useGetUsersNotesQuery } from "../../store/features/notes/notesApiSlice";
 import Pagination from "../../components/UI/pagination/Pagination";
+import classes from "./NotesPage.module.css";
 
 const NotesPage = () => {
   const notesSettings = useSelector(allNotesSettings);
@@ -36,7 +37,7 @@ const NotesPage = () => {
   }, [notesSettings.isAddNew, notesSettings.isEdit]);
 
   return (
-    <>
+    <div className={classes.notesPageContainer}>
       <NotesControlPanel
         searchValue={searchValue}
         setSearchValue={setSearchValue}
@@ -55,7 +56,7 @@ const NotesPage = () => {
         setCurrentPageNumber={handleSetCurrentPage}
         totalPagesCount={totalPagesCount}
       />
-    </>
+    </div>
   );
 };
 

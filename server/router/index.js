@@ -38,5 +38,6 @@ router.get("/notes/:id", authMiddleware, notesController.getAllNotes);
 router.post("/createNote", authMiddleware, notesController.createNote);
 router.put("/update/:id", authMiddleware, notesController.updateNote);
 router.delete("/delete/:id", authMiddleware, notesController.deleteNote);
+router.delete("/deleteAccount", authMiddleware, userController.deleteAccount);
 
 module.exports = router;

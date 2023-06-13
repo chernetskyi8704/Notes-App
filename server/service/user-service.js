@@ -1,5 +1,7 @@
 require("dotenv").config();
 const UserModel = require("../models/user-model");
+const TokenModel = require("../models/token-model");
+const NoteModel = require("../models/note-model");
 const bcrypt = require("bcrypt");
 const uuid = require("uuid");
 const mailService = require("./mail-service");
@@ -12,7 +14,7 @@ class UserService {
     if (!reCaptchaToken) {
       throw ApiError.BadRequest(`Невірний reCaptchaToken ${reCaptchaToken}`);
     }
-    
+
     const isReCaptchaTokenValid = await tokenServise.validateReCaptchaToken(
       reCaptchaToken
     );
@@ -114,6 +116,24 @@ class UserService {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async deleteAccount(userId, password) {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      throw ApiError.BadRequest(`No user finded.`);
+    }
+
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
+    if (!isCorrectPassword) {
+      throw ApiError.BadRequest("Incorrect password.");
+    }
+
+    await UserModel.findByIdAndDelete(userId);
+    await TokenModel.deleteMany({ user: userId });
+    await NoteModel.deleteMany({ user: userId });
+
+    return { message: "Account deleted successfully" };
   }
 }
 

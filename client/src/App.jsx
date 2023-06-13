@@ -9,6 +9,7 @@ import "./styles/reset.css";
 const App = () => {
   const [refresh] = useRefreshMutation();
   const accessToken = useSelector(state => state.auth.token);
+  const isAuth = useSelector(state => state.auth.isAuth);
 
   useEffect(() => {
     if (accessToken) {
@@ -18,7 +19,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <Header />
+      {isAuth && <Header />}
       <Main />
     </div>
   );

@@ -1,0 +1,33 @@
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  gap: 5px;
+}
+
+.italicText {
+  font-weight: bold;
+  font-style: italic;
+  user-select: none;
+}
+
+.deleteAccountInput {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: start;
+}
+
+.errorMessage {
+  color: #ff0000;
+}
