@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDeleteAccountMutation } from "../../store/features/accountSettings/accountSetingsApiSlice";
 import { useForm } from "react-hook-form";
 import classes from "./DeleteAccountForm.module.css";
-import DeleteButton from "../UI/deleteButton/deleteButton";
+import DeleteButton from "../UI/deleteButton/DeleteButton";
 import MyInput from "../UI/input/MyInput";
 import { logOut } from "../../store/features/auth/authSlice";
 import {
