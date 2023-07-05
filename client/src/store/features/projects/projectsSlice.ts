@@ -2,9 +2,9 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { IProject } from "../../../types/IProject";
 
-export const getProjectsStore = createAsyncThunk(
-  "post/getProjects",
-  async (): Promise<IProject[]> => {
+export const fetchProjects = createAsyncThunk<IProject[], void>(
+  "project/fetchProjects",
+  async () => {
     const response = await fetch(import.meta.env.VITE_API_PROJECTS_URL);
     const data: IProject[] = await response.json();
 
@@ -32,16 +32,16 @@ export const projectsSlice = createSlice({
       state.isDataFetched = action.payload;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-      .addCase(getProjectsStore.pending, (state, _action) => {
+      .addCase(fetchProjects.pending, (state, _action) => {
         state.isLoading = true;
       })
-      .addCase(getProjectsStore.fulfilled, (state, action) => {
+      .addCase(fetchProjects.fulfilled, (state, action) => {
         state.projects = action.payload;
         state.isLoading = false;
       })
-      .addCase(getProjectsStore.rejected, (state, _action) => {
+      .addCase(fetchProjects.rejected, (state, _action) => {
         state.isLoading = false;
       });
   },
