@@ -1,13 +1,11 @@
+import { setIsModalWindowWithSettingsOpen, setIsModalWindowWithDeleteAccountFormOpen } from "../../store/features/accountSettings/accountSettingsSlice";
+import { useAppDispatch } from "../../hooks/redux";
+
 import classes from "./Settings.module.css";
 import DeleteButton from "../UI/deleteButton/DeleteButton";
-import {
-  setIsModalWindowWithSettingsOpen,
-  setIsModalWindowWithDeleteAccountFormOpen,
-} from "../../store/features/accountSettings/accountSettingsSlice";
-import { useDispatch } from "react-redux";
 
 const Settings = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const openDeleteAccountVerefication = () => {
     dispatch(setIsModalWindowWithDeleteAccountFormOpen(true));
     dispatch(setIsModalWindowWithSettingsOpen(false));
