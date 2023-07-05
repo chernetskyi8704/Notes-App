@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import AppRouter from "../routes/AppRouter";
+import { useAppSelector } from "../../hooks/redux";
+import { allAccountSettings } from "../../store/features/accountSettings/accountSettingsSlice";
+import { allAuthSettings } from "../../store/features/auth/authSlice";
+
 import classes from "./Main.module.css";
 import ModalWindow from "../UI/modalWindow/ModalWindow";
 import Settings from "../Settings/Settings";
-import { useSelector } from "react-redux";
 import DeleteAccountForm from "../DeleteAccountForm/DeleteAccountForm";
-import { allAccountSettings } from "../../store/features/accountSettings/accountSettingsSlice";
+import AppRouter from "../routes/AppRouter";
 
 const Main = () => {
-  const accountSettings = useSelector(allAccountSettings);
-  const userId = useSelector(state => state.auth.userId);
-  const [modal, isModal] = useState(false);
+  const accountSettings = useAppSelector(allAccountSettings);
+  const { userId } = useAppSelector(allAuthSettings);
+  const [modal, isModal] = useState<boolean>(false);
 
   useEffect(() => {
     accountSettings.isModalWindowWithDeleteAccountFormOpen
