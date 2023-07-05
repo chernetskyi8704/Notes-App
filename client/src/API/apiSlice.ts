@@ -1,12 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  createApi,
+  fetchBaseQuery,
+  BaseQueryFn,
+  FetchBaseQueryError,
+  FetchArgs,
+} from "@reduxjs/toolkit/query/react";
 import { setCredential, logOut } from "../store/features/auth/authSlice";
+import { RootState } from "../store/store";
+import { IAuthResponceData } from "../types/IAuthResponceData";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_API_BASE_URL,
   credentials: "include",
-  tagTypes: ["Note"],
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
+    const token = (getState() as RootState).auth.token;
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -15,13 +22,17 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 401) {
     const refreshResult = await baseQuery("/refresh", api, extraOptions);
     if (refreshResult?.data) {
-      api.dispatch(setCredential({ ...refreshResult.data }));
+      api.dispatch(setCredential({ ...refreshResult.data } as IAuthResponceData));
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOut());
@@ -31,7 +42,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return result;
 };
 
-export const customApiSlice  = createApi({
+export const customApiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  endpoints: builder => ({}),
+  endpoints: (builder) => ({}),
+  tagTypes: ["Note"],
 });

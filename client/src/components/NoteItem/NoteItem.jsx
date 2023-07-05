@@ -20,7 +20,7 @@ const NoteItem = ({ note }) => {
   };
 
   const handleDeleteNote = () => {
-    deleteNote(note._id);
+    deleteNote(note);
   };
 
   const handleShowDeleteAlert = () => {

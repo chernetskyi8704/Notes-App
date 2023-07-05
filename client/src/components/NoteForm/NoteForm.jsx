@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../NoteItem/NoteItem.module.css";
 import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../../store/features/notes/notesSlice";
-import { useAddNoteMutation, useUpdateNoteMutation } from "../../store/features/notes/notesApiSlice.js";
+import { useAddNoteMutation, useUpdateNoteMutation } from "../../store/features/notes/notesApiSlice.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { StyledButton } from "../UI/styledButton/StyledButton";
 
@@ -47,7 +47,7 @@ const NoteForm = () => {
 
   const handleUpdateNote = async () => {
     if (notesSettings.currentNote._id && title && content) {
-      await updateNote({ id: notesSettings.currentNote._id, title, content });
+      await updateNote({ _id: notesSettings.currentNote._id, title, content });
       dispatch(setEdit(false));
       dispatch(setCurrentNote(null));
       setTitle("");
