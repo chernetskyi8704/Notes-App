@@ -1,18 +1,18 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "./hooks/redux";
 import { useRefreshMutation } from "./store/features/auth/authApiSlice";
 import Main from "./components/Main/Main";
 import Header from "./components/Header/Header";
+import { allAuthSettings } from "./store/features/auth/authSlice";
 import "./styles/App.css";
 import "./styles/reset.css";
 
 const App = () => {
   const [refresh] = useRefreshMutation();
-  const accessToken = useSelector(state => state.auth.token);
-  const isAuth = useSelector(state => state.auth.isAuth);
+  const { token, isAuth } = useAppSelector(allAuthSettings);
 
   useEffect(() => {
-    if (accessToken) {
+    if (token) {
       refresh();
     }
   }, []);
