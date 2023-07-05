@@ -31,7 +31,7 @@ export const notesSlice = createSlice({
     setAddNew: (state, action: PayloadAction<boolean>) => {
       state.isAddNew = action.payload;
     },
-    setCurrentNote: (state, action: PayloadAction<INote>) => {
+    setCurrentNote: (state, action: PayloadAction<INote | null>) => {
       state.currentNote = action.payload;
     },
     setCurrentColor: (state, action: PayloadAction<string>) => {

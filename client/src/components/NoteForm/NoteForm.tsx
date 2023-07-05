@@ -1,16 +1,21 @@
-import React from "react";
-import classes from "../NoteItem/NoteItem.module.css";
-import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../../store/features/notes/notesSlice";
+import { useState, useEffect, MouseEvent } from "react";
+import { setEdit, setCurrentNote, allNotesSettings, setAddNew, setShowColorButtons } from "../../store/features/notes/notesSlice.ts";
 import { useAddNoteMutation, useUpdateNoteMutation } from "../../store/features/notes/notesApiSlice.ts";
-import { useDispatch, useSelector } from "react-redux";
-import { StyledButton } from "../UI/styledButton/StyledButton";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux.ts";
+import { StyledButton } from "../UI/styledButton/StyledButton.tsx";
+import { allAuthSettings } from "../../store/features/auth/authSlice.ts";
+
+import classes from "../NoteItem/NoteItem.module.css";
 
 const NoteForm = () => {
-  const dispatch = useDispatch();
-  const notesSettings = useSelector(allNotesSettings);
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
-  const userId = useSelector(state => state.auth.userId);
+  const dispatch = useAppDispatch();
+  const notesSettings = useAppSelector(allNotesSettings);
+
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
+  const {userId} = useAppSelector(allAuthSettings);
+
   const [createNote, {}] = useAddNoteMutation();
   const [updateNote, {}] = useUpdateNoteMutation();
 
@@ -18,10 +23,10 @@ const NoteForm = () => {
   const year = currentDate.getFullYear();
   const month = String(currentDate.getMonth() + 1).padStart(2, "0");
   const day = String(currentDate.getDate()).padStart(2, "0");
-  const date = `${day}.${month}.${year}`;
+  const date: string = `${day}.${month}.${year}`;
 
-  React.useEffect(() => {
-    if (notesSettings.isEdit) {
+  useEffect(() => {
+    if (notesSettings.isEdit && notesSettings.currentNote) {
       setTitle(notesSettings.currentNote.title);
       setContent(notesSettings.currentNote.content);
     } else {
@@ -35,7 +40,7 @@ const NoteForm = () => {
   }, [notesSettings.isEdit]);
 
   const handleAddNote = async () => {
-    if (title && content) {
+    if (title && content && userId) {
       await createNote({ userId, title, content, date, color: notesSettings.currentColor });
       dispatch(setAddNew(false));
       dispatch(setCurrentNote(null));
@@ -46,7 +51,7 @@ const NoteForm = () => {
   };
 
   const handleUpdateNote = async () => {
-    if (notesSettings.currentNote._id && title && content) {
+    if (notesSettings.currentNote && title && content) {
       await updateNote({ _id: notesSettings.currentNote._id, title, content });
       dispatch(setEdit(false));
       dispatch(setCurrentNote(null));
@@ -57,8 +62,8 @@ const NoteForm = () => {
 
   return (
     <form
-      onClick={e => e.stopPropagation()}
-      onSubmit={e => e.preventDefault()}
+      onClick={(e: MouseEvent<HTMLFormElement>) => e.stopPropagation()}
+      onSubmit={(e: MouseEvent<HTMLFormElement>) => e.preventDefault()}
       className={classes.container}
     >
       <div
@@ -70,7 +75,7 @@ const NoteForm = () => {
           className={classes.whitePlaceholder}
           placeholder="Title..."
           value={title}
-          maxLength="20"
+          maxLength={20}
           onChange={e => setTitle(e.target.value)}
         />
         <textarea
