@@ -1,9 +1,13 @@
-import React from "react";
 import AddNoteButton from "../AddNoteButton/AddNoteButton";
 import SearchInput from "../SearchInput/SearchInput";
 import classes from "./NotesControlPanel.module.css";
 
-const NotesControlPanel = ({ searchValue, setSearchValue }) => {
+interface NotesControlPanesProps {
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
+
+const NotesControlPanel = ({ searchValue, setSearchValue }: NotesControlPanesProps) => {
   return (
     <div className={classes.notesControlPanes}>
       <AddNoteButton />
