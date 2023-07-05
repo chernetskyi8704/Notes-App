@@ -1,4 +1,4 @@
-export interface IRegestrationInputData {
+export interface IRegistrationInputData {
   firstName: string;
   lastName: string;
   email: string;

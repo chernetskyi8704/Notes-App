@@ -1,48 +1,50 @@
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState, useRef } from "react";
+import { useState, useRef, ReactElement } from "react";
+import { IRegistrationInputData } from "../../types/IRegistrationInputData";
+
 import classes from "../LoginForm/LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const RegistrationForm = ({ handleRegistration }) => {
+interface RegistrationFormProps {
+  handleRegistration: (inputData: IRegistrationInputData) => void;
+}
+
+const RegistrationForm = ({ handleRegistration }: RegistrationFormProps) => {
   const [reCaptchaToken, setRecaptchaToken] = useState("");
   const [showRecaptchaWarning, setShowRecaptchaWarning] = useState(false);
-  const reCaptcha = useRef(null);
+  const reCaptcha = useRef<ReCAPTCHA>(null);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onBlur" });
+  } = useForm<IRegistrationInputData>({ mode: "onBlur" });
 
-  const onSubmit = (data, e) => {
-    e.preventDefault();
-
+  const onSubmit = (inputData: IRegistrationInputData): void => {
     if (!reCaptchaToken) {
       setShowRecaptchaWarning(true);
       return;
     }
 
-    handleRegistration({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email: data.email,
-      password: data.password,
-      reCaptchaToken,
-    });
-    reCaptcha.current.reset();
+    handleRegistration(inputData);
+    reCaptcha.current?.reset();
     setRecaptchaToken("");
     setShowRecaptchaWarning(false);
   };
 
-  const saveRecaptchaToken = token => {
-    setRecaptchaToken(token);
+  const saveRecaptchaToken = (token: string | null): void => {
+    if (token) setRecaptchaToken(token);
     setShowRecaptchaWarning(false);
   };
 
-  const renderErrorMessage = (fieldName, requiredMessage, patternMessage) => {
+  const renderErrorMessage = (
+    fieldName: keyof IRegistrationInputData,
+    requiredMessage: string,
+    patternMessage: string
+  ): ReactElement => {
     return (
       <>
         {errors[fieldName]?.type === "required" && (
@@ -61,7 +63,6 @@ const RegistrationForm = ({ handleRegistration }) => {
         <MyInput
           type="text"
           id="firstName"
-          name="firstName"
           placeholder="First Name"
           {...register("firstName", {
             required: true,
@@ -76,7 +77,6 @@ const RegistrationForm = ({ handleRegistration }) => {
         <MyInput
           type="text"
           id="lastName"
-          name="lastName"
           placeholder="Last Name"
           {...register("lastName", {
             required: true,
@@ -91,7 +91,6 @@ const RegistrationForm = ({ handleRegistration }) => {
         <MyInput
           type="email"
           id="email"
-          name="email"
           placeholder="Email"
           {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
         />
@@ -103,9 +102,11 @@ const RegistrationForm = ({ handleRegistration }) => {
         <MyInput
           type="password"
           id="password"
-          name="password"
           placeholder="Password"
-          {...register("password", { required: true, minLength: 6 })}
+          {...register("password", {
+            required: true,
+            pattern: /^.{6,}$/i,
+          })}
         />
         {renderErrorMessage(
           "password",
@@ -116,7 +117,7 @@ const RegistrationForm = ({ handleRegistration }) => {
           ref={reCaptcha}
           sitekey={import.meta.env.VITE_APP_SITE_KEY}
           onChange={saveRecaptchaToken}
-          onExpired={e => setRecaptchaToken("")}
+          onExpired={() => setRecaptchaToken("")}
         />
         {showRecaptchaWarning && (
           <p>Please complete the reCAPTCHA verification.</p>

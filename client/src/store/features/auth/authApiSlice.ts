@@ -1,7 +1,7 @@
 import { customApiSlice } from "../../../api/apiSlice";
 import { IAuthResponceData } from "../../../types/IAuthResponceData";
 import { ILoginInputData } from "../../../types/ILoginInputData";
-import { IRegestrationInputData } from "../../../types/IRegestrationInputData";
+import { IRegistrationInputData } from "../../../types/IRegistrationInputData";
 import { setCredential } from "./authSlice";
 
 export const authApiSlice = customApiSlice.injectEndpoints({
@@ -13,7 +13,7 @@ export const authApiSlice = customApiSlice.injectEndpoints({
         body: { ...loginUserData },
       }),
     }),
-    registration: builder.mutation<IAuthResponceData, IRegestrationInputData>({
+    registration: builder.mutation<IAuthResponceData, IRegistrationInputData>({
       query: (registrationInputData) => ({
         url: "/registration",
         method: "POST",
