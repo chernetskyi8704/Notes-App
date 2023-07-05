@@ -1,14 +1,21 @@
-import React from "react";
+import { ReactNode } from "react";
 import classes from "./ModalWindow.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { allNotesSettings, setEdit, setAddNew, setShowColorButtons } from "../../../store/features/notes/notesSlice";
 import { allAccountSettings, setIsModalWindowWithSettingsOpen, setIsModalWindowWithDeleteAccountFormOpen } from "../../../store/features/accountSettings/accountSettingsSlice";
 
-const ModalWindow = ({ children, visible, setVisible }) => {
+interface ModalWindowProps {
+  children: ReactNode;
+  visible: boolean;
+  setVisible: (state: boolean) => void;
+
+}
+
+const ModalWindow = ({ children, visible, setVisible }: ModalWindowProps) => {
   const rootClasses = [classes.modal];
-  const dispatch = useDispatch();
-  const notesSettings = useSelector(allNotesSettings);
-  const accountSettings = useSelector(allAccountSettings);
+  const dispatch = useAppDispatch();
+  const notesSettings = useAppSelector(allNotesSettings);
+  const accountSettings = useAppSelector(allAccountSettings);
 
   if (visible) {
     rootClasses.push(classes.active);

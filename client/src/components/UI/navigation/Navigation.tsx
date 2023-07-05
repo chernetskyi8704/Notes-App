@@ -1,12 +1,18 @@
-import React from "react";
 import classes from "./Navigation.module.css";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch } from "../../../hooks/redux";
 import { logOut } from "../../../store/features/auth/authSlice";
 import { setIsModalWindowWithSettingsOpen } from "../../../store/features/accountSettings/accountSettingsSlice";
 
+interface INavigatoionItem {
+  name: string;
+  link: string;
+  iconClass: string;
+  onClick?: () => void;
+}
+
 const Navigation = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     dispatch(logOut());
@@ -16,7 +22,7 @@ const Navigation = () => {
     dispatch(setIsModalWindowWithSettingsOpen(true));
   };
 
-  const navigationItems = [
+  const navigationItems: INavigatoionItem[] = [
     {
       name: "Home",
       link: "/home",
