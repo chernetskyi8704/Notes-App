@@ -1,4 +1,3 @@
-import React from "react";
 import Navigation from "../UI/navigation/Navigation";
 import classes from "./Header.module.css";
 

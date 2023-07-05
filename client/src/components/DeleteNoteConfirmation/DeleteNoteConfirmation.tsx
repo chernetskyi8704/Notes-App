@@ -1,7 +1,11 @@
-import React from "react";
 import classes from "./DeleteNoteConfirmation.module.css";
 
-const DeleteNoteConfirmation = ({ isModal, deleteNote }) => {
+interface DeleteNoteConfirmation {
+  isModal: (state: boolean) => void;
+  deleteNote: () => void;
+}
+
+const DeleteNoteConfirmation = ({isModal, deleteNote}: DeleteNoteConfirmation) => {
   const handleDeleteNote = () => {
     deleteNote();
   };

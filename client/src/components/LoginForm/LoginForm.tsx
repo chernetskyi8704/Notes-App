@@ -3,8 +3,14 @@ import classes from "./LoginRegestrationForm.module.css";
 import MyInput from "../UI/input/MyInput";
 import MyButton from "../UI/button/MyButon";
 import { useForm } from "react-hook-form";
+import { ILoginInputData } from "../../types/ILoginInputData";
 
-const LoginForm = ({ handleLogin, loginStatus }) => {
+interface LoginFormProps {
+  handleLogin: (inputLoginData: ILoginInputData) => void;
+  loginStatus: string | null;
+}
+
+const LoginForm = ({ handleLogin, loginStatus }: LoginFormProps) => {
   const ACTIVATION_REQUIRED_ERROR_MESSAGE = (
     <p className={`${classes.loginRegestrationHints} ${classes.error}`}>
       Thank you for registering on our website! In order to log in to your
@@ -23,10 +29,10 @@ const LoginForm = ({ handleLogin, loginStatus }) => {
     </p>
   );
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<ILoginInputData>();
 
-  const login = data => {
-    handleLogin({ email: data.email, password: data.password });
+  const login = (inputLoginData: ILoginInputData) => {
+    handleLogin(inputLoginData);
     reset();
   };
 
@@ -37,14 +43,12 @@ const LoginForm = ({ handleLogin, loginStatus }) => {
         <MyInput
           type="email"
           id="email"
-          name="email"
           placeholder="Email"
           {...register("email", { required: true })}
         />
         <MyInput
           type="password"
           id="password"
-          name="password"
           placeholder="Password"
           {...register("password", { required: true })}
         />
