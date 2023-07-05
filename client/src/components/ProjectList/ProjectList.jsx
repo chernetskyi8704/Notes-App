@@ -20,7 +20,7 @@ const ProjectList = () => {
   }, []);
 
   if (!isLoading) {
-    projectsList = projects.map(project => {
+    projectsList = projects?.map(project => {
       return (
         <NavLink
           className={classes.project_item}
