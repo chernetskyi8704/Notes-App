@@ -25,27 +25,29 @@ const RegistrationForm = ({ handleRegistration }) => {
       return;
     }
 
-    handleRegistration(
-      data.firstName,
-      data.lastName,
-      data.email,
-      data.password,
-      reCaptchaToken
-    );
+    handleRegistration({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      reCaptchaToken,
+    });
     reCaptcha.current.reset();
     setRecaptchaToken("");
     setShowRecaptchaWarning(false);
   };
 
-  const saveRecaptchaToken = (token)=>{
-      setRecaptchaToken(token);
-      setShowRecaptchaWarning(false);
-  }
+  const saveRecaptchaToken = token => {
+    setRecaptchaToken(token);
+    setShowRecaptchaWarning(false);
+  };
 
   const renderErrorMessage = (fieldName, requiredMessage, patternMessage) => {
     return (
       <>
-        {errors[fieldName]?.type === "required" && (<span>{requiredMessage}</span>)}
+        {errors[fieldName]?.type === "required" && (
+          <span>{requiredMessage}</span>
+        )}
         {errors[fieldName]?.type === "pattern" && <span>{patternMessage}</span>}
       </>
     );
@@ -116,7 +118,9 @@ const RegistrationForm = ({ handleRegistration }) => {
           onChange={saveRecaptchaToken}
           onExpired={e => setRecaptchaToken("")}
         />
-        {showRecaptchaWarning && <p>Please complete the reCAPTCHA verification.</p>}
+        {showRecaptchaWarning && (
+          <p>Please complete the reCAPTCHA verification.</p>
+        )}
         <MyButton type="submit">Sign up</MyButton>
         <p className={classes.loginRegestrationHints}>
           Already have an account? <NavLink to="/login">Log in</NavLink>

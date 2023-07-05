@@ -1,4 +1,3 @@
-import React from "react";
 import ProjectList from "../../components/ProjectList/ProjectList";
 import classes from "./HomePage.module.css";
 

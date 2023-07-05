@@ -1,21 +1,24 @@
+import { allNotesSettings } from "../../store/features/notes/notesSlice";
+import { useAppSelector } from "../../hooks/redux";
+import { useState, useEffect } from "react";
+import { useGetUsersNotesQuery } from "../../store/features/notes/notesApiSlice";
+import { allAuthSettings } from "../../store/features/auth/authSlice";
+
+import classes from "./NotesPage.module.css";
 import NoteForm from "../../components/NoteForm/NoteForm";
 import NotesControlPanel from "../../components/NotesControlPanel/NotesControlPanel";
 import NotesItems from "../../components/NotesItems/NotesItems";
 import ModalWindow from "../../components/UI/modalWindow/ModalWindow";
-import { allNotesSettings } from "../../store/features/notes/notesSlice";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { useGetUsersNotesQuery } from "../../store/features/notes/notesApiSlice";
 import Pagination from "../../components/UI/pagination/Pagination";
-import classes from "./NotesPage.module.css";
 
 const NotesPage = () => {
-  const notesSettings = useSelector(allNotesSettings);
-  const userId = useSelector(state => state.auth.userId);
-  const [currentPageNumber, setCurrentPageNumber] = useState(1);
-  const [limit, setLimit] = useState(12);
-  const [modal, isModal] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
+  const { isAddNew, isEdit } = useAppSelector(allNotesSettings);
+  const { userId } = useAppSelector(allAuthSettings);
+  const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
+  const [limit, _setLimit] = useState<number>(12);
+  const [modal, isModal] = useState<boolean>(false);
+  const [searchValue, setSearchValue] = useState<string>("");
+
   const { data, isLoading, isSuccess, isError } = useGetUsersNotesQuery({
     userId,
     page: currentPageNumber,
@@ -26,15 +29,13 @@ const NotesPage = () => {
   const userNotes = data?.userNotes || [];
   const totalPagesCount = data?.totalPagesCount || 0;
 
-  const handleSetCurrentPage = value => {
+  const handleSetCurrentPage = (value: number) => {
     setCurrentPageNumber(value);
   };
 
   useEffect(() => {
-    notesSettings.isAddNew || notesSettings.isEdit
-      ? isModal(true)
-      : isModal(false);
-  }, [notesSettings.isAddNew, notesSettings.isEdit]);
+    isAddNew || isEdit ? isModal(true) : isModal(false);
+  }, [isAddNew, isEdit]);
 
   return (
     <div className={classes.notesPageContainer}>

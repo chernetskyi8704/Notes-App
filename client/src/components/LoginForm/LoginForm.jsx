@@ -24,8 +24,9 @@ const LoginForm = ({ handleLogin, loginStatus }) => {
   );
 
   const { register, handleSubmit, reset } = useForm();
+
   const login = data => {
-    handleLogin(data.email, data.password);
+    handleLogin({ email: data.email, password: data.password });
     reset();
   };
 
@@ -48,7 +49,8 @@ const LoginForm = ({ handleLogin, loginStatus }) => {
           {...register("password", { required: true })}
         />
         <MyButton type="submit">Login</MyButton>
-        {loginStatus === "activation-required" && ACTIVATION_REQUIRED_ERROR_MESSAGE}
+        {loginStatus === "activation-required" &&
+          ACTIVATION_REQUIRED_ERROR_MESSAGE}
         {loginStatus === "error" && FAILED_LOGIN_ERROR_MESSAGE}
         {NO_ACCOUNT_MESSAGE}
       </form>

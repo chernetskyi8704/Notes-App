@@ -3,5 +3,5 @@ export interface IUser {
   lastNmae: string;
   email: string;
   id: string;
-  isAcrivated: boolean;
+  isActivated: boolean;
 }

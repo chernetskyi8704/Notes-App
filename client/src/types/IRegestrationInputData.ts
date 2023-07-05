@@ -3,4 +3,5 @@ export interface IRegestrationInputData {
   lastName: string;
   email: string;
   password: string;
+  reCaptchaToken: string;
 }
