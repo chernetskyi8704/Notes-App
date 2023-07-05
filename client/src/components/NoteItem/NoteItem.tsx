@@ -1,16 +1,23 @@
-import classes from "./NoteItem.module.css";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useAppDispatch } from "../../hooks/redux";
 import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
 import { StyledButton } from "../UI/styledButton/StyledButton";
-import { useState } from "react";
+import { INote } from "../../types/INote";
+
+import classes from "./NoteItem.module.css";
 import ModalWindow from "../UI/modalWindow/ModalWindow";
 import DeleteNoteConfirmation from "../DeleteNoteConfirmation/DeleteNoteConfirmation";
 
-const NoteItem = ({ note }) => {
-  const dispatch = useDispatch();
+
+interface NoteItemProps {
+  note: INote;
+}
+
+const NoteItem = ({ note }: NoteItemProps) => {
+  const dispatch = useAppDispatch();
   const [deleteNote, {}] = useDeleteNoteMutation();
-  const [modal, isModal] = useState(false);
+  const [modal, isModal] = useState<boolean>(false);
 
   const handleEditNote = () => {
     dispatch(setCurrentNote(note));
