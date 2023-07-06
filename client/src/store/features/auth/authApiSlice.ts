@@ -1,4 +1,4 @@
-import { customApiSlice } from "../../../api/apiSlice";
+import { customApiSlice } from "../../../API/apiSlice";
 import { IAuthResponceData } from "../../../types/IAuthResponceData";
 import { ILoginInputData } from "../../../types/ILoginInputData";
 import { IRegistrationInputData } from "../../../types/IRegistrationInputData";

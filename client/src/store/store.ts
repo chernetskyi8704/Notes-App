@@ -14,7 +14,7 @@ import authReducer from "./features/auth/authSlice";
 import notesReducer from "./features/notes/notesSlice";
 import projectsReducer from "./features/projects/projectsSlice";
 import accountSettingsReducer from "./features/accountSettings/accountSettingsSlice";
-import { customApiSlice } from "../api/apiSlice";
+import { customApiSlice } from "../API/apiSlice";
 
 const rootReducer = combineReducers({
   [customApiSlice.reducerPath]: customApiSlice.reducer,
