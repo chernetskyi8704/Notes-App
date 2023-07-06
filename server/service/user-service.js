@@ -12,7 +12,7 @@ const ApiError = require("../exeptions/api-error.js");
 class UserService {
   async registration(firstName, lastName, email, password, reCaptchaToken) {
     if (!reCaptchaToken) {
-      throw ApiError.BadRequest(`Невірний reCaptchaToken ${reCaptchaToken}`);
+      throw ApiError.BadRequest(`Incorrect reCaptchaToken ${reCaptchaToken}`);
     }
 
     const isReCaptchaTokenValid = await tokenServise.validateReCaptchaToken(
@@ -23,7 +23,7 @@ class UserService {
       const candidate = await UserModel.findOne({ email });
       if (candidate) {
         throw ApiError.BadRequest(
-          `Користувач з таким email ${email} вже зареєстрований!`
+          `User with email ${email} is already registered!`
         );
       }
       const hashPassword = await bcrypt.hash(password, 3);
