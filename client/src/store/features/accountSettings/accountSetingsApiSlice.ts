@@ -1,4 +1,4 @@
-import { customApiSlice } from "../../../api/apiSlice";
+import { customApiSlice } from "../../../API/apiSlice";
 
 export const accoutSettingsApiSlice = customApiSlice.injectEndpoints({
   endpoints: builder => ({
