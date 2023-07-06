@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useDeleteAccountMutation } from "../../store/features/accountSettings/accountSetingsApiSlice";
 import { useForm } from "react-hook-form";
@@ -68,7 +68,7 @@ const DeleteAccountForm = ({ userId }: IDeleteAccountFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(handleDeleteAccount)}
-      onClick={e => e.stopPropagation()}
+      onClick={(e: MouseEvent<HTMLFormElement>): void => e.stopPropagation()}
     >
       <div className={classes.modalContent}>
         <h3>Are you sure you want to do this? </h3>
@@ -76,8 +76,7 @@ const DeleteAccountForm = ({ userId }: IDeleteAccountFormProps) => {
           <label htmlFor="verificationInput">
             To verify type
             <span className={classes.italicText}>
-              {" "}
-              {TEXT_TO_CONFIRM_ACCOUNT_DELETION}{" "}
+              {TEXT_TO_CONFIRM_ACCOUNT_DELETION}
             </span>
             below:
           </label>

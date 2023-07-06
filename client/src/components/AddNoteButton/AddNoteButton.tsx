@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import classes from "./AddNoteButton.module.css";
+import { useEffect, useState, MouseEvent } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "../../styles/animations/AddNoteButtonAnimations.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
   setAddNew,
   setCurrentNote,
@@ -11,9 +9,12 @@ import {
   allNotesSettings,
 } from "../../store/features/notes/notesSlice";
 
+import classes from "./AddNoteButton.module.css";
+import "../../styles/animations/AddNoteButtonAnimations.css";
+
 const AddNoteButton = () => {
-  const [visibleButtons, setVisibleButtons] = useState(0);
-  const colors = [
+  const [visibleButtons, setVisibleButtons] = useState<number>(0);
+  const colors: string[] = [
     "#b8ccdd",
     "#91aabf",
     "#62809a",
@@ -21,8 +22,8 @@ const AddNoteButton = () => {
     "#799cbf",
     "#42678b",
   ];
-  const dispatch = useDispatch();
-  const { showColorButtons } = useSelector(allNotesSettings);
+  const dispatch = useAppDispatch();
+  const { showColorButtons } = useAppSelector(allNotesSettings);
 
   useEffect(() => {
     if (showColorButtons) {
@@ -37,16 +38,16 @@ const AddNoteButton = () => {
     }
   }, [visibleButtons, showColorButtons]);
 
-  const handleOpenForm = ({ target }) => {
-    if (target.tagName === "BUTTON") {
-      const currentColor = target.value;
+  const handleOpenForm = ({ target }: MouseEvent<HTMLDivElement>) => {
+    if("value" in target) {
+      const currentColor = (target as HTMLInputElement).value;
       dispatch(setAddNew(true));
       dispatch(setCurrentColor(currentColor));
       dispatch(setCurrentNote(null));
     }
   };
 
-  const toggleShowButtons = () => {
+  const toggleShowButtons = (): void => {
     dispatch(setShowColorButtons(!showColorButtons));
     setVisibleButtons(0);
   };
