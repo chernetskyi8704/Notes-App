@@ -1,4 +1,4 @@
-import { customApiSlice } from "../../../API/apiSlice";
+import { customApiSlice } from "../../../api/apiSlice.ts";
 import { INote } from "../../../types/INote";
 import { IQueryParams } from "../../../types/IQueryParams";
 
