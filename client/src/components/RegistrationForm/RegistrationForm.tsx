@@ -23,11 +23,16 @@ const RegistrationForm = ({ handleRegistration }: RegistrationFormProps) => {
     formState: { errors },
   } = useForm<IRegistrationInputData>({ mode: "onBlur" });
 
-  const onSubmit = (inputData: IRegistrationInputData): void => {
+  const onSubmit = (data: Omit<IRegistrationInputData, "reCaptchaToken">): void => {
     if (!reCaptchaToken) {
       setShowRecaptchaWarning(true);
       return;
     }
+
+    const inputData = {
+      ...data,
+      reCaptchaToken
+    };
 
     handleRegistration(inputData);
     reCaptcha.current?.reset();
