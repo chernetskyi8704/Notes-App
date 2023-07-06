@@ -1,30 +1,44 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useDeleteAccountMutation } from "../../store/features/accountSettings/accountSetingsApiSlice";
 import { useForm } from "react-hook-form";
-import classes from "./DeleteAccountForm.module.css";
-import DeleteButton from "../UI/deleteButton/DeleteButton";
-import MyInput from "../UI/input/MyInput";
 import { logOut } from "../../store/features/auth/authSlice";
 import {
   allAccountSettings,
   setIsModalWindowWithSettingsOpen,
   setIsModalWindowWithDeleteAccountFormOpen,
 } from "../../store/features/accountSettings/accountSettingsSlice";
+import { IUser } from "../../types/IUser";
+import { isApiResponse } from "../../utils/apiErrorUtils";
 
-const DeleteAccountForm = ({ userId }) => {
-  const dispatch = useDispatch();
+import classes from "./DeleteAccountForm.module.css";
+import DeleteButton from "../UI/deleteButton/DeleteButton";
+import MyInput from "../UI/input/MyInput";
+
+interface IDeleteAccountFormProps {
+  userId: IUser["id"] | null;
+}
+
+interface IDeleteAccountInputData {
+  confirmationText: string;
+  password: string;
+}
+
+const DeleteAccountForm = ({ userId }: IDeleteAccountFormProps) => {
+  const dispatch = useAppDispatch();
   const TEXT_TO_CONFIRM_ACCOUNT_DELETION = "delete my account";
+
   const {
     register,
     handleSubmit,
     formState: { isValid: isFormValid },
     reset,
-  } = useForm();
+  } = useForm<IDeleteAccountInputData>();
 
   const [deleteAccount] = useDeleteAccountMutation();
-  const [deleteAccountError, setDeleteAcountError] = useState("");
-  const { isModalWindowWithDeleteAccountFormOpen } = useSelector(allAccountSettings);
+  const [deleteAccountError, setDeleteAcountError] = useState<string>("");
+  const { isModalWindowWithDeleteAccountFormOpen } =
+    useAppSelector(allAccountSettings);
 
   useEffect(() => {
     if (!isModalWindowWithDeleteAccountFormOpen) {
@@ -32,8 +46,9 @@ const DeleteAccountForm = ({ userId }) => {
     }
   }, [isModalWindowWithDeleteAccountFormOpen]);
 
-  const handleDeleteAccount = async ({ password }, e) => {
-    e.preventDefault();
+  const handleDeleteAccount = async ({
+    password,
+  }: Partial<IDeleteAccountInputData>) => {
     try {
       await deleteAccount({ password, userId }).unwrap();
       dispatch(logOut());
@@ -41,8 +56,12 @@ const DeleteAccountForm = ({ userId }) => {
       dispatch(setIsModalWindowWithDeleteAccountFormOpen(false));
       reset();
     } catch (error) {
-      setDeleteAcountError(error.data?.message);
-      reset();
+      if (isApiResponse(error)) {
+        setDeleteAcountError(error.data.message);
+        reset();
+      } else {
+        alert("Unknown error!");
+      }
     }
   };
 
@@ -65,7 +84,6 @@ const DeleteAccountForm = ({ userId }) => {
           <MyInput
             type="text"
             id="confirmationText"
-            name="confirmationText"
             {...register("confirmationText", {
               required: true,
               validate: value =>
@@ -79,7 +97,6 @@ const DeleteAccountForm = ({ userId }) => {
           <MyInput
             type="password"
             id="passwordInput"
-            name="password"
             {...register("password", {
               required: true,
             })}

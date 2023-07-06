@@ -6,7 +6,7 @@ interface IAuthSettings {
   user: IUser | null;
   token: string | null;
   isAuth: boolean;
-  userId: string | null;
+  userId: IUser["id"] | null;
 }
 
 const authSettings: IAuthSettings = {
