@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useRegistrationMutation } from "../../store/features/auth/authApiSlice";
-import { IRegestrationInputData } from "../../types/IRegistrationInputData";
+import { IRegistrationInputData } from "../../types/IRegistrationInputData";
 import { isApiResponse } from "../../utils/apiErrorUtils";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 
@@ -9,7 +9,7 @@ const RegistrationPage = () => {
   const [registration, {}] = useRegistrationMutation();
 
   const handleRegistration = async (
-    inputData: IRegestrationInputData
+    inputData: IRegistrationInputData
   ): Promise<void> => {
     try {
       await registration(inputData).unwrap();
