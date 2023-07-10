@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useAppDispatch } from "../../hooks/redux";
 import { setEdit, setCurrentNote, setCurrentColor, setShowColorButtons } from "../../store/features/notes/notesSlice";
 import { useDeleteNoteMutation } from "../../store/features/notes/notesApiSlice";
@@ -14,7 +14,7 @@ interface NoteItemProps {
   note: INote;
 }
 
-const NoteItem = ({ note }: NoteItemProps) => {
+const NoteItem = memo(({ note }: NoteItemProps) => {
   const dispatch = useAppDispatch();
   const [deleteNote, {}] = useDeleteNoteMutation();
   const [modal, isModal] = useState<boolean>(false);
@@ -71,6 +71,6 @@ const NoteItem = ({ note }: NoteItemProps) => {
       </ModalWindow>
     </section>
   );
-};
+});
 
 export default NoteItem;

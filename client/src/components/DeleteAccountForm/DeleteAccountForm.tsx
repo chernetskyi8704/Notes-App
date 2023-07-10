@@ -1,4 +1,4 @@
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect, MouseEvent, memo } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { useDeleteAccountMutation } from "../../store/features/accountSettings/accountSetingsApiSlice";
 import { useForm } from "react-hook-form";
@@ -24,7 +24,7 @@ interface IDeleteAccountInputData {
   password: string;
 }
 
-const DeleteAccountForm = ({ userId }: IDeleteAccountFormProps) => {
+const DeleteAccountForm = memo(({ userId }: IDeleteAccountFormProps) => {
   const dispatch = useAppDispatch();
   const TEXT_TO_CONFIRM_ACCOUNT_DELETION = "delete my account";
 
@@ -108,6 +108,6 @@ const DeleteAccountForm = ({ userId }: IDeleteAccountFormProps) => {
       </div>
     </form>
   );
-};
+});
 
 export default DeleteAccountForm;

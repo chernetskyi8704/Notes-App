@@ -1,10 +1,11 @@
+import {memo} from "react";
 import { setIsModalWindowWithSettingsOpen, setIsModalWindowWithDeleteAccountFormOpen } from "../../store/features/accountSettings/accountSettingsSlice";
 import { useAppDispatch } from "../../hooks/redux";
 
 import classes from "./Settings.module.css";
 import DeleteButton from "../UI/deleteButton/DeleteButton";
 
-const Settings = () => {
+const Settings = memo(() => {
   const dispatch = useAppDispatch();
   const openDeleteAccountVerefication = () => {
     dispatch(setIsModalWindowWithDeleteAccountFormOpen(true));
@@ -32,6 +33,6 @@ const Settings = () => {
       </button>
     </div>
   );
-};
+});
 
 export default Settings;
