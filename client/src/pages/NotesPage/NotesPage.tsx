@@ -14,7 +14,7 @@ const NotesPage = memo(() => {
   const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
   const [limit, _setLimit] = useState<number>(12);
   const [searchValue, setSearchValue] = useState<string>("");
-  console.log("Notes Page")
+
   const { data, isLoading, isSuccess, isError } = useGetUsersNotesQuery({
     userId,
     page: currentPageNumber,
