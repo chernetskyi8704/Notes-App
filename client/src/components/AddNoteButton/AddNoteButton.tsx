@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState, MouseEvent, memo } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import {
@@ -12,7 +12,7 @@ import {
 import classes from "./AddNoteButton.module.css";
 import "../../styles/animations/AddNoteButtonAnimations.css";
 
-const AddNoteButton = () => {
+const AddNoteButton = memo(() => {
   const [visibleButtons, setVisibleButtons] = useState<number>(0);
   const colors: string[] = [
     "#b8ccdd",
@@ -75,6 +75,6 @@ const AddNoteButton = () => {
       )}
     </>
   );
-};
+});
 
 export default AddNoteButton;

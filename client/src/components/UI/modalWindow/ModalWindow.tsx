@@ -7,8 +7,7 @@ import { allAccountSettings, setIsModalWindowWithSettingsOpen, setIsModalWindowW
 interface ModalWindowProps {
   children: ReactNode;
   visible: boolean;
-  setVisible: (state: boolean) => void;
-
+  setVisible?: (state: boolean) => void;
 }
 
 const ModalWindow = ({ children, visible, setVisible }: ModalWindowProps) => {
@@ -22,7 +21,9 @@ const ModalWindow = ({ children, visible, setVisible }: ModalWindowProps) => {
   }
 
   const handleCloseModal = () => {
-    setVisible(false);
+    if (setVisible) {
+      setVisible(false);
+    }
     if (notesSettings.isEdit) {
       dispatch(setEdit(false));
     }
