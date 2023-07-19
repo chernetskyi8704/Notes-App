@@ -1,5 +1,8 @@
 import { MouseEvent } from "react";
+
 import classes from "./Pagination.module.css";
+import ListItems from "../../List/ListItems";
+import PaginationItem from "../../PaginationItem/PaginationItem";
 
 interface PaginationProps {
   setCurrentPageNumber: (value: number) => void;
@@ -7,23 +10,8 @@ interface PaginationProps {
   totalPagesCount: number;
 }
 
-const Pagination = ({
-  setCurrentPageNumber,
-  currentPageNumber,
-  totalPagesCount,
-}: PaginationProps) => {
+const Pagination = ({ setCurrentPageNumber, currentPageNumber, totalPagesCount }: PaginationProps) => {
   const pageNumbers = Array.from({ length: totalPagesCount }, (_, i) => i + 1);
-  const pages = pageNumbers.map(pageNumber => (
-    <li
-      className={`${classes.page} ${
-        currentPageNumber === pageNumber ? classes.page__current : ""
-      }`}
-      value={pageNumber}
-      key={pageNumber}
-    >
-      {pageNumber}
-    </li>
-  ));
 
   const handleChangeCurrentPage = (e: MouseEvent) => {
     if (e.target && "value" in e.target) {
@@ -33,12 +21,17 @@ const Pagination = ({
   };
 
   return (
-    <ul
-      className={classes.paginationContainer}
+    <ListItems
+      items={pageNumbers}
+      listItemsClassName={classes.paginationContainer}
       onClick={handleChangeCurrentPage}
-    >
-      {pages}
-    </ul>
+      renderItems={(pageNumber) => (
+        <PaginationItem
+          pageNumber={pageNumber}
+          currentPageNumber={currentPageNumber}
+        />
+      )}
+    />
   );
 };
 
