@@ -1,15 +1,11 @@
-import classes from "./Navigation.module.css";
-import { NavLink } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks/redux";
 import { logOut } from "../../../store/features/auth/authSlice";
 import { setIsModalWindowWithSettingsOpen } from "../../../store/features/accountSettings/accountSettingsSlice";
+import { INavigatoionItem } from "../../../types/INavigationItem";
 
-interface INavigatoionItem {
-  name: string;
-  link: string;
-  iconClass: string;
-  onClick?: () => void;
-}
+import classes from "./Navigation.module.css";
+import ListItems from "../../List/ListItems";
+import NavigationItem from "../../NavigationItem/NavigationItem";
 
 const Navigation = () => {
   const dispatch = useAppDispatch();
@@ -49,22 +45,11 @@ const Navigation = () => {
 
   return (
     <nav className={classes.navigation}>
-      <ul className={classes.navigation__items}>
-        {navigationItems.map(item => (
-          <li className={classes.navigation__item} key={item.link}>
-            <NavLink
-              className={classes.navigation__link}
-              to={item.link}
-              onClick={item.onClick}
-            >
-              <span className={classes.link__name}>{item.name}</span>
-              <span className={classes.navigation__icon}>
-                <i className={item.iconClass}></i>
-              </span>
-            </NavLink>
-          </li>
-        ))}
-      </ul>
+      <ListItems
+        items={navigationItems}
+        listItemsClassName={classes.navigation__items}
+        renderItems={item => <NavigationItem item={item} key={item.link} />}
+      />
     </nav>
   );
 };
