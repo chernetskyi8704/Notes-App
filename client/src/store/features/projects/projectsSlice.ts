@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { IProject } from "../../../types/IProject";
 
@@ -28,9 +28,6 @@ export const projectsSlice = createSlice({
   name: "projects",
   initialState: projectsState,
   reducers: {
-    setIsDataFetched: (state, action: PayloadAction<boolean>) => {
-      state.isDataFetched = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,6 +37,7 @@ export const projectsSlice = createSlice({
       .addCase(fetchProjects.fulfilled, (state, action) => {
         state.projects = action.payload;
         state.isLoading = false;
+        state.isDataFetched = true;
       })
       .addCase(fetchProjects.rejected, (state, _action) => {
         state.isLoading = false;
@@ -48,6 +46,5 @@ export const projectsSlice = createSlice({
 });
 
 export const selectProjectsState = (state: RootState) => state.projects;
-export const { setIsDataFetched } = projectsSlice.actions;
 
 export default projectsSlice.reducer;
