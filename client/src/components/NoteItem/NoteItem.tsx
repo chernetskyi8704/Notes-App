@@ -35,7 +35,7 @@ const NoteItem = memo(({ note }: NoteItemProps) => {
   };
 
   return (
-    <section className={classes.container}>
+    <li className={classes.container}>
       <div
         className={classes.notes__form}
         style={{ backgroundColor: `${note.color}` }}
@@ -69,7 +69,7 @@ const NoteItem = memo(({ note }: NoteItemProps) => {
           isModal={isModal}
         />
       </ModalWindow>
-    </section>
+    </li>
   );
 });
 
