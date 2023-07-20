@@ -11,7 +11,6 @@ class NotesService {
     
     const codedUserNotes = await NoteModel.find({
       userId: userId,
-      title: { $regex: search, $options: "i" },
     }).skip((page-1)*limit).limit(limit);
 
     const decodedUserNotes = codedUserNotes.map(userNote => {
@@ -29,14 +28,14 @@ class NotesService {
       }
     });
 
-    const totalNotesCount = await NoteModel.countDocuments({
-      userId,
-      title: {$regex: search, $options: "i"}
-    })
+    const filteredNotes = decodedUserNotes.filter(note=>{
+      if(note.title.includes(search)){
+      return note
+    }});
 
-    const totalPagesCount = Math.ceil(totalNotesCount / limit);
+    const totalPagesCount = Math.ceil(filteredNotes.length / limit);
 
-    return { userNotes: decodedUserNotes, totalPagesCount };
+    return { userNotes: filteredNotes, totalPagesCount };
   }
 
   async createNote(userId, title, content, date, color) {

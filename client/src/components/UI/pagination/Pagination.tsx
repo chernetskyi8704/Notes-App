@@ -29,6 +29,7 @@ const Pagination = ({ setCurrentPageNumber, currentPageNumber, totalPagesCount }
         <PaginationItem
           pageNumber={pageNumber}
           currentPageNumber={currentPageNumber}
+          key={pageNumber}
         />
       )}
     />

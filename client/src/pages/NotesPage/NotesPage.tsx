@@ -34,9 +34,9 @@ const NotesPage = memo(() => {
   };
 
   const notesToRender =
-    userNotes.length === 0 ?
+    isSuccess && userNotes.length === 0 ? 
       NO_NOTES_FOUND_MESSAGE
-    :
+      : 
       <ListItems
         items={userNotes}
         listItemsClassName={classes.notesItems}
@@ -46,21 +46,17 @@ const NotesPage = memo(() => {
   return (
     <div className={classes.notesPageContainer}>
       {isError && NOTES_ERROR_LOADING_MESSAGE}
-      {isSuccess && (
-        <>
-          <NotesControlPanel
-            searchValue={searchValue}
-            setSearchValue={setSearchValue}
-          />
-          <NoteForm />
-          {notesToRender}
-          <Pagination
-            currentPageNumber={currentPageNumber}
-            setCurrentPageNumber={handleSetCurrentPage}
-            totalPagesCount={totalPagesCount}
-          />
-        </>
-      )}
+      <NotesControlPanel
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+      />
+      <NoteForm />
+      {notesToRender}
+      <Pagination
+        currentPageNumber={currentPageNumber}
+        setCurrentPageNumber={handleSetCurrentPage}
+        totalPagesCount={totalPagesCount}
+      />
     </div>
   );
 });
