@@ -43,6 +43,7 @@ const DeleteAccountForm = memo(({ userId }: IDeleteAccountFormProps) => {
   useEffect(() => {
     if (!isModalWindowWithDeleteAccountFormOpen) {
       reset();
+      setDeleteAcountError('');
     }
   }, [isModalWindowWithDeleteAccountFormOpen]);
 
@@ -74,11 +75,11 @@ const DeleteAccountForm = memo(({ userId }: IDeleteAccountFormProps) => {
         <h3>Are you sure you want to do this? </h3>
         <div className={classes.container}>
           <label htmlFor="verificationInput">
-            To verify type
+            To verify type&nbsp;
             <span className={classes.italicText}>
               {TEXT_TO_CONFIRM_ACCOUNT_DELETION}
             </span>
-            below:
+            &nbsp;below:
           </label>
           <MyInput
             type="text"
@@ -100,9 +101,9 @@ const DeleteAccountForm = memo(({ userId }: IDeleteAccountFormProps) => {
               required: true,
             })}
           />
-          <p className={classes.errorMessage}> {deleteAccountError}</p>
+          <p className={classes.errorMessage}>{deleteAccountError}</p>
         </div>
-        <DeleteButton type="submit" disabled={!isFormValid}>
+        <DeleteButton disabled={!isFormValid}>
           Delete your account
         </DeleteButton>
       </div>
